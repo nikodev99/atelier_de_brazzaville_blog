@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ruleset name="BlogApplication">
+    <description>Form rules</description>
+
+    <arg name="colors"/>
+    <arg value="p"/>
+
+    <file>src</file>
+    <file>public/index.php</file>
+
+    <rule ref="PSR12"></rule>
+</ruleset>
