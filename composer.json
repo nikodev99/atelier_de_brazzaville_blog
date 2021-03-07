@@ -9,7 +9,8 @@
     ],
     "autoload": {
         "psr-4":{
-            "Framework\\":"src/Framework/"
+            "Framework\\":"src/Framework/",
+            "App\\":"src/"
         }
     },
     "require-dev": {
@@ -20,6 +21,7 @@
     },
     "require": {
         "guzzlehttp/psr7": "^1.7",
-        "http-interop/response-sender": "^1.0"
+        "http-interop/response-sender": "^1.0",
+        "altorouter/altorouter": "^2.0"
     }
 }
