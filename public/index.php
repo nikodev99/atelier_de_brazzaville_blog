@@ -3,7 +3,7 @@
 use Whoops\Run;
 use Framework\App;
 use App\Blog\BlogModule;
-use Framework\Renderer;
+use Framework\Renderer\TwigRenderer;
 use GuzzleHttp\Psr7\ServerRequest;
 use Whoops\Handler\PrettyPageHandler;
 
@@ -13,8 +13,7 @@ $whoops = new Run();
 $whoops->pushHandler(new PrettyPageHandler());
 $whoops->register();
 
-$renderer = new Renderer();
-$renderer->addPath(dirname(__DIR__) . '/views');
+$renderer = new TwigRenderer(dirname(__DIR__) . '/views');
 
 $app = new App([
     BlogModule::class

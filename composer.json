@@ -23,6 +23,7 @@
     "require": {
         "guzzlehttp/psr7": "^1.7",
         "http-interop/response-sender": "^1.0",
-        "altorouter/altorouter": "^2.0"
+        "altorouter/altorouter": "^2.0",
+        "twig/twig": "^3.3"
     }
 }
