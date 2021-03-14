@@ -3,7 +3,7 @@
 use Whoops\Run;
 use Framework\App;
 use App\Blog\BlogModule;
-use Framework\Renderer\TwigRenderer;
+use DI\ContainerBuilder;
 use GuzzleHttp\Psr7\ServerRequest;
 use Whoops\Handler\PrettyPageHandler;
 
@@ -13,13 +13,21 @@ $whoops = new Run();
 $whoops->pushHandler(new PrettyPageHandler());
 $whoops->register();
 
-$renderer = new TwigRenderer(dirname(__DIR__) . '/views');
-
-$app = new App([
+$modules = [
     BlogModule::class
-], [
-    'renderer'  =>  $renderer
-]);
+];
+
+$builder = new ContainerBuilder();
+$builder->addDefinitions(dirname(__DIR__) . '/config/config.php');
+foreach ($modules as $module) {
+    if ($module::DEFINITIONS) {
+        $builder->addDefinitions($module::DEFINITIONS);
+    }
+}
+$builder->addDefinitions(dirname(__DIR__) . '/config.php');
+$container = $builder->build();
+
+$app = new App($container, $modules);
 
 $response = $app->run(ServerRequest::fromGlobals());
 Http\Response\send($response);
