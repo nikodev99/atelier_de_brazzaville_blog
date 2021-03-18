@@ -55,4 +55,9 @@ class App
                 break;
         }
     }
+
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
+    }
 }

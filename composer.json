@@ -18,7 +18,8 @@
         "phpunit/phpunit": "^9.5",
         "filp/whoops": "^2.9",
         "symfony/var-dumper": "^5.2",
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "robmorgan/phinx": "^0.12.5"
     },
     "require": {
         "guzzlehttp/psr7": "^1.7",

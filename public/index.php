@@ -7,7 +7,7 @@ use DI\ContainerBuilder;
 use GuzzleHttp\Psr7\ServerRequest;
 use Whoops\Handler\PrettyPageHandler;
 
-require '../vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
 $whoops = new Run();
 $whoops->pushHandler(new PrettyPageHandler());
@@ -29,5 +29,7 @@ $container = $builder->build();
 
 $app = new App($container, $modules);
 
-$response = $app->run(ServerRequest::fromGlobals());
-Http\Response\send($response);
+if (php_sapi_name() !== 'cli') {
+    $response = $app->run(ServerRequest::fromGlobals());
+    Http\Response\send($response);
+}
