@@ -2,8 +2,6 @@
 
 namespace App\Blog\Actions;
 
-use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\ResponseInterface;
 use Framework\Renderer\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

@@ -17,9 +17,10 @@ class Router
         $this->router = new AltoRouter();
     }
 
-    public function get(string $path, $callable, string $name): void
+    public function get(string $path, $callable, string $name): self
     {
         $this->router->map("GET", $path, $callable, $name);
+        return $this;
     }
 
     public function match(ServerRequestInterface $request): ?Route

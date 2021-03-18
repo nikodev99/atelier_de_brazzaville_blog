@@ -3,6 +3,7 @@
 use Whoops\Run;
 use Framework\App;
 use App\Blog\BlogModule;
+use App\Homepage\HomepageModule;
 use DI\ContainerBuilder;
 use GuzzleHttp\Psr7\ServerRequest;
 use Whoops\Handler\PrettyPageHandler;
@@ -14,6 +15,7 @@ $whoops->pushHandler(new PrettyPageHandler());
 $whoops->register();
 
 $modules = [
+    HomepageModule::class,
     BlogModule::class
 ];
 

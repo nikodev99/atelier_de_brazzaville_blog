@@ -19,7 +19,9 @@ class BlogModule extends Module
     public function __construct(string $prefix, Router $router, RendererInterface $renderer)
     {
         $renderer->addPath('blog', __DIR__ . '/templates');
-        $router->get($prefix, BlogAction::class, 'blog.index');
-        $router->get($prefix . '/[*:slug]', BlogAction::class, 'blog.show');
+        $router
+            ->get($prefix, BlogAction::class, 'blog.index')
+            ->get($prefix . '/[*:slug]', BlogAction::class, 'blog.show')
+        ;
     }
 }
