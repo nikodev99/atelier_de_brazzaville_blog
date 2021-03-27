@@ -3,6 +3,9 @@
 namespace Framework\Renderer;
 
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 class TwigRenderer implements RendererInterface
@@ -20,12 +23,20 @@ class TwigRenderer implements RendererInterface
 
     public function addPath(string $namespace, ?string $path = null): void
     {
-        $this->loader->addPath($path, $namespace);
+        try {
+            $this->loader->addPath($path, $namespace);
+        } catch (LoaderError $e) {
+            throw new \Error("The Twig renderer addPath has encountered this error: " . $e->getMessage());
+        }
     }
 
     public function render(string $view, array $params = []): string
     {
-        return $this->twig->render($view . '.twig', $params);
+        try {
+            return $this->twig->render($view . '.twig', $params);
+        } catch (LoaderError | RuntimeError | SyntaxError $e) {
+            throw new \Error("The Twig renderer render has encountered this error: " . $e->getMessage());
+        }
     }
 
     public function addGlobal(string $key, $value): void

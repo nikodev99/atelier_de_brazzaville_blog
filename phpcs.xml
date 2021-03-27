@@ -8,5 +8,8 @@
     <file>src</file>
     <file>public/index.php</file>
 
-    <rule ref="PSR12"></rule>
+    <rule ref="PSR12">
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+    </rule>
 </ruleset>

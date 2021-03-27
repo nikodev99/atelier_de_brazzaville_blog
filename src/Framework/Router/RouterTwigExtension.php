@@ -16,7 +16,7 @@ class RouterTwigExtension extends AbstractExtension
         $this->router = $router;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('path', [$this, 'pathFor'])

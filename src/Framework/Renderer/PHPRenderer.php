@@ -43,7 +43,9 @@ class PHPRenderer implements RendererInterface
     }
 
     /**
-     * @var mixed $value
+     *
+     * @param string $key
+     * @param $value
      */
     public function addGlobal(string $key, $value): void
     {

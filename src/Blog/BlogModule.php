@@ -21,7 +21,7 @@ class BlogModule extends Module
         $renderer->addPath('blog', __DIR__ . '/templates');
         $router
             ->get($prefix, BlogAction::class, 'blog.index')
-            ->get($prefix . '/[*:slug]', BlogAction::class, 'blog.show')
+            ->get($prefix . '/[*:slug]-[i:id]', BlogAction::class, 'blog.show')
         ;
     }
 }
