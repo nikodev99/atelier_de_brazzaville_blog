@@ -1,5 +1,7 @@
 {% extends 'layout.twig' %}
 
+{% block title "Enfant | Atelier de Brazzaville" %}
+
 {% block body %}
 
     <div class="page-title wb">
@@ -43,15 +45,14 @@
                                         <ul class="list-inline">
                                             <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
                                             <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
-                                            <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
                                         </ul>
                                     </div><!-- end post-sharing -->
                                     <h4><a href="{{ path('blog.show', {slug:post.slug, id:post.id}) }}" title="">{{ post.title }}</a></h4>
-                                    <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enimcerat elicerat eli nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                    <p>{{ post.content | excerpt | nl2br }}</p>
                                     <small><a href="blog-category-01.html" title="">Lifestyle</a></small>
-                                    <small><a href="single.html" title="">24 July, 2017</a></small>
+                                    <small><a href="single.html" title="">{{ post.created_date.format('d M Y H:i') }}</a></small>
                                     <small><a href="blog-author.html" title="">by Amanda</a></small>
-                                    <small><a href="blog-author.html" title=""><i class="fa fa-eye"></i> 2291</a></small>
+                                    <small><a href="blog-author.html" title=""><i class="fa fa-eye"></i>{{ post.view }}</a></small>
                                 </div><!-- end meta -->
                             </div><!-- end blog-box -->
 
@@ -62,20 +63,7 @@
 
                     <hr class="invis">
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-start">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div><!-- end col -->
-                    </div><!-- end row -->
+                    {{ paginate(posts, "blog.index") }}
                 </div><!-- end col -->
 
                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

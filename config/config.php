@@ -3,9 +3,12 @@
 use Framework\Renderer\RendererInterface;
 use Framework\Renderer\TwigRendererFactory;
 use Framework\Router;
-use Framework\Router\RouterTwigExtension;
-
+use Framework\Twig\DateTimeTwigExtension;
+use Framework\Twig\PagerfantaTwigExtension;
+use Framework\Twig\RouterTwigExtension;
+use Framework\Twig\TextTwigExtension;
 use Psr\Container\ContainerInterface;
+
 use function DI\create;
 use function DI\factory;
 use function DI\get;
@@ -20,7 +23,10 @@ return [
     'database.port' =>  3306,
     'view.path'  => dirname(__DIR__) . '/views',
     'twig.extension'    =>  [
-        get(RouterTwigExtension::class)
+        get(RouterTwigExtension::class),
+        get(PagerfantaTwigExtension::class),
+        get(TextTwigExtension::class),
+        get(DateTimeTwigExtension::class)
     ],
     Router::class   =>  create(),
     RendererInterface::class  =>  factory(TwigRendererFactory::class),

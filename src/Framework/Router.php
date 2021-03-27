@@ -3,6 +3,7 @@
 namespace Framework;
 
 use AltoRouter;
+use Exception;
 use Framework\Router\Route;
 use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
@@ -19,7 +20,11 @@ class Router
 
     public function get(string $path, $callable, string $name): self
     {
-        $this->router->map("GET", $path, $callable, $name);
+        try {
+            $this->router->map("GET", $path, $callable, $name);
+        } catch (Exception $e) {
+            die('Error caught ' . $e->getMessage());
+        }
         return $this;
     }
 
@@ -36,13 +41,16 @@ class Router
         return null;
     }
 
-    public function setUri(string $uri, array $params = []): ?string
+    public function setUri(string $uri, array $params = [], array $queryParams = []): ?string
     {
         $name = null;
         try {
             $name = $this->router->generate($uri, $params);
-        } catch (RuntimeException $r) {
-            die('Error caught ' + $r->getMessage());
+            if (!empty($queryParams)) {
+                $name .= '?' . http_build_query($queryParams);
+            }
+        } catch (RuntimeException | Exception $r) {
+            die('Error caught ' . $r->getMessage());
         }
         return $name;
     }

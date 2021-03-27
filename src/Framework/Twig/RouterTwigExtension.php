@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Router;
+namespace Framework\Twig;
 
 use Framework\Router;
 use Twig\Extension\AbstractExtension;
