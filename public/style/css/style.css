@@ -172,8 +172,8 @@ a {
 }
 
 .logo img {
-    max-width: 324px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 168px;
     margin: auto;
     text-align: center;
     display: block;
@@ -221,6 +221,7 @@ a {
 
 .header-section {
     margin-bottom: 0;
+    background: #272824;
 }
 
 .topsocial .fa {
@@ -383,7 +384,7 @@ div.tab button:hover {
 }
 
 .header .navbar-nav .has-submenu.menu-large ul li {
-    background: url(images/menubg.jpg) repeat-y center center #ffffff !important;
+    background: url(../../style/images/menubg.jpg) repeat-y center center #ffffff !important;
 }
 
 .tab-details {
@@ -598,7 +599,7 @@ div.tab button:hover {
 
 .footer {
     padding: 4rem 0 4rem;
-    background: url(images/footer.png) repeat-x center bottom #edeff2;
+    background: url(../../style/images/footer.png) repeat-x center bottom #edeff2;
 }
 
 .footer.wb {
@@ -607,7 +608,7 @@ div.tab button:hover {
 
 .footer.wb .hovereffect {
     opacity: 0.1;
-    background-color: rgba(0, 0, 0, 0.0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .demos h4 a {
@@ -679,7 +680,7 @@ div.tab button:hover {
 
 .dmtop {
     background-color: #111111;
-    background-image: url(images/arrow.png);
+    background-image: url(../../style/images/arrow.png);
     background-position: 50% 50%;
     background-repeat: no-repeat;
     z-index: 9999;
@@ -1081,7 +1082,7 @@ div.tab button:hover {
 }
 
 .banner-spot {
-    background: #edeff2 url("../style/images/ads-bg.png") no-repeat scroll center right / auto 100%;
+    background: #edeff2 url("../../style/images/ads-bg.png") no-repeat scroll center right / auto 100%;
     clear: both;
     display: block;
     height: auto;
@@ -1249,7 +1250,7 @@ hr.invis3 {
     position: absolute;
     height: 90px;
     display: block;
-    content: url(../style/images/hover.png);
+    content: url(../../style/images/hover.png);
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     -ms-transition: all .3s ease-in-out;
@@ -1266,7 +1267,7 @@ hr.invis3 {
 }
 
 .hovereffect span.videohover::before {
-    content: url(..style/images/videohover.png);
+    content: url(../../style/images/videohover.png);
 }
 
 .blog-list .blog-meta.big-meta h4 {
