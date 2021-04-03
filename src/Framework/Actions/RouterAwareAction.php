@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 
 trait RouterAwareAction
 {
-    public function redirect(string $path, array $params): ResponseInterface
+    public function redirect(string $path, array $params = []): ResponseInterface
     {
         $redirectUri = $this->router->setUri($path, $params);
         return (new Response())

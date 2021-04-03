@@ -21,8 +21,9 @@
                             <h3>{{ post.title }}</h3>
 
                             <div class="blog-meta big-meta">
-                                <small><a href="single.html" title="">{{ post.created_date.format('d M Y H:i') }}</a></small>
+                                <small><a href="single.html" title="">Ajouté le {{ post.created_date.format('d M Y H:i') }}</a></small>
                                 <small><a href="single.html" title="">{{ ago(post.created_date) }}</a></small>
+                                <small><a href="single.html" title="">Edité le {{ post.apdated_date.format('d M Y H:i') }}</a></small>
                                 <small><a href="blog-author.html" title="">by Jessica</a></small>
                                 <small><a href="#" title=""><i class="fa fa-eye"></i> {{ post.view }}</a></small>
                             </div><!-- end meta -->

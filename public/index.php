@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin\AdminModule;
 use Whoops\Run;
 use Framework\App;
 use App\Blog\BlogModule;
@@ -16,6 +17,7 @@ $whoops->register();
 
 $modules = [
     HomepageModule::class,
+    AdminModule::class,
     BlogModule::class
 ];
 

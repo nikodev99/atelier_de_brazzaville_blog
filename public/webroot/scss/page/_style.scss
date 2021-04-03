@@ -1,0 +1,10 @@
+.basic-form-area {
+    position: absolute;
+    width: 70%;
+    left: 30%;
+    top: 30%;
+    @media #{$mx-700} {
+        left: 0;
+        width: 100%;
+    }
+}

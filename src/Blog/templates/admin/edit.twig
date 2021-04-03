@@ -1,0 +1,82 @@
+{% extends '@admin/layout.twig' %}
+
+{% block dashboard %}
+    <li><a href="{{ path('admin.posts.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+{% endblock %}
+
+{% block pageTitle "Editer" %}
+
+{% block dashboardMobile %}
+    <li><a href="{{ path('admin.posts.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+{% endblock %}
+
+{% block pageTitleMobile "Editer" %}
+
+{% block body %}
+    <div class="advanced-form-area mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                {% include '@blog/admin/form.twig' %}
+                <div class="col-lg-8 res-mg-t-30">
+                    <div class="sparkline9-list shadow-reset">
+                        <div class="sparkline9-hd">
+                            <div class="main-sparkline9-hd">
+                                <h1>Editer l'article {{ item.title }}</h1>
+                                <div class="sparkline9-outline-icon">
+                                    <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="basic-login-form-ad">
+                                <form action="{{ path('admin.post.edit', {id:item.id}) }}" method="POST">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="form-group-inner">
+                                                    <label for="title">Titre *</label>
+                                                    <input type="text" name="title" class="form-control" placeholder="Enter le titre" id="title" value="{{ item.title }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="form-group-inner">
+                                                    <label for="slug">Slug *</label>
+                                                    <input type="text" name="slug" class="form-control" placeholder="Entrer le slug" id="slug" value="{{ item.slug }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="form-group-inner">
+                                                    <label for="content">Contenu *</label>
+                                                    <textarea rows="10" class="form-control" placeholder="Contenu" name="content" id="content">{{ item.content }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="login-btn-inner">
+                                                    <div class="inline-remember-me">
+                                                        <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">
+                                                            <span class="adminpro-icon adminpro-edit"></span>
+                                                            Modifier
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Basic Form End-->
+{% endblock %}

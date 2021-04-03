@@ -11,20 +11,17 @@ use Twig\Loader\FilesystemLoader;
 class TwigRenderer implements RendererInterface
 {
 
-    private FilesystemLoader $loader;
-
     private Environment $twig;
 
-    public function __construct(FilesystemLoader $loader, Environment $env)
+    public function __construct(Environment $env)
     {
-        $this->loader = $loader;
         $this->twig = $env;
     }
 
     public function addPath(string $namespace, ?string $path = null): void
     {
         try {
-            $this->loader->addPath($path, $namespace);
+            $this->twig->getLoader()->addPath($path, $namespace);
         } catch (LoaderError $e) {
             throw new \Error("The Twig renderer addPath has encountered this error: " . $e->getMessage());
         }

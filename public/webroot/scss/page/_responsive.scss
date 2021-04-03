@@ -1,0 +1,12 @@
+$breakpoint-xl: 'only screen and (min-width:1200px)';
+$breakpoint-lg: 'only screen and (min-width:992px) and (max-width:1199px)';
+$breakpoint-md: 'only screen and (min-width:768px) and (max-width:991px)';
+$breakpoint-sm: 'only screen and (min-width:576px) and (max-width:767px)';
+$breakpoint-xs: 'only screen and (max-width:767px)';
+$breakpoint-xs-md: 'only screen and (min-width:768px)';
+$breakpoint-xs-sm: 'only screen and (max-width:991px)';
+$breakpoint-xs-landscape: 'only screen and (min-width:480px) and (max-width:767px)';
+
+$mx-1023: 'screen and (max-width:1023px)';
+$mx-1150: 'screen and (max-width:1150px)';
+$mx-700: 'only screen and (max-width:700px)';

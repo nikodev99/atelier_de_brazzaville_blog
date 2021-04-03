@@ -49,6 +49,7 @@ class BlogAction
 
     public function show(ServerRequestInterface $request)
     {
+        $this->incrementView($request);
         $slug = $request->getAttribute('slug');
         $post = $this->postTable->find((int) $request->getAttribute('id'));
         if ($post->slug !== $slug) {
@@ -60,5 +61,12 @@ class BlogAction
         return $this->renderer->render('@blog/show', [
             'post'  =>  $post
         ]);
+    }
+
+    private function incrementView(ServerRequestInterface $request): void
+    {
+        $p = $this->postTable->find((int) $request->getAttribute('id'));
+        $viewIncrementation = (int)$p->view + 1;
+        $this->postTable->update((int) $p->id, ['view' => $viewIncrementation]);
     }
 }

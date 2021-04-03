@@ -1,0 +1,85 @@
+{% extends '@admin/layout.twig' %}
+
+{% block dashboard %}
+    <li><a href="{{ path('admin.posts.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+{% endblock %}
+
+{% block pageTitle "Listing des articles" %}
+
+{% block dashboardMobile %}
+    <li><a href="{{ path('admin.posts.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+{% endblock %}
+
+{% block pageTitleMobile "Listing des articles" %}
+
+{% block body %}
+
+    <!-- Data table area Start-->
+    <div class="admin-dashone-data-table-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sparkline8-list shadow-reset">
+                        <div class="sparkline8-hd">
+                            <div class="main-sparkline8-hd">
+                                <h1>Listing des articles</h1>
+                                <div class="sparkline8-outline-icon">
+                                    <a href="{{ path('admin.post.create') }}" class="btn btn-custon-four btn-success mt-4">
+                                        <span class="adminpro-icon adminpro-plus-add-button-in"></span>
+                                        Ajouter un article
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <div id="toolbar">
+                                    <select class="form-control">
+                                        <option value="">Export Basic</option>
+                                        <option value="all">Export All</option>
+                                        <option value="selected">Export Selected</option>
+                                    </select>
+                                </div>
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="id">#</th>
+                                        <th data-field="title" data-editable="true">Titre</th>
+                                        <th data-field="action">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in items %}
+                                        <tr>
+                                            <td></td>
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.title }}</td>
+                                            <td>
+                                                <a href="{{ path('admin.post.edit', {id:item.id}) }}" class="btn btn-custon-four btn-primary">
+                                                    <span class="adminpro-icon adminpro-edit"></span>
+                                                    Editer
+                                                </a>
+                                                <form style="display: inline" action="{{ path('admin.post.delete', {id:item.id}) }}" method="POST"
+                                                onsubmit="return confirm('êtes vous sûr de vouloir supprimer cet article ?')"
+                                                >
+                                                    <input type="hidden" name="_METHOD" value="DELETE">
+                                                    <button class="btn btn-custon-four btn-danger" type="submit">
+                                                        <span class="adminpro-icon adminpro-trash"></span>
+                                                        Supprimer
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Data table area End-->
+{% endblock %}
