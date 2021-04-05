@@ -30,12 +30,12 @@
                                     <textarea rows="10" type="text" class="form-control" id="content" disabled>{{ item.content }}</textarea>
                                 </div>
                                 <div class="form-group-inner">
-                                    <label for="view">Date d'ajout</label>
-                                    <input type="text" class="form-control" id="view" disabled value="{{ item.created_date.format('d M Y H:i') }}">
+                                    <label for="date">Date d'ajout</label>
+                                    <input type="text" class="form-control" id="date" disabled value="{{ item.created_date.format('d M Y H:i') }}">
                                 </div>
                                 <div class="form-group-inner">
-                                    <label for="view">Date de la dernière modification</label>
-                                    <input type="text" class="form-control" id="view" disabled value="{{ item.apdated_date.format('d M Y H:i') }}">
+                                    <label for="updated">Date de la dernière modification</label>
+                                    <input type="text" class="form-control" id="updated" disabled value="{{ item.apdated_date.format('d M Y H:i') }}">
                                 </div>
                                 <div class="form-group-inner">
                                     <label for="view">Nombre de vues</label>

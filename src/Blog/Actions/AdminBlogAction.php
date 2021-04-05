@@ -6,6 +6,7 @@ use App\Blog\Table\PostTable;
 use Framework\Actions\RouterAwareAction;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
+use Framework\Session\FlashService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -15,21 +16,22 @@ class AdminBlogAction
 
     private RendererInterface $renderer;
 
-    /**
-     * @var Router
-     */
     private Router $router;
 
-    /**
-     * @var PostTable
-     */
     private PostTable $postTable;
 
-    public function __construct(RendererInterface $renderer, Router $router, PostTable $postTable)
-    {
+    private FlashService $flash;
+
+    public function __construct(
+        RendererInterface $renderer,
+        Router $router,
+        PostTable $postTable,
+        FlashService $flash
+    ) {
         $this->renderer = $renderer;
         $this->router = $router;
         $this->postTable = $postTable;
+        $this->flash = $flash;
     }
 
     public function __invoke(ServerRequestInterface $request)
@@ -88,6 +90,7 @@ class AdminBlogAction
                 'apdated_date'  =>  date("Y-m-d H:i:s")
             ]);
             $this->postTable->update($item->id, $params);
+            $this->flash->error('L\'article à bien été modifié');
             return $this->redirect('admin.post.edit', ['id' => $item->id]);
         }
         return $this->renderer->render('@blog/admin/edit', compact('item'));

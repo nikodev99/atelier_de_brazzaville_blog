@@ -3,7 +3,10 @@
 use Framework\Renderer\RendererInterface;
 use Framework\Renderer\TwigRendererFactory;
 use Framework\Router;
+use Framework\Session\PHPSession;
+use Framework\Session\SessionInterface;
 use Framework\Twig\DateTimeTwigExtension;
+use Framework\Twig\FlashTwigExtension;
 use Framework\Twig\PagerfantaTwigExtension;
 use Framework\Twig\RouterTwigExtension;
 use Framework\Twig\TextTwigExtension;
@@ -26,10 +29,12 @@ return [
         get(RouterTwigExtension::class),
         get(PagerfantaTwigExtension::class),
         get(TextTwigExtension::class),
-        get(DateTimeTwigExtension::class)
+        get(DateTimeTwigExtension::class),
+        get(FlashTwigExtension::class)
     ],
     Router::class   =>  create(),
-    RendererInterface::class  =>  factory(TwigRendererFactory::class),
+    RendererInterface::class    =>  factory(TwigRendererFactory::class),
+    SessionInterface::class     =>  create(PHPSession::class),
     PDO::class  =>  function (ContainerInterface $c) {
         return new PDO(
             'mysql:dbname=' . $c->get('database.name') . ';host=' . $c->get('database.host') . ';port=' . $c->get('database.port'),

@@ -39,6 +39,10 @@
     <!-- normalize CSS
 		============================================ -->
     <link rel="stylesheet" href="../../webroot/css/normalize.css">
+    <!-- notifications CSS
+		============================================ -->
+    <link rel="stylesheet" href="../../webroot/css/Lobibox.min.css">
+    <link rel="stylesheet" href="../../webroot/css/notifications.css">
     <!-- charts C3 CSS
 		============================================ -->
     <link rel="stylesheet" href="../../webroot/css/c3.min.css">
@@ -59,7 +63,7 @@
     <script src="../../webroot/js/modernizr-2.8.3.min.js"></script>
 </head>
 
-<body class="materialdesign">
+<body class="materialdesign modal-open" style="padding-right: 17px">
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -548,7 +552,6 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -635,7 +638,12 @@
             </div>
         </div>
         <!-- Breadcome End-->
-
+        {% if flash('success') %}
+            <div data-msg="{{ flash('success') }}" data-type="success" id="session"></div>
+        {% endif %}
+        {% if flash('error') %}
+            <div data-msg="{{ flash('error') }}" data-type="error" id="session"></div>
+        {% endif %}
         {% block body %}{% endblock %}
     </div>
 </div>
@@ -658,6 +666,10 @@
 <!-- scrollUp JS
     ============================================ -->
 <script src="../../webroot/js/jquery.scrollUp.min.js"></script>
+<!-- notification JS
+		============================================ -->
+<script src="../../webroot/js/Lobibox.js"></script>
+<script src="../../webroot/js/notification-active.js"></script>
 <!-- counterup JS
     ============================================ -->
 <script src="../../webroot/js/counterup/jquery.counterup.min.js"></script>
@@ -701,6 +713,8 @@
 <!-- main JS
     ============================================ -->
 <script src="../../webroot/js/main.js"></script>
+
+<script type="text/javascript" src="../../webroot/js/script.js" defer></script>
 </body>
 
 </html>
