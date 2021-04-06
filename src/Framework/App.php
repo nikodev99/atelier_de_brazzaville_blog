@@ -2,7 +2,6 @@
 
 namespace Framework;
 
-use Exception;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -50,13 +49,10 @@ class App
         switch ($response) {
             case is_string($response):
                 return new Response(200, [], $response);
-                break;
             case $response instanceof ResponseInterface:
                 return $response;
-                break;
             default:
-                throw new Exception('The response is neither a string nor an instance of Response Interface');
-                break;
+                die('The response is neither a string nor an instance of Response Interface');
         }
     }
 

@@ -11,6 +11,7 @@ use Framework\Twig\PagerfantaTwigExtension;
 use Framework\Twig\RouterTwigExtension;
 use Framework\Twig\TextTwigExtension;
 use Psr\Container\ContainerInterface;
+use Twig\Extension\DebugExtension;
 
 use function DI\create;
 use function DI\factory;
@@ -26,6 +27,7 @@ return [
     'database.port' =>  3306,
     'view.path'  => dirname(__DIR__) . '/views',
     'twig.extension'    =>  [
+        get(DebugExtension::class),
         get(RouterTwigExtension::class),
         get(PagerfantaTwigExtension::class),
         get(TextTwigExtension::class),

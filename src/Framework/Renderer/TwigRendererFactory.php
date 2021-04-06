@@ -13,7 +13,7 @@ class TwigRendererFactory
     {
         $view_path = $container->get('view.path');
         $loader = new FilesystemLoader($view_path);
-        $twig = new Environment($loader);
+        $twig = new Environment($loader, ['debug' => true]);
         if ($container->has('twig.extension')) {
             foreach ($container->get('twig.extension') as $extension) {
                 $twig->addExtension($extension);
