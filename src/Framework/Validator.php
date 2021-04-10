@@ -28,7 +28,7 @@ class Validator
 
     public function slug(string ...$keys): self
     {
-        $pattern = '/^([a-z0-9]+-?)+$/';
+        $pattern = '/^[a-z0-9]+(-[a-z0-9]+)*$/';
         foreach ($keys as $key) {
             $value = $this->getValue($key);
             if (!is_null($value) && !preg_match($pattern, $this->params[$key])) {

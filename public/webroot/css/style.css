@@ -3169,22 +3169,22 @@ ul.profile-contact-menu {
 .inline-checkbox-cs .checkbox-inline{
 	padding-left:0px;
 }
-.form-group-inner.input-with-success label{
+.form-group-inner.input-with-success label, .form-group-inner.input-with-success small{
 	color: #1ab394;
 }
-.form-group-inner.input-with-success input[type="text"]{
+.form-group-inner.input-with-success input, .form-group-inner.input-with-success textarea{
 	border: 1px solid #1ab394;
 }
-.form-group-inner.input-with-warning label{
+.form-group-inner.input-with-warning label, .form-group-inner.input-with-warning small{
 	color: #f8ac59;
 }
-.form-group-inner.input-with-warning input[type="text"]{
+.form-group-inner.input-with-warning input, .form-group-inner.input-with-warning textarea{
 	border: 1px solid #f8ac59;
 }
-.form-group-inner.input-with-error label{
+.form-group-inner.input-with-error label, .form-group-inner.input-with-error small{
 	color: #ed5565;
 }
-.form-group-inner.input-with-error input[type="text"]{
+.form-group-inner.input-with-error input, .form-group-inner.input-with-error textarea{
 	border: 1px solid #ed5565;
 }
 .inline-remember-me label {

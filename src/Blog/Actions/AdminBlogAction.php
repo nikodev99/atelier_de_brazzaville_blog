@@ -2,7 +2,9 @@
 
 namespace App\Blog\Actions;
 
+use App\Blog\Entity\Post;
 use App\Blog\Table\PostTable;
+use DateTime;
 use Framework\Actions\RouterAwareAction;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
@@ -72,20 +74,19 @@ class AdminBlogAction
         $item = null;
         if ($request->getMethod() === 'POST') {
             $params = $this->getParams($request);
-            $params = array_merge($params, [
-                'created_date'  =>  date("Y-m-d H:i:s"),
-                'apdated_date'  =>  date("Y-m-d H:i:s"),
-                'view'          =>  0
-            ]);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
                 $id = $this->postTable->add($params);
                 $item = $this->postTable->find($id);
+                $this->flash->success('L\'article à bien été ajouté');
                 return $this->renderer->render('@blog/admin/create', compact('item'));
             }
             $errors = $validator->getErrors();
             $item = $params;
+            $this->flash->error('Le système d\'ajout d\'article à rencontrée une ou plusieurs erreurs');
         }
+        $item = new Post();
+        $item->created_date = new DateTime();
         return $this->renderer->render('@blog/admin/create', compact('item', 'errors'));
     }
 
@@ -95,18 +96,16 @@ class AdminBlogAction
         $item = $this->postTable->find((int)$request->getAttribute('id'));
         if ($request->getMethod() === 'POST') {
             $params = $this->getParams($request);
-            $params = array_merge($params, [
-                'apdated_date'  =>  date("Y-m-d H:i:s")
-            ]);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
                 $this->postTable->update($item->id, $params);
-                $this->flash->error('L\'article à bien été modifié');
+                $this->flash->success('L\'article à bien été modifié');
                 return $this->redirect('admin.post.edit', ['id' => $item->id]);
             }
             $errors = $validator->getErrors();
             $params['id'] = $item->id;
             $item = $params;
+            $this->flash->error('Le système de modification à rencontrée une ou plusieurs erreurs');
         }
         return $this->renderer->render('@blog/admin/edit', compact('item', 'errors'));
     }
@@ -119,18 +118,23 @@ class AdminBlogAction
 
     private function getParams(ServerRequestInterface $request): array
     {
-        return array_filter($request->getParsedBody(), function ($key) {
-            return in_array($key, ['title', 'slug', 'content']);
+        $params = array_filter($request->getParsedBody(), function ($key) {
+            return in_array($key, ['title', 'slug', 'content', 'created_date']);
         }, ARRAY_FILTER_USE_KEY);
+        return array_merge($params, [
+            'apdated_date'  =>  date("Y-m-d H:i:s"),
+            'view'          =>  0
+        ]);
     }
 
     private function getValidator(ServerRequestInterface $request): Validator
     {
         return (new Validator($request->getParsedBody()))
-            ->required('title', 'slug', 'content')
+            ->required('title', 'slug', 'content', 'created_date')
             ->length('title', 3, 250)
             ->length('slug', 3, 50)
             ->length('content', 10)
+            ->datetime('created_date')
             ->slug('slug');
     }
 }

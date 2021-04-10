@@ -1,25 +1,4 @@
-{{ dump(errors) }}
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div class="basic-login-inner">
-            <div class="form-group-inner">
-                <label for="edit-title">Titre *</label>
-                <input type="text" name="title" class="form-control" placeholder="Enter le titre" id="edit-title" value="{{ item.title }}">
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div class="basic-login-inner">
-            <div class="form-group-inner">
-                <label for="edit-slug">Slug *</label>
-                <input type="text" name="slug" class="form-control" placeholder="Entrer le slug" id="edit-slug" value="{{ item.slug }}">
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="basic-login-inner">
-            <div class="form-group-inner">
-                <label for="edit-content">Contenu *</label>
-                <textarea rows="10" class="form-control" placeholder="Contenu" name="content" id="edit-content">{{ item.content }}</textarea>
-            </div>
-        </div>
-    </div>
+{{ field('title', 'Titre *', item.title, {placeholder: 'Enter le titre', col:12}) }}
+{{ field('slug', 'Lien *', item.slug, {placeholder: 'Entrer le lien'}) }}
+{{ field('created_date', 'Date de création', item.created_date, {class:'datepicker'}) }}
+{{ field('content', 'Contenu *', item.content, {type: 'textarea', col: 12, placeholder: 'Contenu'}) }}

@@ -4,6 +4,7 @@ namespace Test\Framework;
 
 use Framework\Validator;
 use PHPUnit\Framework\TestCase;
+
 use function PHPUnit\Framework\assertCount;
 
 class ValidatorTest extends TestCase
@@ -58,10 +59,11 @@ class ValidatorTest extends TestCase
             ->setParams([
                 'slug' => 'aze-aZe-retRy34',
                 'slug2' => 'aze_aze-Retry34',
-                'slug3' => 'aze-aze--retry34'
+                'slug3' => 'aze-aze--retry34',
+                'slug4' => 'aze-aze-azer-'
             ])->slug('slug', 'slug2', 'slug3', 'slug4')
             ->getErrors();
-        self::assertCount(3, $errors);
+        self::assertEquals(['slug', 'slug2', 'slug3', 'slug4',], array_keys($errors));
     }
 
     public function testLength1()
