@@ -1,13 +1,13 @@
 {% extends '@admin/layout.twig' %}
 
 {% block dashboard %}
-    <li><a href="{{ path('admin.posts.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+    <li><a href="{{ path(routePrefix ~ '.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
 {% endblock %}
 
 {% block pageTitle "Editer" %}
 
 {% block dashboardMobile %}
-    <li><a href="{{ path('admin.posts.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+    <li><a href="{{ path(routePrefix ~ '.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
 {% endblock %}
 
 {% block pageTitleMobile "Editer" %}
@@ -16,12 +16,12 @@
     <div class="advanced-form-area mg-b-15">
         <div class="container-fluid">
             <div class="row">
-                {% include '@blog/admin/show_details.twig' %}
+                {% include viewPath ~ '/show_details.twig' %}
                 <div class="col-lg-8 res-mg-t-30">
                     <div class="sparkline9-list shadow-reset">
                         <div class="sparkline9-hd">
                             <div class="main-sparkline9-hd">
-                                <h1>Ajouter un article</h1>
+                                <h1>Editer l'article: {{ item.title }}</h1>
                                 <div class="sparkline9-outline-icon">
                                     <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                     <span><i class="fa fa-wrench"></i></span>
@@ -31,16 +31,16 @@
                         </div>
                         <div class="sparkline8-graph">
                             <div class="basic-login-form-ad">
-                                <form action="{{ path('admin.post.create') }}" method="POST">
+                                <form action="{{ path(routePrefix ~ '.edit', {id:item.id}) }}" method="POST">
                                     <div class="row">
-                                        {% include '@blog/admin/form.twig' %}
+                                        {% include viewPath ~ '/form.twig' %}
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="basic-login-inner">
                                                 <div class="login-btn-inner">
                                                     <div class="inline-remember-me">
-                                                        <button class="btn btn-sm btn-success pull-right" type="submit">
-                                                            <span class="adminpro-icon adminpro-add-circular-outlined-button"></span>
-                                                            Ajouter article
+                                                        <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">
+                                                            <span class="adminpro-icon adminpro-edit"></span>
+                                                            Modifier
                                                         </button>
                                                     </div>
                                                 </div>

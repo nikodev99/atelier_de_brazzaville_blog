@@ -41,7 +41,10 @@ class PostTableTest extends DatabaseTestCase
 
     public function testInsert()
     {
-        $id = $this->postTable->add(['title' => 'titre de demo', 'slug' => 'titre-de-demo', 'content' => 'contenu de demo']);
+        $id = $this->postTable->add([
+            'title' => 'titre de demo', 'slug' => 'titre-de-demo', 'content' => 'contenu de demo', 'created_date' => '2020-6-6 12:00:00',
+            'apdated_date' => '2020-6-6 12:00:00', 'view' => '0'
+        ]);
         $post = $this->postTable->find($id);
         self::assertEquals(true, is_int($id));
         self::assertEquals('titre de demo', $post->title);

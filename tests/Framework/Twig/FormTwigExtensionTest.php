@@ -64,6 +64,33 @@ class FormTwigExtensionTest extends TestCase
         $this->assertSimilar($this->trim($expected), $this->trim($html));
     }
 
+    public function testSelect()
+    {
+        $html = $this->formExtension->field(
+            [],
+            'name',
+            'Category',
+            1,
+            [
+                'type' => 'select',
+                'options' => ['1' => 'demo', '2' => 'demo2']
+            ]
+        );
+        $this->assertSimilar("
+        <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
+            <div class=\"basic-login-inner\">
+                <div class=\"form-group-inner\">
+                    <label for=\"name\">Category</label>
+                    <select class=\"form-control custom-select-value\" name=\"name\" id=\"name\" >
+                        <option value='1' selected>demo</option>
+                        <option value='2'>demo2</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        ", $html);
+    }
+
     private function assertSimilar($expected, $actual)
     {
         self::assertEquals($expected, $actual);

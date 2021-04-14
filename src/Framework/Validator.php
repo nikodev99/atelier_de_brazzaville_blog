@@ -3,7 +3,9 @@
 namespace Framework;
 
 use DateTime;
+use Framework\Database\Table;
 use Framework\Validator\ValidationError;
+use PDO;
 
 class Validator
 {
@@ -72,6 +74,17 @@ class Validator
             } else {
                 $this->addError($key, 'datetime', [$format]);
             }
+        }
+        return $this;
+    }
+
+    public function exists(string $key, string $table, PDO $pdo): self
+    {
+        $keyValue = $this->getValue($key);
+        $statement = $pdo->prepare("SELECT * FROM $table WHERE id = ?");
+        $statement->execute([$keyValue]);
+        if ($statement->fetchColumn() === false) {
+            $this->addError($key, 'exists', [$table]);
         }
         return $this;
     }

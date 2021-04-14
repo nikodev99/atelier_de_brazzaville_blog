@@ -25,12 +25,13 @@ class FormTwigExtension extends AbstractExtension
         $error = $this->getErrorHTML($context, $key);
         $class = 'form-group-inner';
         $value = $this->convertedValue($value);
-        $class .= 'data-custon-pick';
         if (!empty($error)) {
             $class .= ' input-with-error';
         }
         if ($type === 'textarea') {
             $input = $this->textarea($key, $value, $options);
+        } elseif ($type === 'select') {
+            $input = $this->select($key, $value, $options);
         } else {
             $input = $this->input($type, $key, $value, $options);
         }
@@ -71,6 +72,22 @@ class FormTwigExtension extends AbstractExtension
         $required = $this->setOptions('required', $options);
         $disabled = $this->setOptions('disabled', $options);
         return "<textarea rows=\"10\" class=\"form-control\"{$placeholder}name=\"{$key}\"  id=\"{$key}\" {$required}{$disabled}>{$value}</textarea>";
+    }
+
+    private function select(string $key, ?string $value, array $options = []): string
+    {
+        $select_options = [];
+        foreach ($options['options'] as $k => $option) {
+            $selected = $k == $value ? 'selected' : '';
+            $select_options[] = '<option value="' . $k . '" ' . $selected . '>' . $option . '</option>';
+        }
+        $required = $this->setOptions('required', $options);
+        $disabled = $this->setOptions('disabled', $options);
+        return "
+        <select class=\"form-control custom-select-value\" name=\"{$key}\" id=\"{$key}\" {$required}{$disabled}>
+            " . implode(PHP_EOL, $select_options) . "
+        </select>
+        ";
     }
 
     private function setOptions(string $key, array $options, $expected = null): string

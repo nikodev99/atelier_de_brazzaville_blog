@@ -1,0 +1,30 @@
+
+<div class="col-lg-4">
+    <div class="sparkline8-list shadow-reset">
+        <div class="sparkline8-hd">
+            <div class="main-sparkline8-hd">
+                <h1>Détails de l'article</h1>
+                <div class="sparkline8-outline-icon">
+                    <span class="sparkline8-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                    <span><i class="fa fa-wrench"></i></span>
+                    <span class="sparkline8-collapse-close"><i class="fa fa-times"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="sparkline8-graph">
+            <div class="basic-login-form-ad">
+                <form action="">
+                    <div class="row">
+                        {{ field('show_title', 'Titre', item.title, {disabled: true, col:12}) }}
+                        {{ field('show_slug', 'Slug', item.slug, {disabled: true, col:12}) }}
+                        {{ field('show_category', 'Catégorie', item.category_id, {disabled: true, col:12}) }}
+                        {{ field('show_content', 'Contenu', item.content, {disabled: true, col:12, type: 'textarea'}) }}
+                        {{ field('show_created_date', 'Date d\'ajout', item.created_date.format('d M Y H:i'), {disabled: true, col:12}) }}
+                        {{ field('show_updated_date', 'Date de la dernière modification', item.apdated_date.format('d M Y H:i'), {disabled: true, col:12}) }}
+                        {{ field('show_views', 'Nombre de vues', item.view, {disabled: true, col:12}) }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

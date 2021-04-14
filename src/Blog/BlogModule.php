@@ -2,7 +2,8 @@
 
 namespace App\Blog;
 
-use App\Blog\Actions\AdminBlogAction;
+use App\Blog\Actions\CategoryCrudAction;
+use App\Blog\Actions\PostCrudAction;
 use App\Blog\Actions\BlogAction;
 use Framework\Module;
 use Framework\Renderer\RendererInterface;
@@ -22,22 +23,14 @@ class BlogModule extends Module
     {
         $container->get(RendererInterface::class)->addPath('blog', __DIR__ . '/templates');
         $router = $container->get(Router::class);
-        $router
-            ->get($container->get('blog.prefix'), BlogAction::class, 'blog.index')
-            ->get($container->get('blog.prefix') . '/[*:slug]-[i:id]', BlogAction::class, 'blog.show')
-        ;
+        $router->get($container->get('blog.prefix'), BlogAction::class, 'blog.index');
+        $router->get($container->get('blog.prefix') . '/[*:slug]-[i:id]', BlogAction::class, 'blog.show');
 
         if ($container->has('admin.prefix')) {
             $adminPrefix = $container->get('admin.prefix');
-            $router
-                ->get("$adminPrefix/dashboard", AdminBlogAction::class, 'admin.posts.index')
-                ->get("$adminPrefix/posts", AdminBlogAction::class, 'blog.admin.posts')
-                ->get("$adminPrefix/post/new", AdminBlogAction::class, 'admin.post.create')
-                ->get("$adminPrefix/post/[i:id]", AdminBlogAction::class, 'admin.post.edit')
-                ->post("$adminPrefix/post/[i:id]", AdminBlogAction::class)
-                ->post("$adminPrefix/post/new", AdminBlogAction::class)
-                ->delete("$adminPrefix/delete/[i:id]", AdminBlogAction::class, 'admin.post.delete')
-            ;
+            $router->get("$adminPrefix/dashboard", PostCrudAction::class, 'admin.post.index');
+            $router->crud("$adminPrefix/posts", PostCrudAction::class, "admin.post");
+            $router->crud("$adminPrefix/categories", CategoryCrudAction::class, "admin.post.category");
         }
     }
 }

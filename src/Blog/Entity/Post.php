@@ -10,6 +10,8 @@ class Post
 
     public int $id;
 
+    public string $post_id;
+
     public string $title;
 
     public string $slug;
@@ -21,6 +23,8 @@ class Post
     public $apdated_date;
 
     public int $view;
+
+    public string $category_name;
 
     public function __construct()
     {

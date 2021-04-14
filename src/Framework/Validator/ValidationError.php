@@ -17,7 +17,8 @@ class ValidationError
         'between'   => 'Le champ %s doit contenir au moins plus de %d caractères et au plus moins de %d caractères',
         'min'   =>  'Le champ %s doit contenir au moins plus de %d caractères',
         'max'   =>  'Le champ %s doit contenir au plus moins de %d caractères',
-        'datetime'  => 'Le champ %s doit être une date valide (%s)'
+        'datetime'  => 'Le champ %s doit être une date valide (%s)',
+        'exists'  => 'L\'enregistrement choisi dans le champ %s n\'existe pas dans le système',
     ];
 
     public function __construct(string $key, string $rule, array $attributes = [])

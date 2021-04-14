@@ -105,4 +105,9 @@ class ValidatorTest extends TestCase
         $this->assertCount(1, $this->validator->setParams(['date' => '2012-20-12 11:12:45'])->datetime('date')->getErrors());
         $this->assertCount(1, $this->validator->setParams(['date' => '2013-02-29 11:12:45'])->datetime('date')->getErrors());
     }
+
+    public function testExists()
+    {
+
+    }
 }
