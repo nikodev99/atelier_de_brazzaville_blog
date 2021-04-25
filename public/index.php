@@ -1,8 +1,8 @@
 <?php
 
 use App\Admin\AdminModule;
-use Whoops\Run;
 use Framework\App;
+use Whoops\Run;
 use App\Blog\BlogModule;
 use App\Homepage\HomepageModule;
 use DI\ContainerBuilder;

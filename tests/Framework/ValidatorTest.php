@@ -2,7 +2,7 @@
 
 namespace Test\Framework;
 
-use Framework\Validator;
+use App\Blog\Validator;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertCount;

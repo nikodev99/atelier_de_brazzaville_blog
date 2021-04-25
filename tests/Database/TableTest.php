@@ -2,7 +2,7 @@
 
 namespace Test\Database;
 
-use Framework\Database\Table;
+use App\Blog\Database\Table;
 use PHPUnit\Framework\TestCase;
 use PDO;
 use ReflectionClass;

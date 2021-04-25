@@ -2,10 +2,10 @@
 
 namespace App\Homepage;
 
-use Framework\Module;
-use Framework\Router;
 use App\Homepage\Actions\HomepageAction;
+use Framework\Module;
 use Framework\Renderer\RendererInterface;
+use Framework\Router;
 
 class HomepageModule extends Module
 {
@@ -16,7 +16,7 @@ class HomepageModule extends Module
     {
         $renderer->addPath('homepage', __DIR__ . '/templates');
         $router->get($prefix, HomepageAction::class, 'homepage.index');
-        $router->get($prefix . '/acceuil', HomepageAction::class, 'homepage.show');
+        $router->get($prefix . '/accueil', HomepageAction::class, 'homepage.show');
         ;
     }
 }

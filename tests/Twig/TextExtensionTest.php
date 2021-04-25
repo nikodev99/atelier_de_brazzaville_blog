@@ -2,7 +2,7 @@
 
 namespace Test\Twig;
 
-use Framework\Twig\TextTwigExtension;
+use App\Blog\Twig\TextTwigExtension;
 use PHPUnit\Framework\TestCase;
 
 class TextExtensionTest extends TestCase

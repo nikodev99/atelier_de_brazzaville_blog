@@ -15,12 +15,16 @@ class TextTwigExtension extends AbstractExtension
         ];
     }
 
-    public function excerpt(string $content, int $maxLength = 200): string
+    public function excerpt(?string $content, int $maxLength = 200): string
     {
-        if (mb_strlen($content) > $maxLength) {
-            $excerpt = mb_substr($content, 0, $maxLength);
-            $lastSpace = mb_strrpos($excerpt, ' ');
-            $content = mb_substr($excerpt, 0, $lastSpace) . '...';
+        if (is_null($content)) {
+            return '';
+        } else {
+            if (mb_strlen($content) > $maxLength) {
+                $excerpt = mb_substr($content, 0, $maxLength);
+                $lastSpace = mb_strrpos($excerpt, ' ');
+                $content = mb_substr($excerpt, 0, $lastSpace) . '...';
+            }
         }
         return $content;
     }

@@ -2,7 +2,6 @@
 
 namespace Framework\Database;
 
-use App\Blog\Entity\Post;
 use Pagerfanta\Pagerfanta;
 use PDO;
 
@@ -27,7 +26,8 @@ class Table
             'SELECT COUNT(id) FROM posts',
             $this->entity ?? null
         );
-        return (new Pagerfanta($query))
+        $pagerfanta = $this->getPagerfanta($query);
+        return $pagerfanta
             ->setMaxPerPage($perPage)
             ->setCurrentPage($currentPage);
     }
@@ -42,18 +42,68 @@ class Table
         return $query->fetchAll();
     }
 
+    /**
+     * @throws NoRecordException
+     */
+    public function findBy(string $field, string $value)
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE $field = ?");
+        $statement->execute([$value]);
+        if (isset($this->entity)) {
+            $statement->setFetchMode(PDO::FETCH_CLASS, $this->entity);
+        } else {
+            $statement->setFetchMode(PDO::FETCH_OBJ);
+        }
+        $record = $statement->fetch();
+        if (is_bool($record)) {
+            throw new NoRecordException("L'extraction des données à échouer");
+        }
+        return $record;
+    }
+
+    /**
+     * @throws NoRecordException
+     */
     public function find(int $id)
     {
-        $query = $this->pdo->prepare("SELECT * FROM " . $this->table . " WHERE id = ?");
+        $query = $this->pdo->prepare(
+            "SELECT p.*, c.name as category_name, c.slug as category_slug FROM {$this->table} as p 
+                    LEFT JOIN categories as c on p.category_id = c.id
+                    WHERE p.id = ?"
+        );
         $query->execute([$id]);
         if (isset($this->entity)) {
             $query->setFetchMode(PDO::FETCH_CLASS, $this->entity);
         }
         $post = $query->fetch();
         if (is_bool($post)) {
-            return null;
+            throw new NoRecordException("L'extration des données à échouer");
         }
         return $post;
+    }
+
+    public function findByCategory(int $category_id, int $limit = 3): array
+    {
+        $query = $this->pdo->prepare($this->postCategoryQuery($limit));
+        $query->execute([$category_id]);
+        if (isset($this->entity)) {
+            $query->setFetchMode(PDO::FETCH_CLASS, $this->entity);
+        }
+        return $query->fetchAll();
+    }
+
+    public function findPostsByField(string $field = null, int $limit = 3, bool $categories = false): array
+    {
+        if ($categories) {
+            $query = $this->pdo->prepare($this->paginationQuery(true, $limit));
+        } else {
+            $query = $this->pdo->prepare($this->byFieldQuery($field, $limit));
+        }
+        $query->execute();
+        if (isset($this->entity)) {
+            $query->setFetchMode(PDO::FETCH_CLASS, $this->entity);
+        }
+        return $query->fetchAll();
     }
 
     public function add(array $params): int
@@ -112,9 +162,29 @@ class Table
         return $statement->fetchColumn() !== false;
     }
 
-    protected function paginationQuery(): string
+    protected function getPagerfanta(PaginatedQuery $query): Pagerfanta
+    {
+        $pagerfanta = new Pagerfanta($query);
+        $currentPage = isset($_GET['p']) ? (int) $_GET['p'] : 1;
+        if ($pagerfanta->getNbPages() > 1 && $pagerfanta->getNbPages() < $currentPage) {
+            die("<h1>La page $currentPage n'existe pas<h1>");
+        }
+        return $pagerfanta;
+    }
+
+    protected function paginationQuery(bool $limit = false, int $dataLimit = 3): string
     {
         return 'SELECT * FROM ' . $this->table;
+    }
+
+    protected function postCategoryQuery(int $limit): string
+    {
+        return 'SELECT * FROM ' . $this->table . ' WHERE category_id = ? ORDER BY created_date DESC LIMIT ' . $limit;
+    }
+
+    protected function byFieldQuery(string $field, int $limit): string
+    {
+        return 'SELECT * FROM ' . $this->table . ' ORDER BY ' . $field . ' DESC LIMIT ' . $limit;
     }
 
     private function buildingFieldQuery(array $fieldsArray, bool $insert = false): string

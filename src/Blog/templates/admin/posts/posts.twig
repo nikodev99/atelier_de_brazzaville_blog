@@ -44,8 +44,8 @@
                                     <thead>
                                     <tr>
                                         <th data-field="state" data-checkbox="true"></th>
-                                        <th data-field="id">#</th>
                                         <th data-field="title" data-editable="true">Titre</th>
+                                        <th data-field="view">Nbrs de vues</th>
                                         <th data-field="category">Catégorie</th>
                                         <th data-field="action">Action</th>
                                     </tr>
@@ -54,8 +54,8 @@
                                     {% for item in items %}
                                         <tr>
                                             <td></td>
-                                            <td>{{ item.id }}</td>
                                             <td>{{ item.title }}</td>
+                                            <td>{{ item.view }}</td>
                                             <td>{{ item.name }}</td>
                                             <td>
                                                 <a href="{{ path(routePrefix ~ '.edit', {id:item.id}) }}" class="btn btn-custon-four btn-primary">

@@ -2,7 +2,7 @@
 
 namespace tests\Framework;
 
-use Framework\Router;
+use App\Blog\Router;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 

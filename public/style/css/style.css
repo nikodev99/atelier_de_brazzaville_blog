@@ -141,7 +141,7 @@ a {
 
 .navbar-inverse .navbar-nav .nav-link,
 .navbar-nav .nav-link {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     line-height: 1;
     padding: 0.9rem 0 0.8rem;
@@ -167,8 +167,18 @@ a {
 }
 
 .header-section {
-    padding: 3rem 0 1.5rem;
-    background-color: #ffffff;
+    padding: 1rem 0 .5rem;
+    margin-bottom: -20px;
+    background-color: #e63412;
+}
+
+.header-section p {
+    text-align: end;
+    font-family: 'Pacifico', cursive;
+    font-size: 16px;
+    font-weight: 400;
+    color: #0f0f0f;
+    margin-top: -15px;
 }
 
 .logo img {
@@ -199,7 +209,7 @@ a {
 .header .dropdown-item {
     font-weight: 400;
     text-transform: capitalize;
-    font-size: 14px;
+    font-size: 16px;
     padding: 4px 1.8rem;
 }
 
@@ -217,11 +227,6 @@ a {
     position: absolute;
     right: 20px;
     top: 2px;
-}
-
-.header-section {
-    margin-bottom: 0;
-    background: #272824;
 }
 
 .topsocial .fa {
@@ -792,6 +797,11 @@ div.tab button:hover {
 
 .page-item:last-child .page-link {
     border-radius: 0;
+}
+
+.page-item.active .page-link {
+    background: #0f0f0f!important;
+    color: #e2e2e2!important;
 }
 
 .page-title {

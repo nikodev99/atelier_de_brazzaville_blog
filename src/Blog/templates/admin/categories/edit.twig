@@ -4,13 +4,13 @@
     <li><a href="{{ path('admin.post.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
 {% endblock %}
 
-{% block pageTitle "Editer" %}
+{% block pageTitle "Editer la catégorie" %}
 
 {% block dashboardMobile %}
     <li><a href="{{ path('admin.post.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
 {% endblock %}
 
-{% block pageTitleMobile "Editer une catégorie" %}
+{% block pageTitleMobile "Editer la catégorie" %}
 
 {% block body %}
     <div class="advanced-form-area mg-b-15">
@@ -21,7 +21,7 @@
                     <div class="sparkline9-list shadow-reset">
                         <div class="sparkline9-hd">
                             <div class="main-sparkline9-hd">
-                                <h1>Editer la catégorie {{ item.name }}</h1>
+                                <h1>Editer la catégorie: {{ item.name }}</h1>
                                 <div class="sparkline9-outline-icon">
                                     <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                     <span><i class="fa fa-wrench"></i></span>

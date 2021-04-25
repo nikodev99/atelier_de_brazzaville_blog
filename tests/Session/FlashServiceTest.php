@@ -2,8 +2,8 @@
 
 namespace Test\Framework\Session;
 
-use Framework\Session\ArraySession;
-use Framework\Session\FlashService;
+use App\Blog\Session\ArraySession;
+use App\Blog\Session\FlashService;
 use PHPUnit\Framework\TestCase;
 
 class FlashServiceTest extends TestCase

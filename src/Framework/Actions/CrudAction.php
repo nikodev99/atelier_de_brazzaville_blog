@@ -2,6 +2,7 @@
 
 namespace Framework\Actions;
 
+use Framework\Database\NoRecordException;
 use Framework\Database\Table;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
@@ -44,6 +45,9 @@ class CrudAction
         $this->flash = $flash;
     }
 
+    /**
+     * @throws NoRecordException
+     */
     public function __invoke(ServerRequestInterface $request)
     {
         $this->renderer->addGlobal("viewPath", $this->viewPath);
@@ -80,39 +84,47 @@ class CrudAction
         return $this->renderer->render($this->viewPath . '/posts', compact('items'));
     }
 
+    /**
+     * @throws NoRecordException
+     */
     public function create(ServerRequestInterface $request): string
     {
         $errors = [];
         $item = $this->getNewEntity();
         if ($request->getMethod() === 'POST') {
-            $params = $this->getParams($request);
+            //dd($request->getUploadedFiles(), $params);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
-                $id = $this->table->add($params);
+                $id = $this->table->add($this->getParams($request));
                 $item = $this->table->find($id);
                 $this->flash->success($this->success_messages['create']);
-                return $this->renderer->render($this->viewPath . '/create', compact('item'));
+                return $this->renderer->render($this->viewPath . '/create', $this->formParam(compact('item')));
             }
             $errors = $validator->getErrors();
-            $item = $params;
+            $item = $request->getParsedBody();
             $this->flash->error('Le système d\'ajout d\'article à rencontrée une ou plusieurs erreurs');
         }
         return $this->renderer->render($this->viewPath . '/create', $this->formParam(compact('item', 'errors')));
     }
 
+    /**
+     * @throws NoRecordException
+     */
     public function edit(ServerRequestInterface $request)
     {
         $errors = [];
         $item = $this->table->find((int)$request->getAttribute('id'));
         if ($request->getMethod() === 'POST') {
-            $params = $this->getParams($request);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
+                $params = $this->getParams($request, $item);
+                $params['view'] = $item->view;
                 $this->table->update($item->id, $params);
                 $this->flash->success($this->success_messages['edit']);
                 return $this->redirect($this->routePrefix . '.edit', ['id' => $item->id]);
             }
             $errors = $validator->getErrors();
+            $params = $request->getParsedBody();
             $params['id'] = $item->id;
             $item = $params;
             $this->flash->error('Le système de modification à rencontrée une ou plusieurs erreurs');
@@ -132,7 +144,7 @@ class CrudAction
         return [];
     }
 
-    protected function getParams(ServerRequestInterface $request): array
+    protected function getParams(ServerRequestInterface $request, $item = null): array
     {
         return array_filter($request->getParsedBody(), function ($key) {
             return in_array($key, []);
@@ -141,7 +153,7 @@ class CrudAction
 
     protected function getValidator(ServerRequestInterface $request): Validator
     {
-        return new Validator($request->getParsedBody());
+        return new Validator(array_merge($request->getParsedBody(), $request->getUploadedFiles()));
     }
 
     protected function formParam(array $params): array

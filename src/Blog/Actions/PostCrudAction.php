@@ -3,6 +3,7 @@
 namespace App\Blog\Actions;
 
 use App\Blog\Entity\Post;
+use App\Blog\PostImageUpload;
 use App\Blog\Table\CategoryTable;
 use App\Blog\Table\PostTable;
 use DateTime;
@@ -21,15 +22,19 @@ class PostCrudAction extends CrudAction
 
     private CategoryTable $categoryTable;
 
+    private PostImageUpload $imageUpload;
+
     public function __construct(
         RendererInterface $renderer,
         Router $router,
         PostTable $table,
         FlashService $flash,
-        CategoryTable $categoryTable
+        CategoryTable $categoryTable,
+        PostImageUpload $imageUpload
     ) {
         $this->categoryTable = $categoryTable;
         parent::__construct($renderer, $router, $table, $flash);
+        $this->imageUpload = $imageUpload;
     }
 
     protected function formParam(array $params): array
@@ -39,22 +44,23 @@ class PostCrudAction extends CrudAction
         return $params;
     }
 
-    protected function getNewEntity()
+    protected function getNewEntity(): Post
     {
         $post = new Post();
         $post->created_date = new DateTime();
         return $post;
     }
 
-    protected function getParams(ServerRequestInterface $request): array
+    protected function getParams(ServerRequestInterface $request, $item = null): array
     {
-        $params = array_filter($request->getParsedBody(), function ($key) {
-            return in_array($key, ['title', 'slug', 'content', 'created_date', 'category_id']);
+        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+        $params['image'] = $this->imageUpload->upload($params["image"], $item->image);
+        $params = array_filter($params, function ($key) {
+                return in_array($key, ['title', 'slug', 'content', 'created_date', 'category_id', 'image']);
         }, ARRAY_FILTER_USE_KEY);
         return array_merge($params, [
             'apdated_date'  =>  date("Y-m-d H:i:s"),
             'view'          =>  0,
-            'post_id'       =>  ''
         ]);
     }
 
@@ -67,6 +73,7 @@ class PostCrudAction extends CrudAction
             ->length('content', 10)
             ->datetime('created_date')
             ->slug('slug')
+            ->extension('image', ['jpg', 'jpeg', 'png', 'gif'])
             ->exists('category_id', $this->categoryTable->getTable(), $this->categoryTable->getPdo());
     }
 }

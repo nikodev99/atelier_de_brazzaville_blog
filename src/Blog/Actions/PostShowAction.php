@@ -4,11 +4,12 @@ namespace App\Blog\Actions;
 
 use App\Blog\Table\PostTable;
 use Framework\Actions\RouterAwareAction;
+use Framework\Database\NoRecordException;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
 use Psr\Http\Message\ServerRequestInterface;
 
-class BlogAction
+class PostShowAction
 {
     use RouterAwareAction;
 
@@ -31,23 +32,10 @@ class BlogAction
         $this->postTable = $postTable;
     }
 
+    /**
+     * @throws NoRecordException
+     */
     public function __invoke(ServerRequestInterface $request)
-    {
-        if ($request->getAttribute('id')) {
-            return $this->show($request);
-        }
-        return $this->index($request);
-    }
-
-    public function index(ServerRequestInterface $request): string
-    {
-        $params = $request->getQueryParams();
-        $currentPage = $params['p'] ?? 1;
-        $posts = $this->postTable->findPaginated(6, $currentPage);
-        return $this->renderer->render('@blog/index', compact('posts'));
-    }
-
-    public function show(ServerRequestInterface $request)
     {
         $this->incrementView($request);
         $slug = $request->getAttribute('slug');
@@ -58,11 +46,20 @@ class BlogAction
                 'id'    =>  $post->id
             ]);
         }
+        $newPosts = $this->postTable->findPostsByField("created_date");
+        $famousPosts = $this->postTable->findPostsByField("view");
+        $likedPosts = $this->postTable->findPostsByField('view', 2);
         return $this->renderer->render('@blog/show', [
-            'post'  =>  $post
+            'post'  =>  $post,
+            'newPosts'  => $newPosts,
+            'famousPosts'   =>  $famousPosts,
+            'likedPosts'    =>  $likedPosts
         ]);
     }
 
+    /**
+     * @throws NoRecordException
+     */
     private function incrementView(ServerRequestInterface $request): void
     {
         $p = $this->postTable->find((int) $request->getAttribute('id'));

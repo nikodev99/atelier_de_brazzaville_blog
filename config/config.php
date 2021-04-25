@@ -8,6 +8,7 @@ use Framework\Session\SessionInterface;
 use Framework\Twig\DateTimeTwigExtension;
 use Framework\Twig\FlashTwigExtension;
 use Framework\Twig\FormTwigExtension;
+use Framework\Twig\LayoutTwigExtension;
 use Framework\Twig\PagerfantaTwigExtension;
 use Framework\Twig\RouterTwigExtension;
 use Framework\Twig\TextTwigExtension;
@@ -34,7 +35,8 @@ return [
         get(TextTwigExtension::class),
         get(DateTimeTwigExtension::class),
         get(FlashTwigExtension::class),
-        get(FormTwigExtension::class)
+        get(FormTwigExtension::class),
+        get(LayoutTwigExtension::class)
     ],
     Router::class   =>  create(),
     RendererInterface::class    =>  factory(TwigRendererFactory::class),

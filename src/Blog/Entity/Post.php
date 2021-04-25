@@ -10,8 +10,6 @@ class Post
 
     public int $id;
 
-    public string $post_id;
-
     public string $title;
 
     public string $slug;
@@ -24,6 +22,8 @@ class Post
 
     public int $view;
 
+    public ?string $image;
+
     public string $category_name;
 
     public function __construct()
@@ -34,6 +34,11 @@ class Post
         if ($this->apdated_date) {
             $this->apdated_date = $this->getDateTime($this->apdated_date);
         }
+    }
+
+    public function getThumb(): ?string
+    {
+        return '../../style/upload/' . $this->image;
     }
 
     private function getDateTime($date): DateTime

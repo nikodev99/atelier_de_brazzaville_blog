@@ -5,7 +5,6 @@ namespace Framework\Twig;
 use DateTime;
 use DateTimeZone;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class DateTimeTwigExtension extends AbstractExtension

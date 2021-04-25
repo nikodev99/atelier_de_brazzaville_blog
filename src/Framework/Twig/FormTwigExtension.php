@@ -71,7 +71,7 @@ class FormTwigExtension extends AbstractExtension
         $placeholder = $this->setOptions('placeholder', $options);
         $required = $this->setOptions('required', $options);
         $disabled = $this->setOptions('disabled', $options);
-        return "<textarea rows=\"10\" class=\"form-control\"{$placeholder}name=\"{$key}\"  id=\"{$key}\" {$required}{$disabled}>{$value}</textarea>";
+        return "<textarea rows=\"12\" class=\"form-control\"{$placeholder}name=\"{$key}\"  id=\"{$key}\" {$required}{$disabled}>{$value}</textarea>";
     }
 
     private function select(string $key, ?string $value, array $options = []): string

@@ -2,7 +2,7 @@
 
 namespace Test\Framework;
 
-use Framework\Renderer\PHPRenderer;
+use App\Blog\Renderer\PHPRenderer;
 use PHPUnit\Framework\TestCase;
 
 class RendererTest extends TestCase

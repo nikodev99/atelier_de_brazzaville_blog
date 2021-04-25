@@ -29,14 +29,14 @@ class PagerfantaTwigExtension extends AbstractExtension
         ];
     }
 
-    public function paginate(Pagerfanta $pager, string $route, array $queryArgs = []): string
+    public function paginate(Pagerfanta $pager, string $route, array $routerParams = [], array $queryArgs = []): string
     {
         $view = new TwitterBootstrap4View();
-        return $view->render($pager, function ($page) use ($route, $queryArgs) {
+        return $view->render($pager, function (int $page) use ($route, $routerParams, $queryArgs) {
             if ($page > 1) {
                 $queryArgs['p'] = $page;
             }
-            $this->router->setUri($route, [], $queryArgs);
+            return $this->router->setUri($route, $routerParams, $queryArgs);
         });
     }
 }

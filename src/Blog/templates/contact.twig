@@ -1,0 +1,86 @@
+{% extends 'layout.twig' %}
+
+{% block title "Contact | Atelier de Brazzaville" %}
+
+{% block body %}
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h2><i class="fa fa-envelope-o"></i> Contacter nous</h2>
+            </div><!-- end col -->
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('homepage.show') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active"><a href="#">Contact</a></li>
+                </ol>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div><!-- end page-title -->
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="page-wrapper">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h4>Qui somme nous ?</h4>
+                            <p>L’Atelier Brazzaville est un lieu mais aussi une marque faisant appel à la créativité et à l'expression personnelle pour la fabrication artisanale.</p>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <h4>Comment nous aidons ?</h4>
+                            <p>
+                                Si vous voulez nous écrire, envoyez nous un message en remplissant le formulaire ci-dessous
+                                et nous vous contacterons aussi vite que possible.
+                            </p>
+                        </div>
+                    </div><!-- end row -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form class="form-wrapper" method="POST">
+                                <input type="text" name="name" class="form-control" placeholder="Votre nom *" required>
+                                <input type="email" name="email" class="form-control" placeholder="Votre adresse email *" required>
+                                <input type="text" name="tel" class="form-control" placeholder="Numéro de téléphone">
+                                <input type="text" name="subject" class="form-control" placeholder="Sujet *" required>
+                                <textarea name="message" class="form-control" placeholder="Votre message *" required></textarea>
+                                <button type="submit" class="btn btn-primary">Envoyer <i class="fa fa-envelope-open-o"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- end page-wrapper -->
+            </div><!-- end col -->
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <div class="sidebar">
+                    <div class="widget">
+                        <h2 class="widget-title">Recherche</h2>
+                        <form class="form-inline search-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Recherche sur le site">
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div><!-- end widget -->
+
+                    <!-- ADVERTISING
+                    <div class="widget">
+                        <h2 class="widget-title">Advertising</h2>
+                        <div class="banner-spot clearfix">
+                            <div class="banner-img">
+                                <img src="upload/banner_03.jpg" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    -->
+
+                </div><!-- end sidebar -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+
+{% endblock %}

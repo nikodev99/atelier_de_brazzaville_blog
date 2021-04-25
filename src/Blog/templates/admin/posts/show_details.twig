@@ -15,9 +15,14 @@
             <div class="basic-login-form-ad">
                 <form action="">
                     <div class="row">
+                        {% if item.image %}
+                        <div class="col-lg-12 col-md-12">
+                            <img src="{{ item.thumb }}" alt="" class="img-fluid">
+                        </div>
+                        {% endif %}
                         {{ field('show_title', 'Titre', item.title, {disabled: true, col:12}) }}
                         {{ field('show_slug', 'Slug', item.slug, {disabled: true, col:12}) }}
-                        {{ field('show_category', 'Catégorie', item.category_id, {disabled: true, col:12}) }}
+                        {{ field('show_category', 'Catégorie', item.category_name, {disabled: true, col:12}) }}
                         {{ field('show_content', 'Contenu', item.content, {disabled: true, col:12, type: 'textarea'}) }}
                         {{ field('show_created_date', 'Date d\'ajout', item.created_date.format('d M Y H:i'), {disabled: true, col:12}) }}
                         {{ field('show_updated_date', 'Date de la dernière modification', item.apdated_date.format('d M Y H:i'), {disabled: true, col:12}) }}

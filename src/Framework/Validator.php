@@ -3,12 +3,19 @@
 namespace Framework;
 
 use DateTime;
-use Framework\Database\Table;
 use Framework\Validator\ValidationError;
 use PDO;
+use Psr\Http\Message\UploadedFileInterface;
 
 class Validator
 {
+    private const MIME_TYPE = [
+        'jpg'   =>  'image/jpeg',
+        'jpeg'   =>  'image/jpeg',
+        'png'   =>  'image/png',
+        'pdf'   =>  'application/pdf'
+    ];
+
     private array $params;
 
     private array $errors = [];
@@ -89,6 +96,41 @@ class Validator
         return $this;
     }
 
+    public function uploaded(string $key): self
+    {
+        /**
+         * @var UploadedFileInterface $file
+         */
+        $file = $this->getValue($key);
+        if (is_null($file) || $file->getError() !== UPLOAD_ERR_OK) {
+            $this->addError($key, 'uploaded');
+        }
+        return $this;
+    }
+
+    public function extension(string $key, array $extensions): self
+    {
+        /**
+         * @var UploadedFileInterface $file
+         */
+        $file = $this->getValue($key);
+        if (!is_null($file) && $file->getError() === UPLOAD_ERR_OK) {
+            $type = $file->getClientMediaType();
+            $extension = mb_strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION));
+            $expected_type = self::MIME_TYPE[$extension] ?? null;
+            if (!in_array($extension, $extensions) || $expected_type !== $type) {
+                $this->addError($key, 'fileType', [join(', ', $extensions)]);
+            }
+        }
+        return $this;
+    }
+
+    public function setParams(array $params): self
+    {
+        $this->params = $params;
+        return $this;
+    }
+
     public function isValid(): bool
     {
         return empty($this->errors);
@@ -97,12 +139,6 @@ class Validator
     public function getErrors(): array
     {
         return $this->errors;
-    }
-
-    public function setParams(array $params): self
-    {
-        $this->params = $params;
-        return $this;
     }
 
     private function requirement(array $keys, string $rule, bool $notEmpty = false): self

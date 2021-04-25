@@ -18,7 +18,9 @@ class ValidationError
         'min'   =>  'Le champ %s doit contenir au moins plus de %d caractères',
         'max'   =>  'Le champ %s doit contenir au plus moins de %d caractères',
         'datetime'  => 'Le champ %s doit être une date valide (%s)',
-        'exists'  => 'L\'enregistrement choisi dans le champ %s n\'existe pas dans le système',
+        'exists'  => 'L\'enregistrement choisi dans le champ %s existe déjà dans le système',
+        'fileType'  =>  'Le champs %s n\'est pas au format valide. type attendu %s',
+        'uploaded'  =>  'Vous devez uploader un fichier'
     ];
 
     public function __construct(string $key, string $rule, array $attributes = [])

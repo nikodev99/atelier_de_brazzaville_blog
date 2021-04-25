@@ -3,8 +3,10 @@
 namespace App\Blog;
 
 use App\Blog\Actions\CategoryCrudAction;
+use App\Blog\Actions\CategoryShowAction;
 use App\Blog\Actions\PostCrudAction;
-use App\Blog\Actions\BlogAction;
+use App\Blog\Actions\PostIndexAction;
+use App\Blog\Actions\PostShowAction;
 use Framework\Module;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
@@ -23,8 +25,12 @@ class BlogModule extends Module
     {
         $container->get(RendererInterface::class)->addPath('blog', __DIR__ . '/templates');
         $router = $container->get(Router::class);
-        $router->get($container->get('blog.prefix'), BlogAction::class, 'blog.index');
-        $router->get($container->get('blog.prefix') . '/[*:slug]-[i:id]', BlogAction::class, 'blog.show');
+        $router->get($container->get('blog.prefix'), PostIndexAction::class, 'blog.index');
+        $router->get('/tendances', PostIndexAction::class, 'blog.tendance');
+        $router->get('/article-a-la-une', PostIndexAction::class, 'blog.newPost');
+        $router->get('/contact', PostIndexAction::class, 'blog.contact');
+        $router->get($container->get('blog.prefix') . '/[*:slug]-[i:id]', PostShowAction::class, 'blog.show');
+        $router->get($container->get('blog.prefix') . '/[*:slug]', CategoryShowAction::class, 'blog.category');
 
         if ($container->has('admin.prefix')) {
             $adminPrefix = $container->get('admin.prefix');

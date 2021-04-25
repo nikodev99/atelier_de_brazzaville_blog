@@ -29,6 +29,13 @@ class FlashService
         $this->session->set($this->sessionKey, $flash);
     }
 
+    public function info(string $message): void
+    {
+        $flash = $this->session->get($this->sessionKey, []);
+        $flash['info'] = $message;
+        $this->session->set($this->sessionKey, $flash);
+    }
+
     public function get(string $type): ?string
     {
         if (empty($this->messages)) {
