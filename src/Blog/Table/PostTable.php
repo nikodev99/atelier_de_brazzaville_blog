@@ -52,10 +52,7 @@ class PostTable extends Table
         if ($limit) {
             $statementWithLimit = ' LIMIT ' . $dataLimit;
         }
-        $fields = implode(', ', [
-            'p.id', 'p.title', 'p.slug', 'p.content', 'p.created_date', 'p.apdated_date', 'p.view', 'c.name', 'c.slug as category_slug'
-        ]);
-        return "SELECT {$fields} FROM {$this->table} AS p" .
+        return "SELECT p.*, c.name, c.slug as category_slug FROM {$this->table} AS p" .
             " LEFT JOIN categories AS c ON p.category_id = c.id" .
             " ORDER BY created_date DESC" . $statementWithLimit;
     }

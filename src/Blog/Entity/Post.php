@@ -7,7 +7,6 @@ use DateTimeZone;
 
 class Post
 {
-
     public int $id;
 
     public string $title;
@@ -26,8 +25,12 @@ class Post
 
     public string $category_name;
 
+    private const PATH = '../../style/upload/';
+
     public function __construct()
     {
+        $this->content = str_replace("<ul>", '<ul class="check">', $this->content);
+
         if ($this->created_date) {
             $this->created_date = $this->getDateTime($this->created_date);
         }
@@ -38,7 +41,46 @@ class Post
 
     public function getThumb(): ?string
     {
-        return '../../style/upload/' . $this->image;
+        return  self::PATH . $this->getPhoto('thumb', 'blog_square_01.jpg');
+    }
+
+    public function getMain(): ?string
+    {
+        return  self::PATH . $this->getPhoto('main', 'blog_10.jpg');
+    }
+
+    public function getLeft(): ?string
+    {
+        return  self::PATH . $this->getPhoto('left', 'blog_masonry_01.jpg');
+    }
+
+    public function getGreatMiddle(): ?string
+    {
+        return  self::PATH . $this->getPhoto('great_middle', 'blog_masonry_02.jpg');
+    }
+
+    public function getThumbMiddle(): ?string
+    {
+        return  self::PATH . $this->getPhoto('thumb_middle', 'blog_masonry_03.jpg');
+    }
+
+    public function getPrimary(): ?string
+    {
+        return  self::PATH . $this->getPhoto('primary', 'blog_05.jpg');
+    }
+
+    public function getMaternelle(): ?string
+    {
+        return  self::PATH . $this->getPhoto('maternelle', 'blog_01.jpg');
+    }
+
+    private function getPhoto(string $type, string $default): string
+    {
+        if (!is_null($this->image)) {
+            ['filename' => $filename, 'extension' => $extension] = pathinfo($this->image);
+            return $filename . "-$type.$extension";
+        }
+        return $default;
     }
 
     private function getDateTime($date): DateTime

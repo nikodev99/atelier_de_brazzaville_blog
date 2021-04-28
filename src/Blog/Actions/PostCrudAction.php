@@ -12,6 +12,8 @@ use Framework\Renderer\RendererInterface;
 use Framework\Router;
 use Framework\Session\FlashService;
 use Framework\Validator;
+use Framework\Database\NoRecordException;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class PostCrudAction extends CrudAction
@@ -19,6 +21,8 @@ class PostCrudAction extends CrudAction
     protected string $viewPath = "@blog/admin/posts";
 
     protected string $routePrefix = "admin.post";
+
+    private PostTable $table;
 
     private CategoryTable $categoryTable;
 
@@ -35,6 +39,7 @@ class PostCrudAction extends CrudAction
         $this->categoryTable = $categoryTable;
         parent::__construct($renderer, $router, $table, $flash);
         $this->imageUpload = $imageUpload;
+        $this->table = $table;
     }
 
     protected function formParam(array $params): array
@@ -53,8 +58,16 @@ class PostCrudAction extends CrudAction
 
     protected function getParams(ServerRequestInterface $request, $item = null): array
     {
-        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
-        $params['image'] = $this->imageUpload->upload($params["image"], $item->image);
+        $clientFilename = $request->getUploadedFiles()['image']->getClientFilename();
+        $params = $request->getParsedBody();
+        if (!empty($clientFilename)) {
+            $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+            if (!is_null($item)) {
+                $params['image'] = $this->imageUpload->upload($params["image"], $item->image);
+            } else {
+                $params['image'] = $this->imageUpload->upload($params["image"]);
+            }
+        }
         $params = array_filter($params, function ($key) {
                 return in_array($key, ['title', 'slug', 'content', 'created_date', 'category_id', 'image']);
         }, ARRAY_FILTER_USE_KEY);
@@ -62,6 +75,16 @@ class PostCrudAction extends CrudAction
             'apdated_date'  =>  date("Y-m-d H:i:s"),
             'view'          =>  0,
         ]);
+    }
+
+    /**
+     * @throws NoRecordException
+     */
+    public function delete(ServerRequestInterface $request): ResponseInterface
+    {
+        $post = $this->table->find($request->getAttribute('id'));
+        $this->imageUpload->delete($post->image);
+        return parent::delete($request);
     }
 
     protected function getValidator(ServerRequestInterface $request): Validator

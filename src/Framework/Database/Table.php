@@ -92,12 +92,12 @@ class Table
         return $query->fetchAll();
     }
 
-    public function findPostsByField(string $field = null, int $limit = 3, bool $categories = false): array
+    public function findPostsByField(string $field = null, int $limit = 3, bool $categories = false, int $id = 0): array
     {
         if ($categories) {
             $query = $this->pdo->prepare($this->paginationQuery(true, $limit));
         } else {
-            $query = $this->pdo->prepare($this->byFieldQuery($field, $limit));
+            $query = $this->pdo->prepare($this->byFieldQuery($field, $limit, $id));
         }
         $query->execute();
         if (isset($this->entity)) {
@@ -182,9 +182,13 @@ class Table
         return 'SELECT * FROM ' . $this->table . ' WHERE category_id = ? ORDER BY created_date DESC LIMIT ' . $limit;
     }
 
-    protected function byFieldQuery(string $field, int $limit): string
+    protected function byFieldQuery(string $field, int $limit, int $id = 0): string
     {
-        return 'SELECT * FROM ' . $this->table . ' ORDER BY ' . $field . ' DESC LIMIT ' . $limit;
+        $statement = 'SELECT * FROM ' . $this->table;
+        if ($id !== 0) {
+            $statement .= " WHERE id != $id ";
+        }
+        return $statement . ' ORDER BY ' . $field . ' DESC LIMIT ' . $limit;
     }
 
     private function buildingFieldQuery(array $fieldsArray, bool $insert = false): string

@@ -4,6 +4,7 @@ namespace App\Homepage\Actions;
 
 use App\Blog\Table\PostTable;
 use Framework\Renderer\RendererInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class HomepageAction
 {
@@ -19,7 +20,12 @@ class HomepageAction
         $this->table = $table;
     }
 
-    public function __invoke(): string
+    public function __invoke(ServerRequestInterface $request): string
+    {
+        return $this->index();
+    }
+
+    public function index(): string
     {
         $preteens = $this->table->findByCategory(4, 2);
         $children_retrieved = $this->table->findByCategory(3, 4);
@@ -29,13 +35,15 @@ class HomepageAction
                 $children[0][] = [
                     'url'   =>  '/blog/' . $child_retrieved->slug . '-' . $child_retrieved->id,
                     'title' =>  $child_retrieved->title,
-                    'date'  =>  $child_retrieved->created_date->format('d M Y H:i')
+                    'date'  =>  $child_retrieved->created_date->format('d M Y H:i'),
+                    'image'  =>  $child_retrieved->getMaternelle()
                 ];
             } else {
                 $children[1][] = [
                     'url'   =>  '/blog/' . $child_retrieved->slug . '-' . $child_retrieved->id,
                     'title' =>  $child_retrieved->title,
-                    'date'  =>  $child_retrieved->created_date->format('d M Y H:i')
+                    'date'  =>  $child_retrieved->created_date->format('d M Y H:i'),
+                    'image'  =>  $child_retrieved->getMaternelle()
                 ];
             }
         }

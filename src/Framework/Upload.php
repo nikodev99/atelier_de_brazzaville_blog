@@ -2,6 +2,7 @@
 
 namespace Framework;
 
+use Intervention\Image\ImageManager;
 use Psr\Http\Message\UploadedFileInterface;
 
 class Upload
@@ -20,13 +21,30 @@ class Upload
     public function upload(UploadedFileInterface $uploadedFile, ?string $oldFile = null): string
     {
         $this->delete($oldFile);
-        $targetFile = $this->addSuffix($this->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getClientFilename());
-        $dirname = pathinfo($targetFile, PATHINFO_DIRNAME);
+        $targetPath = $this->addSuffix($this->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getClientFilename(), 'copie');
+        $dirname = pathinfo($targetPath, PATHINFO_DIRNAME);
         if (!file_exists($dirname)) {
             mkdir($dirname, 777, true);
         }
-        $uploadedFile->moveTo($targetFile);
-        return pathinfo($targetFile)['basename'];
+        $uploadedFile->moveTo($targetPath);
+        $this->generateFormat($targetPath);
+        return pathinfo($targetPath)['basename'];
+    }
+
+    public function delete(?string $oldFile = null): void
+    {
+        if (!is_null($oldFile)) {
+            $oldFile = $this->getPath() . DIRECTORY_SEPARATOR . $oldFile;
+            if (file_exists($oldFile)) {
+                unlink($oldFile);
+            }
+            foreach ($this->formats as $format => $_s) {
+                $oldFileWithSuffix = $this->getPathWithSuffix($oldFile, $format);
+                if (file_exists($oldFileWithSuffix)) {
+                    unlink($oldFileWithSuffix);
+                }
+            }
+        }
     }
 
     protected function getPath(): string
@@ -34,23 +52,28 @@ class Upload
         return dirname(__DIR__, 2) . $this->path;
     }
 
-    private function addSuffix(string $filePath): string
+    private function generateFormat(string $targetPath)
+    {
+        foreach ($this->formats as $format => $size) {
+            $destination = $this->addSuffix($targetPath, $format);
+            $manager = new ImageManager(['driver' => 'gd']);
+            [$width, $height] = $size;
+            $manager->make($targetPath)->fit($width, $height)->save($destination);
+        }
+    }
+
+    private function addSuffix(string $filePath, string $suffix): string
     {
         if (file_exists($filePath)) {
-            $info = pathinfo($filePath);
-            $filePath = $info['dirname'] . DIRECTORY_SEPARATOR . $info['filename'] . '-copie.' . $info['extension'];
-            return $this->addSuffix($filePath);
+            $filePath = $this->getPathWithSuffix($filePath, $suffix);
+            return $this->addSuffix($filePath, $suffix);
         }
         return $filePath;
     }
 
-    private function delete(?string $oldFile = null): void
+    private function getPathWithSuffix(string $path, string $suffix): string
     {
-        if (!is_null($oldFile)) {
-            $oldFile = $this->getPath() . DIRECTORY_SEPARATOR . $oldFile;
-            if (file_exists($oldFile)) {
-                unlink($oldFile);
-            }
-        }
+        $info = pathinfo($path);
+        return $info['dirname'] . DIRECTORY_SEPARATOR . $info['filename'] . '-' . $suffix . '.' . $info['extension'];
     }
 }

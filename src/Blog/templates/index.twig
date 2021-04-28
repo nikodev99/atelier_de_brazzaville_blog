@@ -30,7 +30,7 @@
                             <div class="blog-box">
                                 <div class="post-media">
                                     <a href="{{ path('blog.show', {slug:post.slug, id:post.id}) }}" title="">
-                                        <img src="../../style/upload/blog_custom_01.jpg" alt="" class="img-fluid">
+                                        <img src="{{ post.main }}" alt="" class="img-fluid">
                                         <div class="hovereffect">
                                             <span></span>
                                         </div>
@@ -47,7 +47,7 @@
                                         </ul>
                                     </div><!-- end post-sharing -->
                                     <h4><a href="{{ path('blog.show', {slug:post.slug, id:post.id}) }}" title="">{{ post.title }}</a></h4>
-                                    <p>{{ post.content | excerpt | nl2br }}</p>
+                                    <div>{{ post.content | excerpt(500) | raw }}</div>
                                     <small><a href="blog-category-01.html" title="">{{ post.category_name }}</a></small>
                                     <small><a href="single.html" title="">{{ post.created_date.format('d M Y H:i') }}</a></small>
                                     <!--<small><a href="blog-author.html" title="">by Amanda</a></small>-->
@@ -83,7 +83,7 @@
                                     {% for newPost in newPosts %}
                                     <a href="{{ path('blog.show', {slug:newPost.slug, id:newPost.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="w-100 justify-content-between">
-                                            <img src="../../style/upload/blog_square_01.jpg" alt="" class="img-fluid float-left">
+                                            <img src="{{ newPost.thumb }}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">{{ newPost.title }}</h5>
                                             <small>{{ newPost.created_date.format('d M Y H:i') }}</small>
                                         </div>

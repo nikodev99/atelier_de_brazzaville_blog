@@ -48,7 +48,7 @@ class PostShowAction
         }
         $newPosts = $this->postTable->findPostsByField("created_date");
         $famousPosts = $this->postTable->findPostsByField("view");
-        $likedPosts = $this->postTable->findPostsByField('view', 2);
+        $likedPosts = $this->postTable->findPostsByField('view', 2, false, (int)$post->id);
         return $this->renderer->render('@blog/show', [
             'post'  =>  $post,
             'newPosts'  => $newPosts,

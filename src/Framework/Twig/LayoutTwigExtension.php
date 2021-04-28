@@ -7,6 +7,13 @@ use Twig\TwigFunction;
 
 class LayoutTwigExtension extends AbstractExtension
 {
+    private TextTwigExtension $text;
+
+    public function __construct(TextTwigExtension $text)
+    {
+        $this->text = $text;
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -18,6 +25,7 @@ class LayoutTwigExtension extends AbstractExtension
 
     public function layout(array $data): string
     {
+        $layout = [];
         foreach ($data as $d) {
             $layout[] = $this->allLayout($d);
         }
@@ -43,15 +51,15 @@ class LayoutTwigExtension extends AbstractExtension
         <div class="blog-box">
             <div class="post-media">
                 <a href="' . $data['url'] . '" title="">
-                    <img src="../style/upload/blog_01.jpg" alt="" class="img-fluid">
+                    <img src="' . $data['image'] . '" alt="" class="img-fluid">
                     <div class="hovereffect">
                         <span></span>
                     </div><!-- end hover -->
                 </a>
             </div><!-- end media -->
             <div class="blog-meta">
-                <h4><a href="' . $data['url'] . '" title="">' . $data['title'] . '</a></h4>
-                <small><a href="blog-category-01.html" title="">Enfants</a></small>
+                <h4><a href="' . $data['url'] . '" title="' . $data['title'] . '">' . $this->text->excerpt($data['title'], 25) . '</a></h4>
+                <small><a href="/enfants" title="">Enfants</a></small>
                 <small><a href="blog-category-01.html" title="">' . $data['date'] . '</a></small>
             </div><!-- end meta -->
         </div><!-- end blog-box -->

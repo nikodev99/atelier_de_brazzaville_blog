@@ -74,6 +74,7 @@
                             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
                             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
                             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
                         </div><!-- end social -->
                     </div><!-- end col -->
 
@@ -163,7 +164,7 @@
                                     {% for new in newPosts %}
                                     <a href="{{ path('blog.show', {slug:new.slug, id:new.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="w-100 justify-content-between">
-                                            <img src="../style/upload/blog_square_01.jpg" alt="" class="img-fluid float-left">
+                                            <img src="{{ new.thumb }}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">{{ new.title }}</h5>
                                             <small>{{ new.created_date.format('d M Y H:i') }}</small>
                                         </div>
@@ -182,7 +183,7 @@
                                     {% for famous in famousPosts %}
                                     <a href="{{ path('blog.show', {slug:famous.slug, id:famous.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="w-100 justify-content-between">
-                                            <img src="../style/upload/blog_square_04.jpg" alt="" class="img-fluid float-left">
+                                            <img src="{{ famous.thumb }}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">{{ famous.title }}</h5>
                                             <span class="rating">
                                                 <i class="fa fa-star"></i>
@@ -224,21 +225,17 @@
                         <div class="widget">
                             <div class="footer-text text-center">
                                 <a href="index.html"><img src="../style/images/logo.png" alt="" class="img-fluid"></a>
-                                <p>L’Atelier Brazzaville est un lieu mais aussi une marque faisant appel à la créativité et à l'expression personnelle pour la fabrication artisanale.</p>
+                                <p style="font-size: 16px">
+                                    L’Atelier Brazzaville est un lieu mais aussi une marque faisant appel à la créativité et à l'expression personnelle.
+                                </p>
                                 <div class="social">
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
                                 </div>
 
                                 <hr class="invis">
-
-                                <div class="newsletter-widget text-center">
-                                    <form class="form-inline">
-                                        <input type="text" class="form-control" placeholder="Enter your email address">
-                                        <button type="submit" class="btn btn-primary">Subscribe <i class="fa fa-envelope-open-o"></i></button>
-                                    </form>
-                                </div><!-- end newsletter -->
                             </div><!-- end footer-text -->
                         </div><!-- end widget -->
                     </div><!-- end col -->
@@ -246,7 +243,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <br>
-                        <div class="copyright">&copy; L'Atélier de Brazzaville. Design: <a href="http://html.design">HTML Design</a>.</div>
+                        <div class="copyright">&copy; L'Atélier Brazzaville. Design: <a href="http://html.design" target="_blank">HTML Design</a>.</div>
                     </div>
                 </div>
             </div><!-- end container -->

@@ -15,8 +15,9 @@ class TextTwigExtension extends AbstractExtension
         ];
     }
 
-    public function excerpt(?string $content, int $maxLength = 200): string
+    public function excerpt(?string $content, int $maxLength = 350): string
     {
+        $content = str_replace('<img', '<img style="display: none"', $content);
         if (is_null($content)) {
             return '';
         } else {

@@ -24,7 +24,7 @@
                                 <small><a href="single.html" title="">Ajouté le {{ post.created_date.format('d M Y H:i') }}</a></small>
                                 <small><a href="single.html" title="">{{ ago(post.created_date) }}</a></small>
                                 <small><a href="single.html" title="">Edité le {{ post.apdated_date.format('d M Y H:i') }}</a></small>
-                                <small><a href="blog-author.html" title="">by Jessica</a></small>
+                                <!--<small><a href="blog-author.html" title="">by Jessica</a></small> -->
                                 <small><a href="#" title=""><i class="fa fa-eye"></i> {{ post.view }}</a></small>
                             </div><!-- end meta -->
 
@@ -37,27 +37,18 @@
                         </div><!-- end title -->
 
                         <div class="single-post-media">
-                            <img src="../../style/upload//menu_08.jpg" alt="" class="img-fluid">
+                            <img src="{{ post.main }}" alt="" class="img-fluid">
                         </div><!-- end media -->
 
                         <div class="blog-content">
                             <div class="pp">
-                                {{ post.content | nl2br }}
-                                <!--
-                                <ul class="check">
-                                    <li>Integer sit amet odio ac lectus imperdiet elementum.</li>
-                                    <li>Praesent vitae lacus sed lacus ullamcorper mollis.</li>
-                                    <li>Donec vitae metus ac felis vulputate tincidunt non et ex.</li>
-                                    <li>In dapibus sapien at viverra venenatis.</li>
-                                    <li>Pellentesque mollis velit id maximus finibus.</li>
-                                </ul>
-                                -->
+                                {{ post.content | raw }}
                             </div>
                         </div><!-- end content -->
 
                         <div class="blog-title-area">
                             <div class="tag-cloud-single">
-                                <span>{{ post.category_name }}</span>
+                                <span style="font-family: 'pacifico', cursive">{{ post.category_name }}</span>
                             </div><!-- end meta -->
                         </div><!-- end title -->
 
@@ -113,7 +104,7 @@
                                     <div class="blog-box">
                                         <div class="post-media">
                                             <a href="{{ path('blog.show', {slug:liked.slug, id:liked.id}) }}" title="">
-                                                <img src="../../style/upload//menu_06.jpg" alt="" class="img-fluid">
+                                                <img src="{{ liked.main }}" alt="" class="img-fluid">
                                                 <div class="hovereffect">
                                                     <span class=""></span>
                                                 </div><!-- end hover -->
