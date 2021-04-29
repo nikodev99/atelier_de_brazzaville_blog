@@ -4,6 +4,8 @@ namespace App\Blog\Entity;
 
 use DateTime;
 use DateTimeZone;
+use Error;
+use Exception;
 
 class Post
 {
@@ -30,6 +32,7 @@ class Post
     public function __construct()
     {
         $this->content = str_replace("<ul>", '<ul class="check">', $this->content);
+        $this->content = str_replace("<blockquote>", '<ul class="blockquote">', $this->content);
 
         if ($this->created_date) {
             $this->created_date = $this->getDateTime($this->created_date);
@@ -87,8 +90,8 @@ class Post
     {
         try {
             return (new DateTime($date))->setTimezone(new DateTimeZone('Africa/Brazzaville'));
-        } catch (\Exception $e) {
-            throw new \Error("Type of date error: " . $e->getMessage());
+        } catch (Exception $e) {
+            throw new Error("Type of date error: " . $e->getMessage());
         }
     }
 }

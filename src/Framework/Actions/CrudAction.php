@@ -119,7 +119,9 @@ class CrudAction
             if ($validator->isValid()) {
                 $params = $this->getParams($request, $item);
                 $params['view'] = $item->view;
-                $params['image'] = $item->image;
+                if (empty($params['image'])) {
+                    $params['image'] = $item->image;
+                }
                 $params['created_date'] = $item->created_date->format("Y-m-d H:m:i");
                 $this->table->update($item->id, $params);
                 $this->flash->success($this->success_messages['edit']);

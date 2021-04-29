@@ -15,7 +15,7 @@ class HomepageModule extends Module
     public function __construct(string $prefix, Router $router, RendererInterface $renderer)
     {
         $renderer->addPath('homepage', __DIR__ . '/templates');
-        $router->get('/home', HomepageAction::class, 'homepage.index');
+        $router->get('/', HomepageAction::class, 'homepage.index');
         $router->get($prefix . '/accueil', HomepageAction::class, 'homepage.show');
         ;
     }

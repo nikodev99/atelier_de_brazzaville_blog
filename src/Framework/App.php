@@ -29,7 +29,7 @@ class App
         if (array_key_exists('_METHOD', $parseBody) && in_array($parseBody['_METHOD'], ['DELETE', 'PUT'])) {
             $request = $request->withMethod($parseBody['_METHOD']);
         }
-        if (!empty($uri) && $uri[-1] === "/") {
+        if (!empty($uri) && $uri[-1] === "/" && strlen($uri) > 1) {
             return (new Response(301))->withHeader('Location', substr($uri, 0, -1));
         }
         $router = $this->container->get(Router::class);

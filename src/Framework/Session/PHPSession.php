@@ -4,7 +4,6 @@ namespace Framework\Session;
 
 class PHPSession implements SessionInterface
 {
-
     public function get(string $key, $default = null)
     {
         $this->sessionStarter();

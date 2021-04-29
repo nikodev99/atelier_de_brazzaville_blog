@@ -45,7 +45,6 @@ class PostCrudAction extends CrudAction
     protected function formParam(array $params): array
     {
         $params['categories'] = $this->categoryTable->findList();
-        $params['categories']['12234567'] = "categorie fake";
         return $params;
     }
 
@@ -69,7 +68,7 @@ class PostCrudAction extends CrudAction
             }
         }
         $params = array_filter($params, function ($key) {
-                return in_array($key, ['title', 'slug', 'content', 'created_date', 'category_id', 'image']);
+                return in_array($key, (array)['title', 'slug', 'content', 'created_date', 'category_id', 'image']);
         }, ARRAY_FILTER_USE_KEY);
         return array_merge($params, [
             'apdated_date'  =>  date("Y-m-d H:i:s"),

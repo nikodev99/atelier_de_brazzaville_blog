@@ -17,7 +17,7 @@
                     <div class="row">
                         {% if item.image %}
                         <div class="col-lg-12 col-md-12">
-                            <img src="{{ item.thumbnail }}" alt="" class="img-fluid">
+                            <img src="{{ item.left }}" alt="" class="img-fluid">
                         </div>
                         {% endif %}
                         {{ field('show_title', 'Titre', item.title, {disabled: true, col:12}) }}

@@ -9,7 +9,7 @@
 
 /**************************************
     Table of Content
-    
+
     1. BASIC
     2. HEADER
     3. SECTION
@@ -19,7 +19,7 @@
     7. WIDGETS
 **************************************/
 
-/* BASIC 
+/* BASIC
 **************************************/
 
 body {
@@ -130,7 +130,7 @@ a {
 }
 
 
-/* HEADER 
+/* HEADER
 **************************************/
 
 .header {
@@ -705,7 +705,7 @@ div.tab button:hover {
 }
 
 
-/* PAGES 
+/* PAGES
 **************************************/
 
 .notfound h2 {
@@ -844,7 +844,7 @@ div.tab button:hover {
 }
 
 
-/* BLOG 
+/* BLOG
 **************************************/
 
 .carousel-indicators li {
@@ -1331,7 +1331,7 @@ hr.invis3 {
 }
 
 
-/* WIDGETS 
+/* WIDGETS
 **************************************/
 
 .sidebar .widget {
