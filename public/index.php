@@ -2,10 +2,14 @@
 
 use App\Admin\AdminModule;
 use Framework\App;
+use Framework\Middleware\DispatcherMiddleware;
+use Framework\Middleware\MethodMiddleware;
+use Framework\Middleware\NotFoundMiddleware;
+use Framework\Middleware\RouterMiddleware;
+use Framework\Middleware\TrailingSlashMiddleware;
 use Whoops\Run;
 use App\Blog\BlogModule;
 use App\Homepage\HomepageModule;
-use DI\ContainerBuilder;
 use GuzzleHttp\Psr7\ServerRequest;
 use Whoops\Handler\PrettyPageHandler;
 
@@ -17,21 +21,20 @@ $whoops->register();
 
 $modules = [
     HomepageModule::class,
-    AdminModule::class,
-    BlogModule::class
+    BlogModule::class,
+    AdminModule::class
 ];
 
-$builder = new ContainerBuilder();
-$builder->addDefinitions(dirname(__DIR__) . '/config/config.php');
-foreach ($modules as $module) {
-    if ($module::DEFINITIONS) {
-        $builder->addDefinitions($module::DEFINITIONS);
-    }
-}
-$builder->addDefinitions(dirname(__DIR__) . '/config.php');
-$container = $builder->build();
-
-$app = new App($container, $modules);
+$app = (new App(dirname(__DIR__) . '/config/config.php'))
+    ->addModule(HomepageModule::class)
+    ->addModule(BlogModule::class)
+    ->addModule(AdminModule::class)
+    ->pipe(TrailingSlashMiddleware::class)
+    ->pipe(MethodMiddleware::class)
+    ->pipe(RouterMiddleware::class)
+    ->pipe(DispatcherMiddleware::class)
+    ->pipe(NotFoundMiddleware::class)
+;
 
 if (php_sapi_name() !== 'cli') {
     $response = $app->run(ServerRequest::fromGlobals());
