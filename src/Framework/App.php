@@ -4,11 +4,14 @@ namespace Framework;
 
 use DI\ContainerBuilder;
 use Exception;
+use Framework\Middleware\RoutePrefixedMiddleware;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class App
+class App implements RequestHandlerInterface
 {
 
     private array $modules = [];
@@ -35,22 +38,32 @@ class App
         return $this;
     }
 
-    public function pipe(string $middleware): self
+    /**
+     * @throws Exception
+     */
+    public function pipe(string $middleware, ?string $router_prefix = null): self
     {
-        $this->middlewares[] = $middleware;
+        if (!is_null($router_prefix)) {
+            $this->middlewares[] = new RoutePrefixedMiddleware($this->getContainer(), $router_prefix, $middleware);
+        } else {
+            $this->middlewares[] = $middleware;
+        }
         return $this;
     }
 
     /**
      * @throws Exception
      */
-    public function process(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $middleware = $this->getMiddleware();
         if (is_null($middleware)) {
             throw new Exception("Request handled by none middleware");
+        } elseif (is_callable($middleware)) {
+            return call_user_func_array($middleware, [$request, [$this, 'handle']]);
+        } elseif ($middleware instanceof MiddlewareInterface) {
+            return $middleware->process($request, $this);
         }
-        return call_user_func_array($middleware, [$request, [$this, 'process']]);
     }
 
     /**
@@ -61,13 +74,21 @@ class App
         foreach ($this->modules as $module) {
             $this->getContainer()->get($module);
         }
-        return $this->process($request);
+        return $this->handle($request);
+    }
+
+    /**
+     * @return array
+     */
+    public function getModules(): array
+    {
+        return $this->modules;
     }
 
     /**
      * @throws Exception
      */
-    private function getContainer(): ContainerInterface
+    public function getContainer(): ContainerInterface
     {
         if ($this->container === null) {
             $builder = new ContainerBuilder();
@@ -85,10 +106,14 @@ class App
     /**
      * @throws Exception
      */
-    private function getMiddleware(): ?callable
+    private function getMiddleware()
     {
         if (array_key_exists($this->index, $this->middlewares)) {
-            $middleware = $this->getContainer()->get($this->middlewares[$this->index]);
+            if (is_string($this->middlewares[$this->index])) {
+                $middleware = $this->getContainer()->get($this->middlewares[$this->index]);
+            } else {
+                $middleware = $this->middlewares[$this->index];
+            }
             $this->index++;
             return $middleware;
         }

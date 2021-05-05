@@ -15,10 +15,19 @@ class Post
 
     public string $slug;
 
-    public string $content;
+    /**
+     * @var string
+     */
+    public $content;
 
+    /**
+     * @var string|DateTime
+     */
     public $created_date;
 
+    /**
+     * @var string|DateTime
+     */
     public $apdated_date;
 
     public int $view;
@@ -31,8 +40,10 @@ class Post
 
     public function __construct()
     {
-        $this->content = str_replace("<ul>", '<ul class="check">', $this->content);
-        $this->content = str_replace("<blockquote>", '<ul class="blockquote">', $this->content);
+        if ($this->content) {
+            $this->content = str_replace("<ul>", '<ul class="check">', $this->content);
+            $this->content = str_replace("<blockquote>", '<ul class="blockquote">', $this->content);
+        }
 
         if ($this->created_date) {
             $this->created_date = $this->getDateTime($this->created_date);

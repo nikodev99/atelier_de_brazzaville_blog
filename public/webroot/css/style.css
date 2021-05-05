@@ -4087,3 +4087,11 @@ ul.breadcome-menu {
 .materialdesign .progress-circular4 p{
 	font-size:12px;
 }
+
+.bg-icon {
+	color: #e63412;
+}
+
+.bg-icon:hover {
+	color: #6b1c0c;
+}

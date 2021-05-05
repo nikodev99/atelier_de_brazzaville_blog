@@ -1,7 +1,10 @@
 <?php
 
 use App\Admin\AdminModule;
+use App\Auth\AuthModule;
+use App\Auth\ForbiddenMiddleware;
 use Framework\App;
+use Framework\Auth\LoggedInMiddleware;
 use Framework\Middleware\DispatcherMiddleware;
 use Framework\Middleware\MethodMiddleware;
 use Framework\Middleware\NotFoundMiddleware;
@@ -19,17 +22,17 @@ $whoops = new Run();
 $whoops->pushHandler(new PrettyPageHandler());
 $whoops->register();
 
-$modules = [
-    HomepageModule::class,
-    BlogModule::class,
-    AdminModule::class
-];
-
 $app = (new App(dirname(__DIR__) . '/config/config.php'))
     ->addModule(HomepageModule::class)
     ->addModule(BlogModule::class)
     ->addModule(AdminModule::class)
-    ->pipe(TrailingSlashMiddleware::class)
+    ->addModule(AuthModule::class)
+;
+
+$container = $app->getContainer();
+$app->pipe(TrailingSlashMiddleware::class)
+    ->pipe(ForbiddenMiddleware::class)
+    ->pipe(LoggedInMiddleware::class, $container->get("admin.prefix"))
     ->pipe(MethodMiddleware::class)
     ->pipe(RouterMiddleware::class)
     ->pipe(DispatcherMiddleware::class)

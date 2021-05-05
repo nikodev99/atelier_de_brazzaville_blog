@@ -5,7 +5,7 @@ require_once 'public/index.php';
 $migrations = [];
 $seeds = [];
 
-foreach ($modules as $module) {
+foreach ($app->getModules() as $module) {
     if ($module::MIGRATIONS) {
         $migrations = $module::MIGRATIONS;
     }

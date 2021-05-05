@@ -9,7 +9,6 @@ use Framework\Router;
 
 class HomepageModule extends Module
 {
-
     public const DEFINITIONS = __DIR__ . '/config.php';
 
     public function __construct(string $prefix, Router $router, RendererInterface $renderer)

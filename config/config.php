@@ -5,6 +5,7 @@ use Framework\Renderer\TwigRendererFactory;
 use Framework\Router;
 use Framework\Session\PHPSession;
 use Framework\Session\SessionInterface;
+use Framework\Twig\AuthTwigExtension;
 use Framework\Twig\DateTimeTwigExtension;
 use Framework\Twig\FlashTwigExtension;
 use Framework\Twig\FormTwigExtension;
@@ -36,7 +37,8 @@ return [
         get(DateTimeTwigExtension::class),
         get(FlashTwigExtension::class),
         get(FormTwigExtension::class),
-        get(LayoutTwigExtension::class)
+        get(LayoutTwigExtension::class),
+        get(AuthTwigExtension::class)
     ],
     Router::class   =>  create(),
     RendererInterface::class    =>  factory(TwigRendererFactory::class),
