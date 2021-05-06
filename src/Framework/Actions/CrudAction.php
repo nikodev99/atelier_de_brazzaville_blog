@@ -10,6 +10,7 @@ use Framework\Session\FlashService;
 use Framework\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use stdClass;
 
 class CrudAction
 {
@@ -145,7 +146,7 @@ class CrudAction
 
     protected function getNewEntity()
     {
-        return [];
+        return new stdClass();
     }
 
     protected function getParams(ServerRequestInterface $request, $item = null): array

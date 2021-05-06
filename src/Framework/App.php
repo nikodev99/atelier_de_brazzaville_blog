@@ -16,18 +16,21 @@ class App implements RequestHandlerInterface
 
     private array $modules = [];
 
-    private string $definition;
+    /**
+     * @var string|array|null
+     */
+    private $definition;
 
     /**
      * @var ContainerInterface
      */
     private $container;
 
-    private array $middlewares;
+    private array $middlewares = [];
 
     private int $index = 0;
 
-    public function __construct(string $definition)
+    public function __construct($definition = null)
     {
         $this->definition = $definition;
     }
@@ -39,9 +42,11 @@ class App implements RequestHandlerInterface
     }
 
     /**
+     * @param string|callable|MiddlewareInterface $middleware
+     *
      * @throws Exception
      */
-    public function pipe(string $middleware, ?string $router_prefix = null): self
+    public function pipe($middleware, ?string $router_prefix = null): self
     {
         if (!is_null($router_prefix)) {
             $this->middlewares[] = new RoutePrefixedMiddleware($this->getContainer(), $router_prefix, $middleware);
@@ -92,7 +97,9 @@ class App implements RequestHandlerInterface
     {
         if ($this->container === null) {
             $builder = new ContainerBuilder();
-            $builder->addDefinitions($this->definition);
+            if ($this->definition) {
+                $builder->addDefinitions($this->definition);
+            }
             foreach ($this->modules as $module) {
                 if ($module::DEFINITIONS) {
                     $builder->addDefinitions($module::DEFINITIONS);
