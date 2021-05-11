@@ -1685,3 +1685,7 @@ hr.invis3 {
     -o-border-radius: 50%;
     border-radius: 50%
 }
+
+.form-control.input-with-error {
+    border: 1px dashed red;
+}

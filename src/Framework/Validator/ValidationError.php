@@ -20,7 +20,8 @@ class ValidationError
         'datetime'  => 'Le champ %s doit être une date valide (%s)',
         'exists'  => 'L\'enregistrement choisi dans le champ %s existe déjà dans le système',
         'fileType'  =>  'Le champs %s n\'est pas au format valide. type attendu %s',
-        'uploaded'  =>  'Vous devez uploader un fichier'
+        'uploaded'  =>  'Vous devez uploader un fichier',
+        'email'     =>  "Email non valide"
     ];
 
     public function __construct(string $key, string $rule, array $attributes = [])

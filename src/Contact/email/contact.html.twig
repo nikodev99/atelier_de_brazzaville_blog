@@ -1,0 +1,18 @@
+<h1>Une personne vous a contacté</h1>
+<ul>
+    <li>Nom: {{ name }}</li>
+    <li>Email: {{ email }}
+        <ul>
+            <li><a href="mailto:{{ email }}"></a>Répondre à {{ name }}</li>
+        </ul>
+    </li>
+    {% if tel is not empty %}
+        <li>Numéro de téléphone: {{ tel }}
+            <ul>
+                <li><a href="tel:{{ tel }}">Appeler {{ name }}</a></li>
+            </ul>
+        </li>
+    {% endif %}
+    <li>Sujet: {{ subject }}</li>
+    <li>Message: <br>{{ message | ln2br }}</li>
+</ul>

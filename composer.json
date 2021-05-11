@@ -32,6 +32,7 @@
         "ext-fileinfo": "*",
         "pagerfanta/pagerfanta": "^3.0",
         "intervention/image": "^2.5",
-        "psr/http-server-middleware": "^1.0"
+        "psr/http-server-middleware": "^1.0",
+        "swiftmailer/swiftmailer": "^6.2"
     }
 }

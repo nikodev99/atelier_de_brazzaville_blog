@@ -19,13 +19,18 @@
     <link rel="apple-touch-icon" href="../style/images/apple-touch-icon.png">
     
     <!-- Design fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,500,700" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link href="../style/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- notifications CSS
+    ============================================ -->
+    <link rel="stylesheet" href="../../webroot/css/Lobibox.min.css">
+    <link rel="stylesheet" href="../../webroot/css/notifications.css">
 
     <!-- FontAwesome Icons core CSS -->
     <link href="../style/css/font-awesome.min.css" rel="stylesheet">
@@ -262,12 +267,27 @@
 
         <div class="dmtop">Scroll to Top</div>
 
+        <!-- Breadcome End-->
+        {% if flash('success') %}
+            <div data-msg="{{ flash('success') }}" data-type="success" id="session" class="fa fa-exclamation-triangle"></div>
+        {% endif %}
+        {% if flash('error') %}
+            <div data-msg="{{ flash('error') }}" data-type="error" id="session"></div>
+        {% endif %}
+
     </div>
 
     <script src="../style/js/jquery.min.js"></script>
     <script src="../style/js/tether.min.js"></script>
     <script src="../style/js/bootstrap.min.js"></script>
     <script src="../style/js/masonry.js"></script>
+
+    <!-- notification JS
+		============================================ -->
+    <script src="../../webroot/js/Lobibox.js"></script>
+    <script src="../../webroot/js/notification-active.js"></script>
+
     <script src="../style/js/custom.js"></script>
+    <script src="../style/js/script.js"></script>
 </body>
 </html>

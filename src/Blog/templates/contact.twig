@@ -39,14 +39,25 @@
                             </p>
                         </div>
                     </div><!-- end row -->
+                    {% if (errors) %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="alert alert-danger">
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="row">
                         <div class="col-lg-12">
-                            <form class="form-wrapper" method="POST">
-                                <input type="text" name="name" class="form-control" placeholder="Votre nom *" required>
-                                <input type="email" name="email" class="form-control" placeholder="Votre adresse email *" required>
-                                <input type="text" name="tel" class="form-control" placeholder="Numéro de téléphone">
-                                <input type="text" name="subject" class="form-control" placeholder="Sujet *" required>
-                                <textarea name="message" class="form-control" placeholder="Votre message *" required></textarea>
+                            <form action="{{ path('blog.contact') }}" class="form-wrapper" method="POST">
+                                {{ field('name', 'Votre nom', null, {placeholder: 'Entrer votre nom', col:12}) }}
+                                {{ field('email', 'Votre adresse email', null, {type: 'email', placeholder: 'Entrer votre email', col:12}) }}
+                                {{ field('tel', 'Numéro de téléphone', null, {placeholder: 'Entrer votre numéro de téléphone', col:12}) }}
+                                {{ field('subject', 'Sujet', null, {placeholder: 'Sujet', col:12}) }}
+                                {{ field('message', 'Votre message', null, {type: 'textarea', placeholder: 'Votre message', col:12}) }}
                                 <button type="submit" class="btn btn-primary">Envoyer <i class="fa fa-envelope-open-o"></i></button>
                             </form>
                         </div>

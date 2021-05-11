@@ -1,5 +1,6 @@
 <?php
 
+use Framework\Mail\SwiftMailerFactory;
 use Framework\Renderer\RendererInterface;
 use Framework\Renderer\TwigRendererFactory;
 use Framework\Router;
@@ -53,5 +54,8 @@ return [
                 PDO::ATTR_ERRMODE   =>  PDO::ERRMODE_EXCEPTION
             ]
         );
-    }
+    },
+
+    'mail.to'   =>  'nikhe.niama99@gmail.com',
+    Swift_Mailer::class =>  factory(SwiftMailerFactory::class)
 ];

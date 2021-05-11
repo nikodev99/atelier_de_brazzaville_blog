@@ -21,11 +21,13 @@ class PostIndexAction
      */
     private CategoryTable $categoryTable;
 
-    public function __construct(RendererInterface $renderer, PostTable $postTable, CategoryTable $categoryTable)
+    public function __construct(RendererInterface $renderer, PostTable $postTable, CategoryTable $categoryTable = null)
     {
         $this->renderer = $renderer;
         $this->postTable = $postTable;
-        $this->categoryTable = $categoryTable;
+        if ($categoryTable) {
+            $this->categoryTable = $categoryTable;
+        }
     }
 
     public function __invoke(ServerRequestInterface $request): string
@@ -37,9 +39,6 @@ class PostIndexAction
         }
         if (strpos($request->getUri()->getPath(), "article-a-la-une")) {
             return $this->newPosts($currentPage);
-        }
-        if (strpos($request->getUri()->getPath(), "contact")) {
-            return $this->contact();
         }
         $posts = $this->postTable->findPaginatedPublic(6, $currentPage, 3);
         $categories = $this->categoryTable->findAll();
@@ -63,11 +62,11 @@ class PostIndexAction
         $newPosts = $this->new();
         return $this->renderer->render("@blog/new_posts", compact('fPosts', 'famousPosts', 'newPosts'));
     }
-    private function contact(): string
+    public function contact(array $errors = []): string
     {
         $famousPosts = $this->famous();
         $newPosts = $this->new();
-        return $this->renderer->render("@blog/contact", compact('famousPosts', 'newPosts'));
+        return $this->renderer->render("@blog/contact", compact('famousPosts', 'newPosts', 'errors'));
     }
 
     private function famous(): array

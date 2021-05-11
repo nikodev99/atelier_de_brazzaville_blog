@@ -28,7 +28,6 @@ class BlogModule extends Module
         $router->get($container->get('blog.prefix'), PostIndexAction::class, 'blog.index');
         $router->get('/tendances', PostIndexAction::class, 'blog.tendance');
         $router->get('/article-a-la-une', PostIndexAction::class, 'blog.newPost');
-        $router->get('/contact', PostIndexAction::class, 'blog.contact');
         $router->get($container->get('blog.prefix') . '/[*:slug]-[i:id]', PostShowAction::class, 'blog.show');
         $router->get($container->get('blog.prefix') . '/[*:slug]', CategoryShowAction::class, 'blog.category');
 
