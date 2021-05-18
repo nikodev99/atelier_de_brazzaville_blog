@@ -1,0 +1,26 @@
+{% extends '@auth/layout.twig' %}
+
+{% block body %}
+    <div class="contentBx">
+        <div class="formBx">
+            <h2>Inscrivez-vous</h2>
+            <form action="{{ path('account.signup') }}" method="post">
+                {{ ff('last_name', 'Nom *', params.last_name) }}
+                {{ ff('first_name', 'Prénom *', params.first_name) }}
+                {{ ff('email', 'Email *', params.email, 'email') }}
+                {{ ff('username', 'Pseudo *', params.username) }}
+                {{ ff('password', 'Mot de passe *', null, 'password') }}
+                {{ ff('password_confirm', 'Confirmer le mot de passe *', null, 'password') }}
+                <div class="inputBx">
+                    <input type="submit" value="Enregistrer">
+                </div>
+                <div class="inputBx">
+                    <p>Vous avez déjà un compte ? <a href="{{ path('auth.login') }}">Se connecter</a> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="imgBx">
+        <img src="../../style/images/bg.png" alt="">
+    </div>
+{% endblock %}

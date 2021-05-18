@@ -23,6 +23,10 @@ body
 {
 	font-size: 13px;
 	line-height: 1.6;
+	width: 920px;
+	border-left: 1px solid rgba(0,0,0,.3);
+	border-right: 1px solid rgba(0,0,0,.3);
+	margin: auto;
 
 	/* Fix for missing scrollbars with RTL texts. (#10488) */
 	word-wrap: break-word;

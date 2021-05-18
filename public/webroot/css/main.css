@@ -1,8 +1,5 @@
 .basic-form-area {
   position: absolute;
-  width: 70%;
-  left: 30%;
-  top: 30%;
 }
 @media only screen and (max-width:700px) {
   .basic-form-area {
@@ -10,5 +7,4 @@
     width: 100%;
   }
 }
-
 /*# sourceMappingURL=main.css.map */

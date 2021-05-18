@@ -1,88 +1,27 @@
-<!doctype html>
-<html class="no-js" lang="en">
-
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title "Atelier de brazzaville" %}</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title 'Connection' %} | L'atélier Brazzaville</title>
     <link rel="stylesheet" href="../../webroot/css/bootstrap.min.css">
-    <!-- font awesome CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/font-awesome.min.css">
-    <!-- adminpro icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/adminpro-custon-icon.css">
-    <!-- meanmenu icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/meanmenu.min.css">
-    <!-- mCustomScrollbar CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/jquery.mCustomScrollbar.min.css">
-    <!-- animate CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/animate.css">
-    <!-- modals CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/modals.css">
-    <!-- data-table CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/data-table/bootstrap-table.css">
-    <link rel="stylesheet" href="../../webroot/css/data-table/bootstrap-editable.css">
-    <!-- normalize CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/normalize.css">
     <!-- notifications CSS
 		============================================ -->
     <link rel="stylesheet" href="../../webroot/css/Lobibox.min.css">
     <link rel="stylesheet" href="../../webroot/css/notifications.css">
-    <!-- charts C3 CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/c3.min.css">
-    <!-- forms CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/form/all-type-forms.css">
-    <!-- style CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/style.css">
-    <!-- responsive CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/responsive.css">
-    <!-- Flatpicker CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/flatpicker.css">
-    <!-- Main CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../webroot/css/main.css">
-    <!-- modernizr JS
-		============================================ -->
-    <script src="../../webroot/js/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="../../asset/style.css">
 </head>
-
-<body class="materialdesign modal-open" style="overflow: auto">
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
-
-<!-- Header top area start-->
-<div class="wrapper-pro">
-
-    {% if flash('success') %}
-        <div data-msg="{{ flash('success') }}" data-type="success" id="session"></div>
-    {% endif %}
-    {% if flash('error') %}
-        <div data-msg="{{ flash('error') }}" data-type="error" id="session"></div>
-    {% endif %}
+<body>
+<section>
     {% block body %}{% endblock %}
+</section>
 
-</div>
+{% if flash('success') %}
+    <div data-msg="{{ flash('success') }}" data-type="success" id="session"></div>
+{% endif %}
+{% if flash('error') %}
+    <div data-msg="{{ flash('error') }}" data-type="error" id="session"></div>
+{% endif %}
 
 <!-- jquery
     ============================================ -->
@@ -96,65 +35,11 @@
 <!-- mCustomScrollbar JS
     ============================================ -->
 <script src="../../webroot/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<!-- sticky JS
-    ============================================ -->
 <script src="../../webroot/js/jquery.sticky.js"></script>
-<!-- scrollUp JS
-    ============================================ -->
-<script src="../../webroot/js/jquery.scrollUp.min.js"></script>
 <!-- notification JS
 		============================================ -->
 <script src="../../webroot/js/Lobibox.js"></script>
 <script src="../../webroot/js/notification-active.js"></script>
-<!-- counterup JS
-    ============================================ -->
-<script src="../../webroot/js/counterup/jquery.counterup.min.js"></script>
-<script src="../../webroot/js/counterup/waypoints.min.js"></script>
-<script src="../../webroot/js/counterup/counterup-active.js"></script>
-<!-- modal JS
-		============================================ -->
-<script src="../../webroot/js/modal-active.js"></script>
-<!-- icheck JS
-		============================================ -->
-<script src="../../webroot/js/icheck/icheck.min.js"></script>
-<script src="../../webroot/js/icheck/icheck-active.js"></script>
-<!-- peity JS
-    ============================================ -->
-<script src="../../webroot/js/peity/jquery.peity.min.js"></script>
-<script src="../../webroot/js/peity/peity-active.js"></script>
-<!-- sparkline JS
-    ============================================ -->
-<script src="../../webroot/js/sparkline/jquery.sparkline.min.js"></script>
-<script src="../../webroot/js/sparkline/sparkline-active.js"></script>
-<!-- flot JS
-    ============================================ -->
-<script src="../../webroot/js/flot/jquery.flot.js"></script>
-<script src="../../webroot/js/flot/jquery.flot.tooltip.min.js"></script>
-<script src="../../webroot/js/flot/jquery.flot.spline.js"></script>
-<script src="../../webroot/js/flot/jquery.flot.resize.js"></script>
-<script src="../../webroot/js/flot/jquery.flot.pie.js"></script>
-<script src="../../webroot/js/flot/Chart.min.js"></script>
-<script src="../../webroot/js/flot/flot-active.js"></script>
-
-<!-- data table JS
-    ============================================ -->
-<script src="../../webroot/js/data-table/bootstrap-table.js"></script>
-<script src="../../webroot/js/data-table/tableExport.js"></script>
-<script src="../../webroot/js/data-table/data-table-active.js"></script>
-<script src="../../webroot/js/data-table/bootstrap-table-editable.js"></script>
-<script src="../../webroot/js/data-table/bootstrap-editable.js"></script>
-<script src="../../webroot/js/data-table/bootstrap-table-resizable.js"></script>
-<script src="../../webroot/js/data-table/colResizable-1.5.source.js"></script>
-<script src="../../webroot/js/data-table/bootstrap-table-export.js"></script>
-<script src="../../webroot/js/ckeditor/ckeditor.js"></script>
-<!-- faltpicker -->
-<script src="../../webroot/js/flatpicker.js"></script>
-<script src="../../webroot/js/fr.js"></script>
-<!-- main JS
-    ============================================ -->
 <script src="../../webroot/js/main.js"></script>
-
-<script type="text/javascript" src="../../webroot/js/script.js" defer></script>
 </body>
-
 </html>

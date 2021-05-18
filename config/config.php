@@ -10,6 +10,7 @@ use Framework\Twig\AuthTwigExtension;
 use Framework\Twig\DateTimeTwigExtension;
 use Framework\Twig\FlashTwigExtension;
 use Framework\Twig\FormTwigExtension;
+use Framework\Twig\FrontFormTwigException;
 use Framework\Twig\LayoutTwigExtension;
 use Framework\Twig\PagerfantaTwigExtension;
 use Framework\Twig\RouterTwigExtension;
@@ -38,6 +39,7 @@ return [
         get(DateTimeTwigExtension::class),
         get(FlashTwigExtension::class),
         get(FormTwigExtension::class),
+        get(FrontFormTwigException::class),
         get(LayoutTwigExtension::class),
         get(AuthTwigExtension::class)
     ],

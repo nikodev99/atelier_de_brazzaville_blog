@@ -11,7 +11,6 @@ use Framework\Validator;
 use Psr\Http\Message\ServerRequestInterface;
 use Swift_Mailer;
 use Swift_Message;
-use Swift_SmtpTransport;
 
 class ContactAction
 {

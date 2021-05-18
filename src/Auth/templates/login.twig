@@ -1,70 +1,31 @@
 {% extends '@auth/layout.twig' %}
 
-{% block title "Atelier de Brazzaville | Login" %}
-
 {% block body %}
-
-    <div class="basic-form-area mg-b-15">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="sparkline8-list basic-res-b-30 shadow-reset">
-                        <div class="sparkline8-hd">
-                            <div class="main-sparkline8-hd">
-                                <h1>Connecter vous</h1>
-                                <div class="sparkline8-outline-icon">
-                                    <span class="sparkline8-collapse-link"><i class="fa fa-chevron-up"></i></span>
-                                    <span><i class="fa fa-wrench"></i></span>
-                                    <span class="sparkline8-collapse-close"><i class="fa fa-times"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sparkline8-graph">
-                            <div class="basic-login-form-ad">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="login-social-inner">
-                                            <a href="#" class="button btn-social basic-ele-mg-b-10 facebook span-left">
-                                                <span>
-                                                    <i class="fa fa-facebook"></i>
-                                                </span> Connection avec facebook
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <div class="basic-login-inner">
-                                            <p>Connection à l'aletier Brazzaville</p>
-                                            <form action="{{ path('auth.login') }}" method="post">
-                                                {{ field('username', 'Nom d\'utilisateur ou email *', item.title, {placeholder: 'Enter nom d\'utilisateur ou email', required:true, col:12}) }}
-                                                {{ field('password', 'Mot de passe *', item.title, {type:'password', placeholder: 'Enter votre mot de passe', required:true, col:12}) }}
-                                                <div class="login-btn-inner">
-                                                    <div class="inline-remember-me">
-                                                        <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">Connection</button>
-                                                        <label>
-                                                            <input type="checkbox" class="i-checks"> Se rappeler de moi </label>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <div class="basic-login-inner basic-ele-mg-t-20">
-                                            <h3>Vous n'avez pas de compte ?</h3>
-                                            <p>Vous pouvez créer un compte</p>
-                                            <div class="create-account-sign">
-                                                <a href="#" class="bg-icon"><i class="fa fa-sign-in" style="font-size: 180px"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="imgBx">
+        <img src="../../style/images/bg.png" alt="">
+    </div>
+    <div class="contentBx">
+        <div class="formBx">
+            <h2>Connectez-vous</h2>
+            <form action="{{ path('auth.login') }}" method="post">
+                <div class="inputBx">
+                    <label for="username">Pseudo ou email</label>
+                    <input type="text" name="username" id="username">
                 </div>
-            </div>
+                <div class="inputBx">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <div class="remember">
+                    <label><input type="checkbox" name="remember_me"> Se rappeler de moi</label>
+                </div>
+                <div class="inputBx">
+                    <input type="submit" value="Se connecter">
+                </div>
+                <div class="inputBx">
+                    <p>Vous n'avez pas encore de compte ? <a href="{{ path('account.signup') }}">Créer un compte</a> </p>
+                </div>
+            </form>
         </div>
     </div>
-
 {% endblock %}

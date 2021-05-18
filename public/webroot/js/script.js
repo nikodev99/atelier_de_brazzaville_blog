@@ -1,6 +1,7 @@
 const ck1 = document.querySelector('#content')
+const ck_editor = document.querySelector('.cke_editable.cke_editable_themed.cke_contents_ltr.cke_show_borders')
 
-console.log(ck1);
+console.log(ck_editor);
 
 flatpickr('.datepicker', {
     enableTime: true,
@@ -11,8 +12,9 @@ flatpickr('.datepicker', {
 })
 
 if (ck1 !== null) {
+    console.log(CKEDITOR.replace(ck1))
     CKEDITOR.replace(ck1, {
         filebrowserUploadUrl: '/ck_upload.php?CKEditorFuncNum = 1',
-        filebrowserUoloadMethod: 'form'
+        filebrowserUoloadMethod: 'form',
     })
 }

@@ -35,7 +35,7 @@ class ForbiddenMiddleware implements MiddlewareInterface
     {
         try {
             return $handler->handle($request);
-        } catch (ForbiddenException | TypeError $f) {
+        } catch (ForbiddenException $f) {
             return $this->redirectToLogin($request);
         }
     }

@@ -3,6 +3,7 @@
 namespace Framework;
 
 use DateTime;
+use Framework\Database\Table;
 use Framework\Validator\ValidationError;
 use PDO;
 use Psr\Http\Message\UploadedFileInterface;
@@ -77,6 +78,16 @@ class Validator
         return $this;
     }
 
+    public function confirm(string $key): self
+    {
+        $value = $this->getValue($key);
+        $confirmValue = $this->getValue($key . '_confirm');
+        if ($value !== $confirmValue) {
+            $this->addError($key, 'confirm', [$key]);
+        }
+        return $this;
+    }
+
     public function datetime(string $key, string $format = 'Y-m-d H:i:s'): self
     {
 
@@ -94,13 +105,30 @@ class Validator
         return $this;
     }
 
-    public function exists(string $key, string $table, PDO $pdo): self
+    /**
+     * @param string $key
+     * @param string|Table $table
+     * @param PDO|null $pdo
+     * @return $this
+     */
+    public function exists(string $key, $table, ?PDO $pdo = null): self
     {
-        $keyValue = $this->getValue($key);
-        $statement = $pdo->prepare("SELECT * FROM $table WHERE id = ?");
-        $statement->execute([$keyValue]);
-        if ($statement->fetchColumn() === false) {
+        if (!$this->valueExists($key, $table, $pdo)) {
             $this->addError($key, 'exists', [$table]);
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param string|Table $table
+     * @param PDO|null $pdo
+     * @return $this
+     */
+    public function unique(string $key, $table, ?PDO $pdo = null): self
+    {
+        if ($this->valueExists($key, $table, $pdo)) {
+            $this->addError($key, 'unique', [$table]);
         }
         return $this;
     }
@@ -160,6 +188,25 @@ class Validator
             }
         }
         return $this;
+    }
+
+    private function valueExists(string $key, $table, ?PDO $pdo = null): bool
+    {
+        if ($table instanceof Table) {
+            $pdo = $table->getPdo();
+            $table = $table->getTable();
+        }
+        $keyValue = $this->getValue($key);
+        $column = $key;
+        if (stripos($key, '_id')) {
+            $column = 'id';
+        }
+        $statement = $pdo->prepare("SELECT * FROM $table WHERE $column = ?");
+        $statement->execute([$keyValue]);
+        if ($statement->fetchColumn() !== false) {
+            return true;
+        }
+        return false;
     }
 
     private function getValue(string $key)

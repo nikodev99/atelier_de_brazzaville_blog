@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- Site Metas -->
-    <title>{%  block title "Blog | Atelier de Brazzaville" %}</title>
+    <title>{%  block title "Blog" %} | Atelier de Brazzaville</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -105,7 +105,7 @@
                                 </form>
                             {% else %}
                                 <a style="margin-left: 5px" href="{{ path('auth.login') }}"><i class="fa fa-user"></i> Se connecter</a> |
-                                <a href="#collapseExample"> S'Inscrire</a>
+                                <a href="{{ path('account.signup') }}"> S'Inscrire</a>
                             {% endif %}
                         </div><!-- end search -->
                     </div><!-- end col -->

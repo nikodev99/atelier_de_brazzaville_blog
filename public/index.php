@@ -1,5 +1,6 @@
 <?php
 
+use App\Account\AccountModule;
 use App\Admin\AdminModule;
 use App\Auth\AuthModule;
 use App\Auth\ForbiddenMiddleware;
@@ -29,6 +30,7 @@ $app = (new App(dirname(__DIR__) . '/config/config.php'))
     ->addModule(ContactModule::class)
     ->addModule(AdminModule::class)
     ->addModule(AuthModule::class)
+    ->addModule(AccountModule::class)
 ;
 
 $container = $app->getContainer();

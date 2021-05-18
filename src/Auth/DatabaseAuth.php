@@ -41,7 +41,7 @@ class DatabaseAuth implements Auth
         /** @var User|null $user */
         $user = $this->userTable->findUser(['username', 'email'], $username);
         if ($user && PasswordHash::verify($password, $user->password)) {
-            $this->session->set('auth.user', $user->id);
+            $this->setUser($user);
             return $user;
         }
         return null;
@@ -65,8 +65,10 @@ class DatabaseAuth implements Auth
         return null;
     }
 
-    public function getUsername()
+    public function setUser(User $user): void
     {
+        $this->session->set('auth.user', $user->id);
+        $this->user = $user;
     }
 
     public function logout(): void
