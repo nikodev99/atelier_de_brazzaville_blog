@@ -97,7 +97,9 @@
                         <div class="topsearch text-right">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-search"></i> Recherches</a>
                             {% if (current_user()) %}
-                                <a style="margin-left: 5px" href="{{ path('admin.post.index') }}"><i class="fa fa-user"></i> {{ current_user().first_name}} {{ current_user().last_name }}</a>
+                                <a style="margin-left: 5px" href="
+                                {% if (current_user().role == 'user') %}{{ path('account.profile') }}{% else %}{{ path('admin.post.index') }}{% endif %}
+                                "><i class="fa fa-user"></i> {{ current_user().first_name}} {{ current_user().last_name }}</a>
                                 <form action="{{ path('auth.logout') }}" method="post" style="display: inline;">
                                     <button style="background: none; color: rgba(0, 0, 0, 0.8); border-style: none; cursor: pointer">
                                         <i class="fa fa-power-off"></i> Se déconnecter

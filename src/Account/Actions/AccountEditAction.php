@@ -42,7 +42,7 @@ class AccountEditAction
 
     public function __invoke(ServerRequestInterface $request)
     {
-        /** @var User $user */
+        /** @var User|null $user */
         $user = $this->auth->getUser();
         $post = new PostIndexAction($this->renderer, $this->postTable);
         $famousPosts = $post->famous();

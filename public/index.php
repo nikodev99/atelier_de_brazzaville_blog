@@ -6,7 +6,7 @@ use App\Auth\AuthModule;
 use App\Auth\ForbiddenMiddleware;
 use App\Contact\ContactModule;
 use Framework\App;
-use Framework\Auth\LoggedInMiddleware;
+use Framework\Auth\RoleMiddlewareFactory;
 use Framework\Middleware\DispatcherMiddleware;
 use Framework\Middleware\MethodMiddleware;
 use Framework\Middleware\NotFoundMiddleware;
@@ -36,7 +36,7 @@ $app = (new App(dirname(__DIR__) . '/config/config.php'))
 $container = $app->getContainer();
 $app->pipe(TrailingSlashMiddleware::class)
     ->pipe(ForbiddenMiddleware::class)
-    ->pipe(LoggedInMiddleware::class, $container->get("admin.prefix"))
+    ->pipe($container->get(RoleMiddlewareFactory::class)->makeForRole('admin'), $container->get("admin.prefix"))
     ->pipe(MethodMiddleware::class)
     ->pipe(RouterMiddleware::class)
     ->pipe(DispatcherMiddleware::class)

@@ -6,6 +6,8 @@ use App\Auth\DatabaseAuth;
 use App\Auth\Entity\User;
 use App\Auth\PasswordHash;
 use App\Auth\Table\UserTable;
+use DateTime;
+use DateTimeZone;
 use Framework\Database\NoRecordException;
 use Framework\Renderer\RendererInterface;
 use Framework\Response\RedirectResponse;
@@ -46,7 +48,14 @@ class SignupAction
     public function __invoke(ServerRequestInterface $request)
     {
         if ($request->getMethod() === 'POST') {
-            $params = $request->getParsedBody();
+            $params = array_merge(
+                $request->getParsedBody(),
+                [
+                    'registration' => (new DateTime())
+                        ->setTimezone(new DateTimeZone('Africa/Brazzaville'))
+                        ->format('Y-m-d H:i:s')
+                ]
+            );
             $validator = (new Validator($params))
                 ->unEmptied('last_name', 'first_name', 'email', 'username', 'password', 'password_confirm')
                 ->required('last_name', 'first_name', 'email', 'username', 'password', 'password_confirm')
