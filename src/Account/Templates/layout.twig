@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Site Metas -->
+    <title>{%  block title "Blog" %} | Atelier de Brazzaville</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="../style/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="../style/images/apple-touch-icon.png">
+
+    <!-- Design fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../style/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- notifications CSS
+    ============================================ -->
+    <link rel="stylesheet" href="../../webroot/css/Lobibox.min.css">
+    <link rel="stylesheet" href="../../webroot/css/notifications.css">
+
+    <!-- FontAwesome Icons core CSS -->
+    <link href="../style/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../style/css/style.css" rel="stylesheet">
+
+    <!-- Responsive styles for this template -->
+    <link href="../style/css/responsive.css" rel="stylesheet">
+
+    <!-- Colors for this template -->
+    <link href="../style/css/colors.css" rel="stylesheet">
+
+    <link href="../style/countries/css/bootstrap-select-country.min.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="preloader">
+    <img class="preloader" src="../style/images/loader.gif" alt="">
+</div><!-- end loader -->
+<!-- END LOADER -->
+
+<div id="wrapper">
+
+    <div class="collapse top-search" id="collapseExample">
+        <div class="card card-block">
+            <div class="newsletter-widget text-center">
+                <form class="form-inline">
+                    <input type="text" class="form-control" placeholder="Que cherchez-vous ?">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </form>
+            </div><!-- end newsletter -->
+        </div>
+    </div><!-- end top-search -->
+
+    <div class="topbar-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 hidden-xs-down">
+                    <div class="topsocial">
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                    </div><!-- end social -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 hidden-md-down">
+                    <div class="topmenu text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="{{ path("blog.tendance") }}"><i class="fa fa-star"></i> Tendances</a></li>
+                            <li class="list-inline-item"><a href="{{ path("blog.newPost") }}"><i class="fa fa-bolt"></i> Article à la une</a></li>
+                            <li class="list-inline-item"><a href="{{ path("blog.contact") }}"><i class="fa fa-user-circle-o"></i> Nous écrire</a></li>
+                        </ul><!-- end ul -->
+                    </div><!-- end topmenu -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="topsearch text-right">
+                        <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-search"></i> Recherches</a>
+                        {% if (current_user()) %}
+                            <a style="margin-left: 5px" href="{{ path('admin.post.index') }}"><i class="fa fa-user"></i> {{ current_user().first_name}} {{ current_user().last_name }}</a>
+                            <form action="{{ path('auth.logout') }}" method="post" style="display: inline;">
+                                <button style="background: none; color: rgba(0, 0, 0, 0.8); border-style: none; cursor: pointer">
+                                    <i class="fa fa-power-off"></i> Se déconnecter
+                                </button>
+                            </form>
+                        {% else %}
+                            <a style="margin-left: 5px" href="{{ path('auth.login') }}"><i class="fa fa-user"></i> Se connecter</a> |
+                            <a href="{{ path('account.signup') }}"> S'Inscrire</a>
+                        {% endif %}
+                    </div><!-- end search -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end header-logo -->
+    </div><!-- end topbar -->
+
+    <div class="header-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="logo">
+                        <a href="{{ path('homepage.show') }}"><img src="../style/images/logo.png" alt=""></a>
+                    </div><!-- end logo -->
+                    <hr style="background: #e63412">
+                    <p>Entre Europe et Afrique</p>
+                </div>
+            </div><!-- end row -->
+        </div><!-- end header-logo -->
+    </div><!-- end header -->
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-inverse navbar-toggleable-md">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#cloapediamenu" aria-controls="cloapediamenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-md-center" id="cloapediamenu">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link color-yellow-hover" href="{{ path('account.profile') }}"><i class="fa fa-shopping-bag"></i> Panier</a>
+                        </li>
+                        <li class="nav-item dropdown has-submenu">
+                            <a class="nav-link color-green-hover" href="#"><i class="fa fa-history"></i> Historique</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-pink-hover" href="blog-category-01.html"><i class="fa fa-file-text"></i> Factures</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-red-hover" href="{{ path("account.edit") }}"><i class="fa fa-user"></i> Editer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('homepage.show') }}"><i class="fa fa-home"></i> Accueil</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div><!-- end container -->
+    </header>
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="page-wrapper">
+                        <div class="profil">
+                            <img src="../../style/images/default.png" alt="">
+                            <div class="media">
+                                <span>{{ user.first_name }} {{ user.last_name }}</span>
+                                <span>Inscrit depuis 3 semaines</span>
+                            </div>
+                        </div>
+                        <hr style="background: rgba(230,52,18,.2)">
+                        {% if (errors) %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="alert alert-danger">
+                                        {% for error in errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <div class="widget">
+                        <h2 class="widget-title">Articles Récents</h2>
+                        <div class="blog-list-widget">
+                            <div class="list-group">
+                                {% for new in newPosts %}
+                                    <a href="{{ path('blog.show', {slug:new.slug, id:new.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="w-100 justify-content-between">
+                                            <img src="{{ new.thumb }}" alt="" class="img-fluid float-left">
+                                            <h5 class="mb-1">{{ new.title }}</h5>
+                                            <small>{{ new.created_date.format('d M Y H:i') }}</small>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div><!-- end blog-list -->
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <div class="widget">
+                        <h2 class="widget-title">Articles Populaires</h2>
+                        <div class="blog-list-widget">
+                            <div class="list-group">
+                                {% for famous in famousPosts %}
+                                    <a href="{{ path('blog.show', {slug:famous.slug, id:famous.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="w-100 justify-content-between">
+                                            <img src="{{ famous.thumb }}" alt="" class="img-fluid float-left">
+                                            <h5 class="mb-1">{{ famous.title }}</h5>
+                                            <span class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div><!-- end blog-list -->
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <div class="widget">
+                        <h2 class="widget-title">Les Catégories</h2>
+                        <div class="link-widget">
+                            <ul>
+                                <li><a href="{{ path('blog.category', {slug:"maternelles"}) }}">Maternelles </a></li>
+                                <li><a href="{{ path('blog.category', {slug:"primaire"}) }}">Primaire </a></li>
+                                <li><a href="{{ path('blog.category', {slug:"bijoux"}) }}">Bijoux </a></li>
+                                <li><a href="{{ path('blog.category', {slug:"sacs"}) }}">Sacs </a></li>
+                                <li><a href="{{ path('blog.category', {slug:"vetements"}) }}">Vêtements </a></li>
+                                <li><a href="{{ path('blog.category', {slug:"deco"}) }}">Déco </a></li>
+                                <li><a href="{{ path('blog.category', {slug:"recup"}) }}">Récup' </a></li>
+                            </ul>
+                        </div><!-- end link-widget -->
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+
+            <hr class="invis1">
+
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="widget">
+                        <div class="footer-text text-center">
+                            <a href="index.html"><img src="../style/images/logo.png" alt="" class="img-fluid"></a>
+                            <p style="font-size: 16px">
+                                L’Atelier Brazzaville est un lieu mais aussi une marque faisant appel à la créativité et à l'expression personnelle.
+                            </p>
+                            <div class="social">
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                            </div>
+
+                            <hr class="invis">
+                        </div><!-- end footer-text -->
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <br>
+                    <div class="copyright">&copy; L'Atélier Brazzaville. Design: <a href="http://html.design" target="_blank">HTML Design</a>.</div>
+                </div>
+            </div>
+        </div><!-- end container -->
+    </footer><!-- end footer -->
+
+    <div class="dmtop">Scroll to Top</div>
+
+    <!-- Breadcome End-->
+    {% if flash('success') %}
+        <div data-msg="{{ flash('success') }}" data-type="success" id="session" class="fa fa-exclamation-triangle"></div>
+    {% endif %}
+    {% if flash('error') %}
+        <div data-msg="{{ flash('error') }}" data-type="error" id="session"></div>
+    {% endif %}
+
+</div>
+
+<script src="../style/js/jquery.min.js"></script>
+<script src="../style/js/tether.min.js"></script>
+<script src="../style/js/bootstrap.min.js"></script>
+<script src="../style/js/masonry.js"></script>
+
+<!-- notification JS
+    ============================================ -->
+<script src="../../webroot/js/Lobibox.js"></script>
+<script src="../../webroot/js/notification-active.js"></script>
+
+<!-- faltpicker -->
+<script src="../../webroot/js/flatpicker.js"></script>
+<script src="../../webroot/js/fr.js"></script>
+
+<script src="../style/js/custom.js"></script>
+<script src="../style/countries/js/bootstrap-select-country.min.js"></script>
+<script src="../style/js/script.js"></script>
+</body>
+</html>

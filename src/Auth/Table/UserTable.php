@@ -11,7 +11,13 @@ class UserTable extends Table
 {
     protected string $table = 'users';
 
-    protected ?string $entity = User::class;
+    protected ?string $entity;
+
+    public function __construct(PDO $pdo, $entity = User::class)
+    {
+        $this->entity = $entity;
+        parent::__construct($pdo);
+    }
 
     /**
      * @throws NoRecordException

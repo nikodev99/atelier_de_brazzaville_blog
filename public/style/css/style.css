@@ -1631,6 +1631,14 @@ hr.invis3 {
     text-transform: none;
 }
 
+.btn.btn-danger {
+    background: #a6333f!important;
+}
+
+.btn.btn-danger:hover {
+    background: #d9404d !important;
+}
+
 .link-widget li {
     padding: 0.4rem 0.2rem 0.6rem;
     text-transform: capitalize;
@@ -1688,4 +1696,29 @@ hr.invis3 {
 
 .form-control.input-with-error {
     border: 1px dashed red;
+}
+
+.profil {
+    display: flex;
+    vertical-align: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
+.profil img {
+    border: 1px solid #e63412;
+    border-radius: 50%;
+}
+
+.media {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.media span:first-of-type {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
 }

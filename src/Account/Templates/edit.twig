@@ -1,0 +1,45 @@
+{% extends '@account/layout.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3><i class="fa fa-user"></i> Editer vos informations</h3>
+            <form action="{{ path('account.edit') }}?edit=info" method="post" class="form-wrapper">
+                <div class="row">
+                    {{ field('last_name', 'Nom', user.last_name) }}
+                    {{ field('first_name', 'Prénom', user.first_name) }}
+                    {{ field('email', 'Email', user.email, {type: 'email'}) }}
+                    {{ field('username', 'Pseudo', user.username) }}
+                    {{ field('birth_date', 'Date de naissance', user.birth_date, {type:'date'}) }}
+                    {{ field('country', 'Pays', user.country, {type:'select', options:[]}) }}
+                    {{ field('city', 'Ville', user.city) }}
+                    {{ field('address', 'Addresse', user.address) }}
+                    <button type="submit" class="btn btn-primary">Enregistrer <i class="fa fa-save"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-5">
+            <h3><i class="fa fa-lock"></i> Changer votre mot de passe</h3>
+            <form action="{{ path('account.edit') }}?edit=pass" method="post" class="form-wrapper">
+                <div class="row">
+                    {{ field('password', 'Nouveau Mot de passe', null, {type:'password', placeholder:'Entrer un nouveau mot de passe'}) }}
+                    {{ field('password_confirm', 'Confirmation du nouveau mot de passe', null, {type:'password', placeholder:'confirmer le mot de passe'}) }}
+                    <button type="submit" class="btn btn-primary">Changer mot de passe <i class="fa fa-save"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-5">
+            <h3 style="color: #a6333f"><i class="fa fa-trash"></i> Supprimer votre compte</h3>
+            <p>Vous n'êtes pas satisfait du contenu du site ?
+                Ou vous souhaitez supprimer toutes les informations associées à ce compte ?</p>
+            <form action="{{ path('account.edit') }}?delete=true" method="post" class="form-wrapper"
+                  onsubmit="return confirm('Être vous vraiment sûr de vouloir supprimer votre compte de ce site ?')">
+                <div class="row">
+                    <button type="submit" class="btn btn-danger">Supprimer mon compte <i class="fa fa-trash"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

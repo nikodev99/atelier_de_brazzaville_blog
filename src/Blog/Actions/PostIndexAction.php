@@ -46,6 +46,22 @@ class PostIndexAction
         return $this->renderer->render('@blog/index', compact('posts', 'categories', 'newPosts'));
     }
 
+    public function contact(array $errors = []): string
+    {
+        $famousPosts = $this->famous();
+        $newPosts = $this->new();
+        return $this->renderer->render("@blog/contact", compact('famousPosts', 'newPosts', 'errors'));
+    }
+
+    public function famous(): array
+    {
+        return $this->postTable->findPostsByField("view");
+    }
+
+    public function new(): array
+    {
+        return $this->postTable->findPostsByField("created_date");
+    }
 
     private function tendances(int $current_page): string
     {
@@ -61,21 +77,5 @@ class PostIndexAction
         $famousPosts = $this->famous();
         $newPosts = $this->new();
         return $this->renderer->render("@blog/new_posts", compact('fPosts', 'famousPosts', 'newPosts'));
-    }
-    public function contact(array $errors = []): string
-    {
-        $famousPosts = $this->famous();
-        $newPosts = $this->new();
-        return $this->renderer->render("@blog/contact", compact('famousPosts', 'newPosts', 'errors'));
-    }
-
-    private function famous(): array
-    {
-        return $this->postTable->findPostsByField("view");
-    }
-
-    private function new(): array
-    {
-        return $this->postTable->findPostsByField("created_date");
     }
 }

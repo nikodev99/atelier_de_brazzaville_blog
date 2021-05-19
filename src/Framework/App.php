@@ -4,6 +4,7 @@ namespace Framework;
 
 use DI\ContainerBuilder;
 use Exception;
+use Framework\Middleware\CombinedMiddleware;
 use Framework\Middleware\RoutePrefixedMiddleware;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -61,14 +62,12 @@ class App implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $middleware = $this->getMiddleware();
-        if (is_null($middleware)) {
-            throw new Exception("Request handled by none middleware");
-        } elseif (is_callable($middleware)) {
-            return call_user_func_array($middleware, [$request, [$this, 'handle']]);
-        } elseif ($middleware instanceof MiddlewareInterface) {
-            return $middleware->process($request, $this);
+        $this->index++;
+        if ($this->index > 1) {
+            throw new Exception("Exception rencontrée au niveau des middlewares");
         }
+        $middleware = new CombinedMiddleware($this->getContainer(), $this->middlewares);
+        return $middleware->process($request, $this);
     }
 
     /**
@@ -112,7 +111,7 @@ class App implements RequestHandlerInterface
 
     /**
      * @throws Exception
-     */
+     *
     private function getMiddleware()
     {
         if (array_key_exists($this->index, $this->middlewares)) {
@@ -126,4 +125,5 @@ class App implements RequestHandlerInterface
         }
         return null;
     }
+     * */
 }

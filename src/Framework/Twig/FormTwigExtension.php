@@ -77,17 +77,20 @@ class FormTwigExtension extends AbstractExtension
     private function select(string $key, ?string $value, array $options = []): string
     {
         $select_options = [];
-        foreach ($options['options'] as $k => $option) {
-            $selected = $k == $value ? 'selected' : '';
-            $select_options[] = '<option value="' . $k . '" ' . $selected . '>' . $option . '</option>';
+        if (!empty($options['options'])) {
+            foreach ($options['options'] as $k => $option) {
+                $selected = $k == $value ? 'selected' : '';
+                $select_options[] = '<option value="' . $k . '" ' . $selected . '>' . $option . '</option>';
+            }
+            $required = $this->setOptions('required', $options);
+            $disabled = $this->setOptions('disabled', $options);
+            return "
+            <select class=\"form-control custom-select-value\" name=\"{$key}\" id=\"{$key}\" {$required}{$disabled}>
+                " . implode(PHP_EOL, $select_options) . "
+            </select>
+            ";
         }
-        $required = $this->setOptions('required', $options);
-        $disabled = $this->setOptions('disabled', $options);
-        return "
-        <select class=\"form-control custom-select-value\" name=\"{$key}\" id=\"{$key}\" {$required}{$disabled}>
-            " . implode(PHP_EOL, $select_options) . "
-        </select>
-        ";
+        return "<select class=\"form-control custom-select-value selectpicker countrypicker\" name=\"{$key}\" id=\"{$key}\" data-default='$value'></select>";
     }
 
     private function setOptions(string $key, array $options, $expected = null): string

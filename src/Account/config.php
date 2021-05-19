@@ -1,6 +1,10 @@
 <?php
 
+use App\Account\Entity\User;
+
 return [
     'account.signup'  =>  '/inscription',
-    'account.profile'   =>  '/admin/dashboard?[*:slug]',
+    'account.profile'   =>  '/profil',
+    'account.edit'   =>  '/profil/edit',
+    'auth.entity'       => User::class
 ];

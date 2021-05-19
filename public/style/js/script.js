@@ -7,3 +7,10 @@ if (icon !== null) {
         icon.setAttribute('class', 'fa fa-exclamation-triangle');
     }
 }
+
+flatpickr('.datepicker', {
+    altInput: true,
+    altFormat: 'J F Y, H:i',
+    dateFormat: 'Y-m-d H:i:S',
+    "locale": "fr"
+})

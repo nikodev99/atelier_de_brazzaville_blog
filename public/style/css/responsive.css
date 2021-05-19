@@ -196,3 +196,9 @@
         left: auto;
     }
 }
+
+@media (max-width: 766px) {
+    .media {
+        margin: 0;
+    }
+}
