@@ -2,9 +2,6 @@
 <ul>
     <li>Nom: {{ name }}</li>
     <li>Email: {{ email }}
-        <ul>
-            <li><a href="mailto:{{ email }}"></a>Répondre à {{ name }}</li>
-        </ul>
     </li>
     {% if tel is not empty %}
         <li>Numéro de téléphone: {{ tel }}
@@ -14,5 +11,5 @@
         </li>
     {% endif %}
     <li>Sujet: {{ subject }}</li>
-    <li>Message: <br>{{ message | ln2br }}</li>
+    <li>Message: <br>{{ message | nl2br }}</li>
 </ul>

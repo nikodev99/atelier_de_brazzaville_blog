@@ -34,6 +34,12 @@ class CrudAction
         'delete'    =>  "Article supprimer avec succès !"
     ];
 
+    protected array $failed_messages = [
+        'create'   =>  'Le système d\'ajout d\'article à rencontré une ou plusieurs erreurs',
+        'edit'   =>  'Le système de modification à rencontrée une ou plusieurs erreurs',
+        'delete'   =>  'Le système de suppression d\'article à rencontré une ou plusieurs erreurs'
+    ];
+
     public function __construct(
         RendererInterface $renderer,
         Router $router,
@@ -57,8 +63,9 @@ class CrudAction
             return $this->delete($request);
         }
         if (
-            substr($request->getUri()->getPath(), -5) === 'posts' |
-            substr($request->getUri()->getPath(), -3) === 'ies'
+            substr($request->getUri()->getPath(), -5) === 'posts' ||
+            substr($request->getUri()->getPath(), -3) === 'ies' ||
+            substr($request->getUri()->getPath(), -3) === 'cts'
         ) {
             return $this->posts();
         }
@@ -68,15 +75,6 @@ class CrudAction
         if ($request->getAttribute('id')) {
             return $this->edit($request);
         }
-        return $this->index($request);
-    }
-
-    public function index(ServerRequestInterface $request): string
-    {
-        $params = $request->getQueryParams();
-        $currentPage = $params['p'] ?? 1;
-        $items = $this->table->findPaginated(6, $currentPage);
-        return $this->renderer->render($this->viewPath . '/dashboard', compact('items'));
     }
 
     public function posts(): string
@@ -96,14 +94,15 @@ class CrudAction
             //dd($request->getUploadedFiles(), $params);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
-                $id = $this->table->add($this->getParams($request));
+                $id = $this->table->add($this->getParams($request, $item));
+                $this->pdfPersist($request, $item);
                 $item = $this->table->find($id);
                 $this->flash->success($this->success_messages['create']);
                 return $this->renderer->render($this->viewPath . '/create', $this->formParam(compact('item')));
             }
             $errors = $validator->getErrors();
             $item = $request->getParsedBody();
-            $this->flash->error('Le système d\'ajout d\'article à rencontrée une ou plusieurs erreurs');
+            $this->flash->error($this->failed_messages['create']);
         }
         return $this->renderer->render($this->viewPath . '/create', $this->formParam(compact('item', 'errors')));
     }
@@ -114,39 +113,48 @@ class CrudAction
     public function edit(ServerRequestInterface $request)
     {
         $errors = [];
-        $item = $this->table->find((int)$request->getAttribute('id'));
+        $id = (int)$request->getAttribute('id');
+        $item = $this->table->find($id);
         if ($request->getMethod() === 'POST') {
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
                 $params = $this->getParams($request, $item);
-                $params['view'] = $item->view;
-                if (empty($params['image'])) {
-                    $params['image'] = $item->image;
+                if (property_exists($item, 'view')) {
+                    $params['view'] = $item->view;
                 }
-                $params['created_date'] = $item->created_date->format("Y-m-d H:m:i");
-                $this->table->update($item->id, $params);
+                if (empty($params['image'])) {
+                    unset($params['image']);
+                }
+                unset($params['created_date']);
+                $this->table->update($id, $params);
+                $this->pdfPersist($request, $item);
                 $this->flash->success($this->success_messages['edit']);
-                return $this->redirect($this->routePrefix . '.edit', ['id' => $item->id]);
+                return $this->redirect($this->routePrefix . '.edit', ['id' => $id]);
             }
             $errors = $validator->getErrors();
             $params = $request->getParsedBody();
-            $params['id'] = $item->id;
+            $params['id'] = $id;
             $item = $params;
-            $this->flash->error('Le système de modification à rencontrée une ou plusieurs erreurs');
+            $this->flash->error($this->failed_messages['edit']);
         }
         return $this->renderer->render($this->viewPath . '/edit', $this->formParam(compact('item', 'errors')));
     }
 
     public function delete(ServerRequestInterface $request): ResponseInterface
     {
-        $this->table->delete($request->getAttribute('id'));
-        $this->flash->success($this->success_messages['delete']);
+        $delete = $this->table->delete($request->getAttribute('id'));
+        if ($delete) {
+            $this->flash->success($this->success_messages['delete']);
+        } else {
+            $this->flash->error($this->failed_messages['delete']);
+        }
         return $this->redirect($this->routePrefix . '.posts');
     }
 
     protected function getNewEntity()
     {
-        return new stdClass();
+        $entity = $this->table->getEntity();
+        return new $entity();
     }
 
     protected function getParams(ServerRequestInterface $request, $item = null): array
@@ -164,5 +172,9 @@ class CrudAction
     protected function formParam(array $params): array
     {
         return $params;
+    }
+
+    protected function pdfPersist(ServerRequestInterface $request, $item): void
+    {
     }
 }

@@ -84,18 +84,7 @@
             </div>
             <div class="left-custom-menu-adp-wrap">
                 <ul class="nav navbar-nav left-sidebar-menu-pro">
-                    <li class="nav-item">
-                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                            <i class="fa big-icon fa-files-o"></i> <span class="mini-dn">Articles</span>
-                            <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
-                        </a>
-                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                            <a href="{{ path(routePrefix ~ '.posts') }}" class="dropdown-item">Listing des articles</a>
-                            <a href="{{ path(routePrefix ~ '.create') }}" class="dropdown-item">Ajouter article</a>
-                            <a href="{{ path(routePrefix ~ '.posts') }}" class="dropdown-item">Editer article</a>
-                            <a href="{{ path(routePrefix ~ '.posts') }}" class="dropdown-item">Supprimer article</a>
-                        </div>
-                    </li>
+                    {{ admin_menu() }}
                 </ul>
             </div>
         </nav>
@@ -331,7 +320,7 @@
                         <div class="mobile-menu">
                             <nav id="dropdown">
                                 <ul class="mobile-menu-nav">
-                                    <li><a data-toggle="collapse" data-target="#Charts" href="{{ path(routePrefix ~ '.posts') }}"><i class="fa fa-file-text-o"></i> Articles</a></li>
+                                    {{ admin_menu() }}
                                 </ul>
                             </nav>
                         </div>

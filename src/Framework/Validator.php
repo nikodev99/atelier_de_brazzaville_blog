@@ -6,6 +6,7 @@ use DateTime;
 use Framework\Database\Table;
 use Framework\Validator\ValidationError;
 use PDO;
+use PDOStatement;
 use Psr\Http\Message\UploadedFileInterface;
 
 class Validator
@@ -43,6 +44,17 @@ class Validator
             $value = $this->getValue($key);
             if (!is_null($value) && !preg_match($pattern, $this->params[$key])) {
                 $this->addError($key, 'slug');
+            }
+        }
+        return $this;
+    }
+
+    public function numeric(string ...$keys): self
+    {
+        foreach ($keys as $key) {
+            $keyValue = $this->getValue($key);
+            if (!is_numeric($keyValue)) {
+                $this->addError($key, 'numeric');
             }
         }
         return $this;
@@ -113,7 +125,10 @@ class Validator
      */
     public function exists(string $key, $table, ?PDO $pdo = null): self
     {
-        if (!$this->valueExists($key, $table, $pdo)) {
+        $keyValue = $this->getValue($key);
+        $statement = $this->valueExists($key, $table, $pdo);
+        $exec = $statement->execute([$keyValue]);
+        if ($exec === false) {
             $this->addError($key, 'exists', [$table]);
         }
         return $this;
@@ -127,7 +142,10 @@ class Validator
      */
     public function unique(string $key, $table, ?PDO $pdo = null): self
     {
-        if ($this->valueExists($key, $table, $pdo)) {
+        $keyValue = $this->getValue($key);
+        $statement = $this->valueExists($key, $table, $pdo);
+        $statement->execute([$keyValue]);
+        if ($statement->rowCount() === 1) {
             $this->addError($key, 'unique', [$table]);
         }
         return $this;
@@ -151,12 +169,14 @@ class Validator
          * @var UploadedFileInterface $file
          */
         $file = $this->getValue($key);
-        if (!is_null($file) && $file->getError() === UPLOAD_ERR_OK) {
-            $type = $file->getClientMediaType();
-            $extension = mb_strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION));
-            $expected_type = self::MIME_TYPE[$extension] ?? null;
-            if (!in_array($extension, $extensions) || $expected_type !== $type) {
-                $this->addError($key, 'fileType', [join(', ', $extensions)]);
+        if (!is_null($file) && !empty($file)) {
+            if ($file->getError() === UPLOAD_ERR_OK) {
+                $type = $file->getClientMediaType();
+                $extension = mb_strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION));
+                $expected_type = self::MIME_TYPE[$extension] ?? null;
+                if (!in_array($extension, $extensions) || $expected_type !== $type) {
+                    $this->addError($key, 'fileType', [join(', ', $extensions)]);
+                }
             }
         }
         return $this;
@@ -190,7 +210,7 @@ class Validator
         return $this;
     }
 
-    private function valueExists(string $key, $table, ?PDO $pdo = null): bool
+    private function valueExists(string $key, $table, ?PDO $pdo = null)
     {
         if ($table instanceof Table) {
             $pdo = $table->getPdo();
@@ -201,12 +221,7 @@ class Validator
         if (stripos($key, '_id')) {
             $column = 'id';
         }
-        $statement = $pdo->prepare("SELECT * FROM $table WHERE $column = ?");
-        $statement->execute([$keyValue]);
-        if ($statement->fetchColumn() !== false) {
-            return true;
-        }
-        return false;
+        return $pdo->prepare("SELECT * FROM $table WHERE $column = ?");
     }
 
     private function getValue(string $key)

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Site Metas -->
-    <title>{%  block title "Blog" %} | Atelier de Brazzaville</title>
+    <title>{%  block title "Blog" %} | Atelier Brazzaville</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -166,7 +166,7 @@
                             <img src="../../style/images/default.png" alt="">
                             <div class="media">
                                 <span>{{ user.first_name }} {{ user.last_name }}</span>
-                                <span>Inscrit depuis 3 semaines</span>
+                                {% if (user.registration) %}<span>Inscrit {{ ago(user.registration) }}</span>{% endif %}
                             </div>
                         </div>
                         <hr style="background: rgba(230,52,18,.2)">

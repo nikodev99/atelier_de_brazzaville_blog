@@ -2,5 +2,5 @@
 {{ field('slug', 'Lien *', item.slug, {placeholder: 'Entrer le lien'}) }}
 {{ field('created_date', 'Date de création', item.created_date, {class:'datepicker'}) }}
 {{ field('category_id', 'Catégorie', item.category_id, {type:'select', options:categories}) }}
-{{ field('image', 'Image à la une', item.category_id, {type:'file'}) }}
+{{ field('image', 'Image à la une', item.image, {type:'file'}) }}
 {{ field('content', 'Contenu *', item.content, {type: 'textarea', col: 12, placeholder: 'Contenu'}) }}

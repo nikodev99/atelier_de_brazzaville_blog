@@ -33,7 +33,6 @@ class BlogModule extends Module
 
         if ($container->has('admin.prefix')) {
             $adminPrefix = $container->get('admin.prefix');
-            $router->get("$adminPrefix/dashboard", PostCrudAction::class, 'admin.post.index');
             $router->crud("$adminPrefix/posts", PostCrudAction::class, "admin.post");
             $router->crud("$adminPrefix/categories", CategoryCrudAction::class, "admin.post.category");
         }

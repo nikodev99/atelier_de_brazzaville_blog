@@ -22,6 +22,12 @@ class CategoryCrudAction extends CrudAction
         'delete'    =>  "Catégorie supprimée avec succès !"
     ];
 
+    protected array $failed_messages = [
+        'create'   =>  'Le système d\'ajout de catégorie à rencontré une ou plusieurs erreurs',
+        'edit'   =>  'Le système de modification de catégorie à rencontré une ou plusieurs erreurs',
+        'delete'   =>  'Le système de suppression de catégorie à rencontré une ou plusieurs erreurs'
+    ];
+
     public function __construct(RendererInterface $renderer, Router $router, CategoryTable $table, FlashService $flash)
     {
         parent::__construct($renderer, $router, $table, $flash);

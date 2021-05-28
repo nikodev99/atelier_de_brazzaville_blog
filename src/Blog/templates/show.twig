@@ -21,9 +21,9 @@
                             <h3>{{ post.title }}</h3>
 
                             <div class="blog-meta big-meta">
-                                <small><a href="single.html" title="">Ajouté le {{ post.created_date.format('d M Y H:i') }}</a></small>
+                                <small><a href="single.html" title="">Ajouté le {{ post.created_date | datetime }}</a></small>
                                 <small><a href="single.html" title="">{{ ago(post.created_date) }}</a></small>
-                                <small><a href="single.html" title="">Edité le {{ post.apdated_date.format('d M Y H:i') }}</a></small>
+                                <small><a href="single.html" title="">Edité le {{ post.apdated_date | datetime }}</a></small>
                                 <!--<small><a href="blog-author.html" title="">by Jessica</a></small> -->
                                 <small><a href="#" title=""><i class="fa fa-eye"></i> {{ post.view }}</a></small>
                             </div><!-- end meta -->
@@ -113,7 +113,7 @@
                                         <div class="blog-meta">
                                             <h4><a href="{{ path('blog.show', {slug:liked.slug, id:liked.id}) }}" title="">{{ liked.title }}</a></h4>
                                             <small><a href="{{ path('blog.tendance') }}" title="">Trends</a></small>
-                                            <small><a href="blog-category-01.html" title="">{{ liked.created_date.format('d M Y H:i') }}</a></small>
+                                            <small><a href="blog-category-01.html" title="">{{ liked.created_date | datetime }}</a></small>
                                         </div><!-- end meta -->
                                     </div><!-- end blog-box -->
                                 </div><!-- end col -->

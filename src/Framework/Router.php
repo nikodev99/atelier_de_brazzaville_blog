@@ -87,7 +87,6 @@ class Router
 
     public function crud(string $pathPrefix, $action, string $prefixName)
     {
-        //dd("$prefixName.posts");
         $this->get("$pathPrefix", $action, "$prefixName.posts");
         $this->get("$pathPrefix/new", $action, "$prefixName.create");
         $this->get("$pathPrefix/[i:id]", $action, "$prefixName.edit");

@@ -36,12 +36,12 @@ class FormTwigExtension extends AbstractExtension
             $input = $this->input($type, $key, $value, $options);
         }
         return "
-        <div class=\"col-lg-{$col} col-md-{$col} col-sm-{$col} col-xs-12\">
+        <div class=\"col-lg-$col col-md-$col col-sm-$col col-xs-12\">
             <div class=\"basic-login-inner\">
-                <div class=\"{$class}\">
-                    <label for=\"{$key}\">{$label}</label>
-                    {$input}
-                    {$error}
+                <div class=\"$class\">
+                    <label for=\"$key\">$label</label>
+                    $input
+                    $error
                 </div>
             </div>
         </div>
@@ -59,49 +59,48 @@ class FormTwigExtension extends AbstractExtension
 
     private function input(string $type, string $key, $value, array $options = []): string
     {
-        $placeholder = $this->setOptions('placeholder', $options);
-        $required = $this->setOptions('required', $options);
-        $disabled = $this->setOptions('disabled', $options);
+        $optionsToSet = $this->setOptions($options);
         $class = 'form-control ' . ($options['class'] ?? '');
-        return "<input type=\"{$type}\" name=\"{$key}\" class=\"{$class}\"{$placeholder}id=\"{$key}\" value=\"{$value}\" {$required}{$disabled}>";
+        return "<input type=\"$type\" name=\"$key\" class=\"$class\" id=\"$key\" value=\"$value\" $optionsToSet>";
     }
 
     private function textarea(string $key, $value, array $options = []): string
     {
-        $placeholder = $this->setOptions('placeholder', $options);
-        $required = $this->setOptions('required', $options);
-        $disabled = $this->setOptions('disabled', $options);
-        return "<textarea rows=\"12\" class=\"form-control\"{$placeholder}name=\"{$key}\"  id=\"{$key}\" {$required}{$disabled}>{$value}</textarea>";
+        $optionsToSet = $this->setOptions($options);
+        return "<textarea rows=\"12\" class=\"form-control\" name=\"$key\"  id=\"$key\" $optionsToSet>$value</textarea>";
     }
 
     private function select(string $key, ?string $value, array $options = []): string
     {
         $select_options = [];
+        $optionsToSet = $this->setOptions($options);
         if (!empty($options['options'])) {
             foreach ($options['options'] as $k => $option) {
                 $selected = $k == $value ? 'selected' : '';
                 $select_options[] = '<option value="' . $k . '" ' . $selected . '>' . $option . '</option>';
             }
-            $required = $this->setOptions('required', $options);
-            $disabled = $this->setOptions('disabled', $options);
             return "
-            <select class=\"form-control custom-select-value\" name=\"{$key}\" id=\"{$key}\" {$required}{$disabled}>
+            <select class=\"form-control custom-select-value\" name=\"$key\" id=\"$key\" $optionsToSet>
                 " . implode(PHP_EOL, $select_options) . "
             </select>
             ";
         }
-        return "<select class=\"form-control custom-select-value selectpicker countrypicker\" name=\"{$key}\" id=\"{$key}\" data-default='$value'></select>";
+        return "<select class=\"form-control custom-select-value selectpicker countrypicker\" name=\"$key\" id=\"$key\" data-default='$value'></select>";
     }
 
-    private function setOptions(string $key, array $options, $expected = null): string
+    private function setOptions(array $options): string
     {
-        if (array_key_exists($key, $options) && is_bool($options[$key]) && $options[$key] === true) {
-            return " $key";
+        $optionSetting = [];
+        foreach ($options as $key => $option) {
+            $specialOptions = ['options', 'type', 'col', 'class'];
+            if (!in_array($key, $specialOptions)) {
+                if (is_bool($option) && $option === true) {
+                    $optionSetting[] = "$key";
+                }
+                $optionSetting[] = "$key=\"$option\" ";
+            }
         }
-        if (array_key_exists($key, $options)) {
-            return " $key=\"{$options[$key]}\" ";
-        }
-        return !is_null($expected) ? $expected : '';
+        return join(' ', $optionSetting);
     }
 
     private function convertedValue($value): string

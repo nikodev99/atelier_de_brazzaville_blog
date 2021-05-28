@@ -1,0 +1,8 @@
+{{ field('name', 'Nom du produit *', item.name, {placeholder: 'Enter le nom du produit'}) }}
+{{ field('slug', 'Lien *', item.slug, {placeholder: 'Entrer le lien'}) }}
+{{ dump(item.createdAt) }}
+{{ field('created_at', 'Date de création', item.created_at, {class:'datepicker'}) }}
+{{ field('price', 'Prix du produt *', item.price, {type:'number', step:0.01}) }}
+{{ field('image', 'Image du produit', item.image, {type:'file'}) }}
+{{ field('pdf', 'PDF', item.pdf, {type:'file'}) }}
+{{ field('description', 'Description du produit *', item.description, {type: 'textarea', col: 12, placeholder: 'Description'}) }}

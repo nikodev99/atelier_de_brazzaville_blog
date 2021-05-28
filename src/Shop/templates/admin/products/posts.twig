@@ -1,0 +1,91 @@
+{% extends '@admin/layout.twig' %}
+
+{% block dashboard %}
+    <li><a href="{{ path('admin.post.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+{% endblock %}
+
+{% block pageTitle "Listing des produits" %}
+
+{% block dashboardMobile %}
+    <li><a href="{{ path('admin.post.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+{% endblock %}
+
+{% block pageTitleMobile "Listing de produits" %}
+
+{% block body %}
+
+    <!-- Data table area Start-->
+    <div class="admin-dashone-data-table-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sparkline8-list shadow-reset">
+                        <div class="sparkline8-hd">
+                            <div class="main-sparkline8-hd">
+                                <h1>Listing des produits</h1>
+                                <div class="sparkline8-outline-icon">
+                                    <a href="{{ path(routePrefix ~ '.create') }}" class="btn btn-custon-four btn-success mt-4">
+                                        <span class="adminpro-icon adminpro-plus-add-button-in"></span>
+                                        Ajouter un produit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <div id="toolbar">
+                                    <select class="form-control">
+                                        <option value="">Basique Export</option>
+                                        <option value="all">Export Tout</option>
+                                        <option value="selected">Export Selection</option>
+                                    </select>
+                                </div>
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="image">image</th>
+                                        <th data-field="name" data-editable="true">Nom du produit</th>
+                                        <th data-field="slug">Lien</th>
+                                        <th data-field="price">Prix</th>
+                                        <th data-field="date">date de création</th>
+                                        <th data-field="action">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in items %}
+                                        <tr>
+                                            <td></td>
+                                            <td><img src="{{ item.thumb }}" alt="{{ item.name }}"></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.slug }}</td>
+                                            <td>{{ item.price | number_format(2, ',')}}</td>
+                                            <td>{{ item.created_at }}</td>
+                                            <td>
+                                                <a href="{{ path(routePrefix ~ '.edit', {id:item.id}) }}" class="btn btn-custon-four btn-primary">
+                                                    <span class="adminpro-icon adminpro-edit"></span>
+                                                    Editer
+                                                </a>
+                                                <form style="display: inline" action="{{ path(routePrefix ~ '.delete', {id:item.id}) }}" method="POST"
+                                                onsubmit="return confirm('êtes vous sûr de vouloir supprimer cet article ?')"
+                                                >
+                                                    <input type="hidden" name="_METHOD" value="DELETE">
+                                                    <button class="btn btn-custon-four btn-danger" type="submit">
+                                                        <span class="adminpro-icon adminpro-trash"></span>
+                                                        Supprimer
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Data table area End-->
+{% endblock %}

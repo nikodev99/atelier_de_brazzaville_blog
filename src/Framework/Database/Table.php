@@ -66,11 +66,7 @@ class Table
      */
     public function find(int $id)
     {
-        $query = $this->pdo->prepare(
-            "SELECT p.*, c.name as category_name, c.slug as category_slug FROM {$this->table} as p 
-                    LEFT JOIN categories as c on p.category_id = c.id
-                    WHERE p.id = ?"
-        );
+        $query = $this->pdo->prepare($this->findQuery());
         $query->execute([$id]);
         if (isset($this->entity)) {
             $query->setFetchMode(PDO::FETCH_CLASS, $this->entity);
@@ -138,7 +134,7 @@ class Table
         return $this->table;
     }
 
-    public function getEntity(): string
+    public function getEntity(): ?string
     {
         return $this->entity;
     }
@@ -160,6 +156,23 @@ class Table
         $statement = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = ?");
         $statement->execute([$id]);
         return $statement->fetchColumn() !== false;
+    }
+
+    public function count(): int
+    {
+        $statement = $this->pdo->prepare("SELECT COUNT(id) FROM $this->table");
+        $statement->execute();
+        if ($this->entity) {
+            $statement->setFetchMode(PDO::FETCH_CLASS, $this->entity);
+        }
+        return (int)$statement->fetchColumn();
+    }
+
+    protected function findQuery(): string
+    {
+        return "SELECT p.*, c.name as category_name, c.slug as category_slug FROM {$this->table} as p 
+                    LEFT JOIN categories as c on p.category_id = c.id
+                    WHERE p.id = ?";
     }
 
     protected function getPagerfanta(PaginatedQuery $query): Pagerfanta

@@ -122,7 +122,7 @@
                         <div class="logo">
                             <a href="{{ path('homepage.show') }}"><img src="../style/images/logo.png" alt=""></a>
                         </div><!-- end logo -->
-                        <hr style="background: #e63412">
+                        <hr style="background: #1b9dd9">
                         <p>Entre Europe et Afrique</p>
                     </div>
                 </div><!-- end row -->
@@ -141,14 +141,14 @@
                                 <a class="nav-link" href="{{ path('homepage.show') }}"><i class="fa fa-home"></i> Accueil</a>
                             </li>
                             <li class="nav-item dropdown has-submenu">
-                                <a class="nav-link color-yellow-hover dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-child"></i> Atelier</a>
+                                <a class="nav-link color-yellow-hover dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-child"></i> Ateliers</a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdown02">
                                     <li><a class="dropdown-item" href="{{ path('blog.category', {slug:"maternelles"}) }}">Maternelles</a></li>
                                     <li><a class="dropdown-item" href="{{ path('blog.category', {slug:"primaire"}) }}">Primaire</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown has-submenu">
-                                <a class="nav-link color-green-hover dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-industry"></i> Productions</a>
+                                <a class="nav-link color-green-hover dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-industry"></i> Activités</a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdown01">
                                     <li><a class="dropdown-item" href="{{ path('blog.category', {slug:"bijoux"}) }}">Bijoux</a></li>
                                     <li><a class="dropdown-item" href="{{ path('blog.category', {slug:"sacs"}) }}">Sacs</a></li>
@@ -158,7 +158,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link color-pink-hover" href="blog-category-01.html"><i class="fa fa-shopping-basket"></i> Boutique Éphémère</a>
+                                <a class="nav-link color-pink-hover" href="blog-category-01.html"><i class="fa fa-shopping-cart"></i> Boutique Éphémère</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link color-red-hover" href="{{ path("blog.contact") }}"><i class="fa fa-envelope"></i> Contact</a>
@@ -184,7 +184,7 @@
                                         <div class="w-100 justify-content-between">
                                             <img src="{{ new.thumb }}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">{{ new.title }}</h5>
-                                            <small>{{ new.created_date.format('d M Y H:i') }}</small>
+                                            <small>{{ new.created_date | datetime }}</small>
                                         </div>
                                     </a>
                                     {% endfor %}

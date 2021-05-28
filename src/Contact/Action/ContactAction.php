@@ -56,7 +56,7 @@ class ContactAction
                 $message = (new Swift_Message())
                     ->setSubject($params['subject'])
                     ->setBody($body, 'text/html', 'utf-8')
-                    ->setFrom('contact@latelierbrazzaville.com', $params['name'])
+                    ->setFrom('contact@latelierbrazzaville.com', 'latelierbrazzaville.com')
                     ->setTo($this->to);
                 $this->mailer->send($message);
                 $this->flash->success("Merci pour votre email. Nous vous contacterons dans le plus bref délai.");

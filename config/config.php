@@ -6,8 +6,10 @@ use Framework\Renderer\TwigRendererFactory;
 use Framework\Router;
 use Framework\Session\PHPSession;
 use Framework\Session\SessionInterface;
+use Framework\Twig\AdminTwigExtension;
 use Framework\Twig\AuthTwigExtension;
 use Framework\Twig\DateTimeTwigExtension;
+use Framework\Twig\DateTwigExtension;
 use Framework\Twig\FlashTwigExtension;
 use Framework\Twig\FormTwigExtension;
 use Framework\Twig\FrontFormTwigException;
@@ -37,6 +39,7 @@ return [
         get(PagerfantaTwigExtension::class),
         get(TextTwigExtension::class),
         get(DateTimeTwigExtension::class),
+        get(DateTwigExtension::class),
         get(FlashTwigExtension::class),
         get(FormTwigExtension::class),
         get(FrontFormTwigException::class),

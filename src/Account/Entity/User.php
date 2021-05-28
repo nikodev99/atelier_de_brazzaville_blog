@@ -6,7 +6,8 @@ use App\Auth\Entity\User as AuthUser;
 
 class User extends AuthUser
 {
-    private string $role;
+    /** @var string */
+    private $role;
 
     public function roles(): array
     {

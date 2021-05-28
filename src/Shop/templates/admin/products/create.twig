@@ -1,0 +1,59 @@
+{% extends '@admin/layout.twig' %}
+
+{% block dashboard %}
+    <li><a href="{{ path('admin.post.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+{% endblock %}
+
+{% block pageTitle "Ajouter une catégorie" %}
+
+{% block dashboardMobile %}
+    <li><a href="{{ path('admin.post.index') }}">Dashboard</a> <span class="bread-slash">/</span></li>
+{% endblock %}
+
+{% block pageTitleMobile "Ajouter une catégorie" %}
+
+{% block body %}
+    <div class="advanced-form-area mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                {% include viewPath ~ '/show_details.twig' %}
+                <div class="col-lg-8 res-mg-t-30">
+                    <div class="sparkline9-list shadow-reset">
+                        <div class="sparkline9-hd">
+                            <div class="main-sparkline9-hd">
+                                <h1>Ajouter une catégorie</h1>
+                                <div class="sparkline9-outline-icon">
+                                    <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="basic-login-form-ad">
+                                <form action="{{ path(routePrefix ~ '.create') }}" method="POST" enctype="multipart/form-data">
+                                    <div class="row">
+                                        {% include viewPath ~ '/form.twig' %}
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="login-btn-inner">
+                                                    <div class="inline-remember-me">
+                                                        <button class="btn btn-sm btn-success pull-right" type="submit" style="margin-top: 10px;">
+                                                            <span class="adminpro-icon adminpro-add-circular-outlined-button"></span>
+                                                            Ajouter la catégorie
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Basic Form End-->
+{% endblock %}

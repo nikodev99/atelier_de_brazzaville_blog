@@ -23,7 +23,7 @@ class ValidationError
         'fileType'  =>  'Le champs %s n\'est pas au format valide. type attendu %s',
         'uploaded'  =>  'Vous devez uploader un fichier',
         'email'     =>  "Email non valide",
-        'confirm'   =>  "%s et %s_confirm ne sont les conformes"
+        'confirm'   =>  "%s et %s_confirm ne sont conformes"
     ];
 
     public function __construct(string $key, string $rule, array $attributes = [])

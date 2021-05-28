@@ -101,11 +101,11 @@ class AccountEditAction
                     $this->flash->error('Des erreurs ont été constaté. Veuillez bien remplir le formulaire');
                     return $this->edit(compact('user', 'famousPosts', 'newPosts', 'errors'));
                 }
-            elseif (strpos($uri, 'delete')) :
-                    $this->databaseAuth->logout();
-                    $this->userTable->delete($user->id);
-                    $this->flash->success("Votre compte a été supprimé avec succès");
-                    return new RedirectResponse('/');
+            elseif (strpos($uri, 'delete') !== false) :
+                $this->databaseAuth->logout();
+                $this->userTable->delete($user->id);
+                $this->flash->success("Votre compte a été supprimé avec succès");
+                return new RedirectResponse('/');
             endif;
         }
         return $this->edit(compact('user', 'famousPosts', 'newPosts'));

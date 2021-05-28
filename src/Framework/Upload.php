@@ -9,7 +9,7 @@ class Upload
 {
     protected string $path;
 
-    protected array $formats;
+    protected array $formats = [];
 
     public function __construct(?string $path = null)
     {
@@ -18,10 +18,10 @@ class Upload
         }
     }
 
-    public function upload(UploadedFileInterface $uploadedFile, ?string $oldFile = null): string
+    public function upload(UploadedFileInterface $uploadedFile, ?string $oldFile = null, string $fileName = null): string
     {
         $this->delete($oldFile);
-        $targetPath = $this->addSuffix($this->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getClientFilename(), 'copie');
+        $targetPath = $this->addSuffix($this->getPath() . DIRECTORY_SEPARATOR . ($fileName ?: $uploadedFile->getClientFilename()), 'copie');
         $dirname = pathinfo($targetPath, PATHINFO_DIRNAME);
         if (!file_exists($dirname)) {
             mkdir($dirname, 777, true);

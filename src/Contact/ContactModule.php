@@ -14,6 +14,7 @@ class ContactModule extends Module
 
     public function __construct(ContainerInterface $container)
     {
+        $container->get(RendererInterface::class)->addPath('contact', __DIR__);
         $container->get(RendererInterface::class)->addPath('blog', dirname(__DIR__) . '/Blog/templates');
         $router = $container->get(Router::class);
         $router->get('/contact', ContactAction::class, 'blog.contact');
