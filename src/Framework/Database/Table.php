@@ -4,6 +4,7 @@ namespace Framework\Database;
 
 use Pagerfanta\Pagerfanta;
 use PDO;
+use PDOStatement;
 
 class Table
 {
@@ -36,9 +37,7 @@ class Table
     {
         $query = $this->pdo->prepare($this->paginationQuery());
         $query->execute();
-        if (isset($this->entity)) {
-            $query->setFetchMode(PDO::FETCH_CLASS, $this->entity);
-        }
+        $this->checkEntity($query);
         return $query->fetchAll();
     }
 
@@ -47,16 +46,12 @@ class Table
      */
     public function findBy(string $field, string $value)
     {
-        $statement = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE $field = ?");
+        $statement = $this->pdo->prepare("SELECT * FROM $this->table WHERE $field = ?");
         $statement->execute([$value]);
-        if (isset($this->entity)) {
-            $statement->setFetchMode(PDO::FETCH_CLASS, $this->entity);
-        } else {
-            $statement->setFetchMode(PDO::FETCH_OBJ);
-        }
+        $this->checkEntity($statement);
         $record = $statement->fetch();
         if (is_bool($record)) {
-            throw new NoRecordException("L'extraction des données à échouer");
+            throw new NoRecordException("l'extraction des données à échouer");
         }
         return $record;
     }
@@ -68,9 +63,7 @@ class Table
     {
         $query = $this->pdo->prepare($this->findQuery());
         $query->execute([$id]);
-        if (isset($this->entity)) {
-            $query->setFetchMode(PDO::FETCH_CLASS, $this->entity);
-        }
+        $this->checkEntity($query);
         $post = $query->fetch();
         if (is_bool($post)) {
             throw new NoRecordException("L'extration des données à échouer");
@@ -82,9 +75,7 @@ class Table
     {
         $query = $this->pdo->prepare($this->postCategoryQuery($limit));
         $query->execute([$category_id]);
-        if (isset($this->entity)) {
-            $query->setFetchMode(PDO::FETCH_CLASS, $this->entity);
-        }
+        $this->checkEntity($query);
         return $query->fetchAll();
     }
 
@@ -96,9 +87,7 @@ class Table
             $query = $this->pdo->prepare($this->byFieldQuery($field, $limit, $id));
         }
         $query->execute();
-        if (isset($this->entity)) {
-            $query->setFetchMode(PDO::FETCH_CLASS, $this->entity);
-        }
+        $this->checkEntity($query);
         return $query->fetchAll();
     }
 
@@ -106,7 +95,7 @@ class Table
     {
         $fieldQuery = $this->buildingFieldQuery($params, true);
         $fields = join(', ', array_keys($params));
-        $statement = $this->pdo->prepare("INSERT INTO {$this->table} ({$fields}) VALUES ({$fieldQuery})");
+        $statement = $this->pdo->prepare("INSERT INTO $this->table ($fields) VALUES ($fieldQuery)");
         $statement->execute($params);
         return $this->pdo->lastInsertId();
     }
@@ -142,7 +131,7 @@ class Table
     public function findList(): array
     {
         $results = $this->pdo
-            ->query("SELECT id, name FROM {$this->table}")
+            ->query("SELECT id, name FROM $this->table")
             ->fetchAll(PDO::FETCH_NUM);
         $list = [];
         foreach ($results as $result) {
@@ -153,7 +142,7 @@ class Table
 
     public function exists(string $id): bool
     {
-        $statement = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = ?");
+        $statement = $this->pdo->prepare("SELECT * FROM $this->table WHERE id = ?");
         $statement->execute([$id]);
         return $statement->fetchColumn() !== false;
     }
@@ -170,7 +159,7 @@ class Table
 
     protected function findQuery(): string
     {
-        return "SELECT p.*, c.name as category_name, c.slug as category_slug FROM {$this->table} as p 
+        return "SELECT p.*, c.name as category_name, c.slug as category_slug FROM $this->table as p 
                     LEFT JOIN categories as c on p.category_id = c.id
                     WHERE p.id = ?";
     }
@@ -202,6 +191,15 @@ class Table
             $statement .= " WHERE id != $id ";
         }
         return $statement . ' ORDER BY ' . $field . ' DESC LIMIT ' . $limit;
+    }
+
+    private function checkEntity(PDOStatement $statement): void
+    {
+        if (isset($this->entity)) {
+            $statement->setFetchMode(PDO::FETCH_CLASS, $this->entity);
+        } else {
+            $statement->setFetchMode(PDO::FETCH_OBJ);
+        }
     }
 
     private function buildingFieldQuery(array $fieldsArray, bool $insert = false): string
