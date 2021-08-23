@@ -49,15 +49,18 @@ class PurchaseProduct
         $customer = $this->findCustomerForUser($user, $token);
 
         //Check if the customer has already used this card on the website
-        if (!$this->customerHasCard($customer, $card)) {
+        $card = $this->getMatchingCard($customer, $card);
+        if (is_null($card)) {
             $card = $this->stripe->createCardForCustomer($customer, $token);
         }
 
         //Charge the customer
+
         $charge = $this->stripe->charge([
             "amount"    =>  $grossPrice,
             "currency"  =>  "eur",
             "source"    =>  $card->id,
+            "customer"    =>  $customer->id,
             "description"   =>  "Achat de {$product->getName()} sur atelier-brazzaville.com"
         ]);
 
@@ -76,14 +79,17 @@ class PurchaseProduct
     /**
      * @param Customer $customer
      * @param Card $card
-     * @return bool
+     * @return Card|null
      */
-    private function customerHasCard(Customer $customer, Card $card): bool
+    private function getMatchingCard(Customer $customer, Card $card): ?Card
     {
-        $fingerPrint = array_map(function ($source) {
-            return $source->fingerprint;
-        }, (array)$customer->sources->all());
-        return in_array($card->fingerprint, $fingerPrint);
+        //dd($customer->sources->data);
+        foreach ($customer->sources->data as $datum) {
+            if ($datum->fingerprint === $card->fingerprint) {
+                return $datum;
+            }
+        }
+        return null;
     }
 
     /**

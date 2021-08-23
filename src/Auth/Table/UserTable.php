@@ -40,7 +40,7 @@ class UserTable extends Table
         }
         $record = $statement->fetch();
         if (is_bool($record)) {
-            throw new NoRecordException("L'extraction des données à échouer");
+            throw new NoRecordException("extraction user des données à échouer");
         }
         return $record;
     }
@@ -56,7 +56,7 @@ class UserTable extends Table
         }
         $post = $query->fetch();
         if (is_bool($post)) {
-            throw new NoRecordException("L'extration des données à échouer");
+            throw new NoRecordException("L'extration user 1 des données à échouer");
         }
         return $post;
     }

@@ -8,24 +8,29 @@ use App\Auth\PasswordHash;
 use App\Auth\Table\UserTable;
 use App\Blog\Actions\PostIndexAction;
 use App\Blog\Table\PostTable;
+use Framework\Actions\RouterAwareAction;
 use Framework\Auth;
 use Framework\Renderer\RendererInterface;
-use Framework\Response\RedirectResponse;
+use Framework\Router;
 use Framework\Session\FlashService;
 use Framework\Validator;
 use Psr\Http\Message\ServerRequestInterface;
 
 class AccountEditAction
 {
+    use RouterAwareAction;
+
     private RendererInterface $renderer;
     private Auth $auth;
     private PostTable $postTable;
     private FlashService $flash;
     private UserTable $userTable;
     private DatabaseAuth $databaseAuth;
+    private Router $router;
 
     public function __construct(
         RendererInterface $renderer,
+        Router $router,
         Auth $auth,
         PostTable $postTable,
         FlashService $flash,
@@ -38,6 +43,7 @@ class AccountEditAction
         $this->flash = $flash;
         $this->userTable = $userTable;
         $this->databaseAuth = $databaseAuth;
+        $this->router = $router;
     }
 
     public function __invoke(ServerRequestInterface $request)
@@ -50,7 +56,7 @@ class AccountEditAction
         if ($request->getMethod() === 'POST') {
             $form_params = $request->getParsedBody();
             $uri = $request->getUri()->getQuery();
-            $redirectUri = new RedirectResponse($request->getUri()->getPath());
+            $redirectUri = $this->redirect('account.edit');
             if (strpos($uri, 'info')) :
                 $validator = new Validator($form_params);
                 $validator
@@ -105,7 +111,7 @@ class AccountEditAction
                 $this->databaseAuth->logout();
                 $this->userTable->delete($user->id);
                 $this->flash->success("Votre compte a été supprimé avec succès");
-                return new RedirectResponse('/');
+                return $this->redirect('homepage.index');
             endif;
         }
         return $this->edit(compact('user', 'famousPosts', 'newPosts'));

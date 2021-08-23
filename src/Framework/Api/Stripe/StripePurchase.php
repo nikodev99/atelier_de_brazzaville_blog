@@ -7,6 +7,7 @@ use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Stripe;
+use Stripe\StripeClient;
 use Stripe\Token;
 
 class StripePurchase
@@ -40,9 +41,13 @@ class StripePurchase
         return Customer::create($params);
     }
 
-    public function createCardForCustomer(Customer $customer, string $token)
+    /**
+     * @throws ApiErrorException
+     */
+    public function createCardForCustomer(Customer $customer, string $token): Card
     {
-        return $customer->sources->create((['source' => $token]));
+        return (new StripeClient())->customers->createSource($customer->id, ['source' => $token]);
+        //return $customer->sources->create(['source' => $token]);
     }
 
     /**

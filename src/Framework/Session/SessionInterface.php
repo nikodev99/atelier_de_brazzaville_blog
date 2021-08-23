@@ -5,7 +5,7 @@ namespace Framework\Session;
 interface SessionInterface
 {
     /**
-     * Retrieves a value of the specify session key.
+     * Retrieves a value of the specified session key.
      * @param string $key
      * @param ?mixed $default
      * @return mixed

@@ -2,8 +2,6 @@
 
 namespace Framework\Auth;
 
-use Framework\Auth;
-
 interface User
 {
     /**

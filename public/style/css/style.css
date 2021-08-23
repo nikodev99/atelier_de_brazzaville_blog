@@ -1722,3 +1722,25 @@ hr.invis3 {
     font-weight: 700;
     text-transform: uppercase;
 }
+
+.topPrice {
+    border-radius: 3px;
+    border: 1px solid #d7d9e4;
+    padding: 14px 12px;
+    position: relative;
+    text-align: center;
+}
+
+.fpPrice {
+    font-weight: bold;
+    font-size: 49.3px;
+    height: 44px;
+    line-height: 15px;
+    padding: 0;
+    color: #e23a05!important;
+}
+
+.fpCurrency {
+    font-size: 20px;
+    vertical-align: 1.3em;
+}

@@ -17,10 +17,7 @@ class App implements RequestHandlerInterface
 
     private array $modules = [];
 
-    /**
-     * @var string|array|null
-     */
-    private $definition;
+    private array $definitions = [];
 
     /**
      * @var ContainerInterface
@@ -31,9 +28,16 @@ class App implements RequestHandlerInterface
 
     private int $index = 0;
 
-    public function __construct($definition = null)
+    /**
+     * @param string|array|null $definitions
+     * @throws Exception
+     */
+    public function __construct($definitions = [])
     {
-        $this->definition = $definition;
+        if (is_string($definitions) || !$this->isSequential($definitions)) {
+            $definitions = [$definitions];
+        }
+        $this->definitions = $definitions;
     }
 
     public function addModule(string $module): self
@@ -96,8 +100,8 @@ class App implements RequestHandlerInterface
     {
         if ($this->container === null) {
             $builder = new ContainerBuilder();
-            if ($this->definition) {
-                $builder->addDefinitions($this->definition);
+            foreach ($this->definitions as $definition) {
+                $builder->addDefinitions($definition);
             }
             foreach ($this->modules as $module) {
                 if ($module::DEFINITIONS) {
@@ -126,4 +130,12 @@ class App implements RequestHandlerInterface
         return null;
     }
      * */
+
+    private function isSequential(array $table): bool
+    {
+        if (empty($table)) {
+            return true;
+        }
+        return array_keys($table) === range(0, count($table) - 1);
+    }
 }

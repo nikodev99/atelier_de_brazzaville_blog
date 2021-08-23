@@ -1,0 +1,85 @@
+{% extends 'layout.twig' %}
+
+{% block title "Boutique | "~ product.name ~" | Atelier de Brazzaville" %}
+
+{% block body %}
+
+    <div class="page-title wb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <h2><i class="fa fa-user-md" style="background: #e63412!important"></i> {{ product.name }} </h2>
+                </div><!-- end col -->
+                <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('homepage.show') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('shopping') }}">Boutique Éphémère</a></li>
+                        <li class="breadcrumb-item active">{{ product.name }}</li>
+                    </ol>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end page-title -->
+    <section class="section wb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="page-wrapper">
+                        <div class="portfolio row">
+                            <div class="pitem item-w1 item-h1">
+                                <div class="blog-box">
+                                    <div class="post-media">
+                                        <img src="{{ product.main }}" alt="" class="img-fluid" style="width: 100%">
+                                    </div><!-- end media -->
+                                    <div class="blog-meta">
+                                        <!-- ON METTRA DES PHOTOS -->
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+                            </div><!-- end col -->
+                        </div><!-- end portfolio -->
+                    </div><!-- end page-wrapper -->
+                    <hr class="invis">
+                </div><!-- end col -->
+                <div class="col-lg-5">
+                    <h4>{{ product.name | excerpt(30) }}</h4>
+                    <h4 style="color: #29b001">En stock</h4>
+                    <p>{{ product.description | nl2br }}</p>
+                    <h5><i class="fa fa-truck"></i> Livraison gratuite</h5>
+                </div>
+                <div class="col-lg-3">
+                    <div class="topPrice">
+                        <div>
+                            <span class="fpPrice">{{ product.price }}</span><span class="fpPrice fpCurrency">€</span>
+                        </div>
+                        <div class="mt-3 mb-3">
+                            Quantité: <input form="stripe_checkout" type="number" name="quantity" value="1" min="0" max="15" style="border: none; width: 36px">
+                        </div>
+                        {% if (current_user()) %}
+                            {% if (isDownloaded) %}
+                                <a href="{{ path('account.history') }}" class="btn btn-primary form-control"><i class="fa fa-shopping-cart"></i> Voir vos produits</a>
+                            {% else %}
+                                <form action="{{ path('shop.recap', {id:product.id}) }}" method="post" id="stripe_checkout">
+                                    <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="{{ stripeKey }}"
+                                            data-amount="{{ product.price * 100 }}"
+                                            data-name="{{ product.name }}"
+                                            data-email="{{ current_user().email }}"
+                                            data-description="Achat de {{ product.name }} sur latelierbrazzaville.com"
+                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                            data-locale="fr"
+                                            data-currency="eur"
+                                    >
+                                    </script>
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            <a href="{{ path('auth.login') }}" class="btn btn-primary form-control"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section>
+
+{% endblock %}

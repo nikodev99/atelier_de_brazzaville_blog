@@ -8,6 +8,7 @@ use App\Auth\PasswordHash;
 use App\Auth\Table\UserTable;
 use DateTime;
 use DateTimeZone;
+use Framework\Actions\RouterAwareAction;
 use Framework\Database\NoRecordException;
 use Framework\Renderer\RendererInterface;
 use Framework\Response\RedirectResponse;
@@ -18,6 +19,8 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class SignupAction
 {
+    use RouterAwareAction;
+
     private RendererInterface $renderer;
 
     private UserTable $table;
@@ -74,7 +77,7 @@ class SignupAction
                 $slug = $user->username;
                 $this->auth->setUser($user);
                 $this->flash->success("Vous vous êtes inscris à latelierbrazzaville avec succès");
-                return new RedirectResponse($this->router->setUri('account.profile', ['slug' => $slug]));
+                return $this->redirect('account.profile', ['slug' => $slug]);
             } else {
                 $errors = $validator->getErrors();
                 $this->flash->error('Enregistrement impossible veuillez revérifier les informations fournis');

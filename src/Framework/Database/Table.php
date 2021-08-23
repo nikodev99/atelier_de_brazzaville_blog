@@ -51,7 +51,7 @@ class Table
         $this->checkEntity($statement);
         $record = $statement->fetch();
         if (is_bool($record)) {
-            throw new NoRecordException("l'extraction des données à échouer");
+            throw new NoRecordException("l'extraction table 1 des données à échouer");
         }
         return $record;
     }
@@ -66,7 +66,7 @@ class Table
         $this->checkEntity($query);
         $post = $query->fetch();
         if (is_bool($post)) {
-            throw new NoRecordException("L'extration des données à échouer");
+            throw new NoRecordException("L'extration table des données à échouer");
         }
         return $post;
     }
@@ -193,7 +193,7 @@ class Table
         return $statement . ' ORDER BY ' . $field . ' DESC LIMIT ' . $limit;
     }
 
-    private function checkEntity(PDOStatement $statement): void
+    protected function checkEntity(PDOStatement $statement): void
     {
         if (isset($this->entity)) {
             $statement->setFetchMode(PDO::FETCH_CLASS, $this->entity);

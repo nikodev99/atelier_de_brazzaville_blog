@@ -26,7 +26,7 @@ $whoops = new Run();
 $whoops->pushHandler(new PrettyPageHandler());
 $whoops->register();
 
-$app = (new App(dirname(__DIR__) . '/config/config.php'))
+$app = (new App([dirname(__DIR__) . '/config/config.php', dirname(__DIR__) . '/config.php']))
     ->addModule(HomepageModule::class)
     ->addModule(BlogModule::class)
     ->addModule(ContactModule::class)

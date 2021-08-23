@@ -4,3 +4,4 @@ composer.lock
 .idea
 public/style/upload
 downloads
+config.php

@@ -1,0 +1,27 @@
+{% extends '@account/layout.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3><i class="fa fa-history"></i> Historique de vos achats</h3>
+        </div>
+        {% for productPurchased in productsPurchased %}
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <article class="card">
+                <img src="" alt="" class="card-img-top">
+                <div class="card-header">Vous avez acheter</div>
+                <div class="card-body">
+                    <div class="card-title">{{ productPurchased.name }}</div>
+                    <div class="card-subtitle text-muted blockquote-footer mb-0">{{ productPurchased.price }}</div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Date de l'achat <span class="livraison">{{ productPurchased.created_at }}</span></li>
+                    <li class="list-group-item">Livraison <span style="color: #f329">Non</span></li>
+                </ul>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
