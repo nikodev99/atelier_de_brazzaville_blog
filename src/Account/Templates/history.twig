@@ -2,26 +2,36 @@
 
 {% block body %}
 
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h3><i class="fa fa-history"></i> Historique de vos achats</h3>
-        </div>
-        {% for productPurchased in productsPurchased %}
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-            <article class="card">
-                <img src="" alt="" class="card-img-top">
-                <div class="card-header">Vous avez acheter</div>
-                <div class="card-body">
-                    <div class="card-title">{{ productPurchased.name }}</div>
-                    <div class="card-subtitle text-muted blockquote-footer mb-0">{{ productPurchased.price }}</div>
+    <div class="page-wrapper">
+        <div class="row">
+            {% if (productsPurchased) %}
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="h2 mb-5"><i class="fa fa-history"></i> Historique des achats</div>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Date de l'achat <span class="livraison">{{ productPurchased.created_at }}</span></li>
-                    <li class="list-group-item">Livraison <span style="color: #f329">Non</span></li>
-                </ul>
-            </article>
+                {% for productPurchased in productsPurchased %}
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <article class="card">
+                            <div class="card-header">Vous avez acheter</div>
+                            <img src="../../style/upload/products/{{ productPurchased.image }}" alt="" class="card-img-top">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{ productPurchased.name }}</li>
+                                <li class="list-group-item">{{ productPurchased.price }} €</li>
+                                <li class="list-group-item">le&ensp;<span class="livraison"> {{ productPurchased.created_at | datetime }}</span></li>
+                                <li class="list-group-item">Livraison&emsp;<span style="color: #f329; text-align: right">Non</span></li>
+                            </ul>
+                        </article>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="py5">
+                    <div class="h2 center"><i class="fa fa-history"></i> Historique des achats</div>
+                    <p class="text-muted text-center mt-1 mb-2">
+                        Cette page affichera l'ensemble de tes achat sur latelierbrazzaville.com<br>
+                        Pour le moment tu n'as effectuer aucun achat :(
+                    </p>
+                </div>
+            {% endif %}
         </div>
-        {% endfor %}
     </div>
 
 {% endblock %}

@@ -7,9 +7,8 @@ use App\Blog\Table\PostTable;
 use App\Shop\Table\PurchaseTable;
 use Framework\Auth;
 use Framework\Renderer\RendererInterface;
-use Psr\Http\Message\ServerRequestInterface;
 
-class AccountAction
+class AccountInvoiceAction
 {
 
     private RendererInterface $renderer;
@@ -25,13 +24,13 @@ class AccountAction
         $this->purchaseTable = $purchaseTable;
     }
 
-    public function __invoke(ServerRequestInterface $request): string
+    public function __invoke(): string
     {
         $user = $this->auth->getUser();
         $post = new PostIndexAction($this->renderer, $this->postTable);
         $productsPurchased = $this->purchaseTable->findByUser($user);
         $famousPosts = $post->famous();
         $newPosts = $post->new();
-        return $this->renderer->render('@account/profile', compact('user', 'famousPosts', 'newPosts', 'productsPurchased'));
+        return $this->renderer->render('@account/invoice', compact('user', 'productsPurchased', 'famousPosts', 'newPosts'));
     }
 }

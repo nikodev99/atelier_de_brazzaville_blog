@@ -7,5 +7,6 @@ return [
     'account.profile'   =>  '/profil',
     'account.history'   =>  '/profil/history',
     'account.edit'      =>  '/profil/edit',
-    'auth.entity'       => User::class
+    'account.invoice'      =>  '/profil/invoice',
+    'auth.entity'       =>  User::class
 ];

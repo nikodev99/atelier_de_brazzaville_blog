@@ -4,6 +4,7 @@ namespace App\Admin;
 
 use App\Blog\BlogWidget;
 use App\Blog\Table\PostTable;
+use App\Shop\Table\PurchaseTable;
 use Framework\Renderer\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -12,12 +13,14 @@ class DashboardAction
     private RendererInterface $renderer;
     private PostTable $table;
     private array $widgets;
+    private PurchaseTable $purchaseTable;
 
-    public function __construct(RendererInterface $renderer, PostTable $table, array $widgets)
+    public function __construct(RendererInterface $renderer, PostTable $table, PurchaseTable $purchaseTable, array $widgets)
     {
         $this->renderer = $renderer;
         $this->table = $table;
         $this->widgets = $widgets;
+        $this->purchaseTable = $purchaseTable;
     }
 
     public function __invoke(ServerRequestInterface $request): string
@@ -33,6 +36,15 @@ class DashboardAction
         $widgets = array_reduce($this->widgets, function (string $html, AdminWidgetInterface $widget) {
             return $html . $widget->render();
         }, '');
-        return $this->renderer->render('@admin/dashboard', compact('items', 'widgets'));
+        $weekIncome = $this->purchaseTable->getWeekIncome();
+        $monthIncome = $this->purchaseTable->getMonthIncome();
+        $yearIncome = $this->purchaseTable->getYearIncome();
+        return $this->renderer->render('@admin/dashboard', compact(
+            'items',
+            'widgets',
+            'weekIncome',
+            'monthIncome',
+            'yearIncome'
+        ));
     }
 }

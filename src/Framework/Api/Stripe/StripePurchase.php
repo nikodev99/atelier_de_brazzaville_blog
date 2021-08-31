@@ -3,26 +3,27 @@
 namespace Framework\Api\Stripe;
 
 use Stripe\Card;
-use Stripe\Charge;
+use Stripe\Checkout\Session;
 use Stripe\Customer;
 use Stripe\Exception\ApiErrorException;
+use Stripe\Price;
+use Stripe\Product;
 use Stripe\Stripe;
 use Stripe\StripeClient;
-use Stripe\Token;
 
 class StripePurchase
 {
+    private string $token;
+
     public function __construct(string $token)
     {
-        Stripe::setApiKey($token);
+        $this->token = $token;
+        Stripe::setApiKey($this->token);
     }
 
-    /**
-     * @throws ApiErrorException
-     */
-    public function getCardFromToken(string $token): Card
+    public function getClient(): StripeClient
     {
-        return Token::retrieve($token)->card;
+        return new StripeClient($this->token);
     }
 
     /**
@@ -30,7 +31,7 @@ class StripePurchase
      */
     public function getCustomer(string $customerID): Customer
     {
-        return Customer::retrieve($customerID);
+        return $this->getClient()->customers->retrieve($customerID);
     }
 
     /**
@@ -38,7 +39,7 @@ class StripePurchase
      */
     public function createCustomer(array $params): Customer
     {
-        return Customer::create($params);
+        return $this->getClient()->customers->create($params);
     }
 
     /**
@@ -46,15 +47,47 @@ class StripePurchase
      */
     public function createCardForCustomer(Customer $customer, string $token): Card
     {
-        return (new StripeClient())->customers->createSource($customer->id, ['source' => $token]);
+        return $this->getClient()->customers->createSource($customer->id, ['source' => $token]);
         //return $customer->sources->create(['source' => $token]);
     }
 
     /**
      * @throws ApiErrorException
      */
-    public function charge(array $params): Charge
+    public function createProduct(array $params): Product
     {
-        return Charge::create($params);
+        return Product::create($params);
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function getProduct(string $productID): Product
+    {
+        return Product::retrieve($productID);
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function createPrice(array $params): Price
+    {
+        return Price::create($params);
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function getPrice(string $priceID): Price
+    {
+        return Price::retrieve($priceID);
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function charge(array $params): Session
+    {
+        return Session::create($params);
     }
 }

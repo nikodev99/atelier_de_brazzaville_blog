@@ -78,9 +78,9 @@
             <div class="sidebar-header">
                 <a href="#"><img src="../../webroot/img/message/1.jpg" alt="" />
                 </a>
-                <h3>Andrar Son</h3>
-                <p>Developer</p>
-                <strong>AB+</strong>
+                <h3>{{ current_user().first_name }} {{ current_user().last_name }}</h3>
+                <p>Administrateur</p>
+                <strong>AB</strong>
             </div>
             <div class="left-custom-menu-adp-wrap">
                 <ul class="nav navbar-nav left-sidebar-menu-pro">
@@ -98,10 +98,6 @@
                             <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
                                 <i class="fa fa-bars"></i>
                             </button>
-                            <div class="admin-logo logo-wrap-pro">
-                                <a href="#"><img src="../../webroot/img/logo/log.png" alt="" />
-                                </a>
-                            </div>
                         </div>
                         <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
                             <div class="header-top-menu tabl-d-n">
@@ -255,18 +251,13 @@
                                     <li class="nav-item">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                             <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
-                                            <span class="admin-name">Advanda Cro</span>
+                                            <span class="admin-name">{{ current_user().first_name }} {{ current_user().last_name }}</span>
                                             <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
                                         </a>
                                         <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
-                                            <li><a href="#"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
-                                            </li>
-                                            <li><a href="#"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>My Profile</a>
-                                            </li>
-                                            <li><a href="#"><span class="adminpro-icon adminpro-money author-log-ic"></span>User Billing</a>
-                                            </li>
-                                            <li><a href="#"><span class="adminpro-icon adminpro-settings author-log-ic"></span>Settings</a>
-                                            </li>
+                                            <li><a href="#"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>Profile</a></li>
+                                            <li><a href="#"><span class="adminpro-icon adminpro-money author-log-ic"></span>Facturation</a></li>
+                                            <li><a href="#"><span class="adminpro-icon adminpro-settings author-log-ic"></span>Paramètre</a></li>
                                             <li>
                                                 <form action="{{ path('auth.logout') }}" method="post">
                                                     <button style="background: none; margin-left: 14px; color: #fff; border-style: none">

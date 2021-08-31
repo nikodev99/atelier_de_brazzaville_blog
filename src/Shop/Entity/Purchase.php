@@ -13,7 +13,7 @@ class Purchase
     private float $price;
     private float $vat;
     private string $country;
-    private ?DateTime $createdAt;
+    private $createdAt;
     private string $stripeId;
 
     /**

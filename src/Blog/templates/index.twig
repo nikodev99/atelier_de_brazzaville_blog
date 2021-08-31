@@ -49,7 +49,7 @@
                                     <h4><a href="{{ path('blog.show', {slug:post.slug, id:post.id}) }}" title="">{{ post.title }}</a></h4>
                                     <div>{{ post.content | excerpt(500) | raw }}</div>
                                     <small><a href="blog-category-01.html" title="">{{ post.category_name }}</a></small>
-                                    <small><a href="single.html" title="">{{ post.created_date | datetime }}</a></small>
+                                    <small><a href="single.html" title="">{{ post.created_date | datetime(true) }}</a></small>
                                     <!--<small><a href="blog-author.html" title="">by Amanda</a></small>-->
                                     <small><a href="blog-author.html" title=""><i class="fa fa-eye"></i>{{ post.view }}</a></small>
                                 </div><!-- end meta -->
@@ -85,7 +85,7 @@
                                         <div class="w-100 justify-content-between">
                                             <img src="{{ newPost.thumb }}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">{{ newPost.title }}</h5>
-                                            <small>{{ newPost.created_date | datetime }}</small>
+                                            <small>{{ newPost.created_date | datetime(true) }}</small>
                                         </div>
                                     </a>
                                     {% endfor %}

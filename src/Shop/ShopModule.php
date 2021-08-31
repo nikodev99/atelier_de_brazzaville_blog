@@ -3,10 +3,11 @@
 namespace App\Shop;
 
 use App\Shop\Actions\AdminProductAction;
+use App\Shop\Actions\CheckoutAction;
+use App\Shop\Actions\InvoiceAction;
 use App\Shop\Actions\ProductListingAction;
 use App\Shop\Actions\ProductShowAction;
 use App\Shop\Actions\PurchaseProcessAction;
-use App\Shop\Actions\PurchaseRecapAction;
 use Framework\Auth\LoggedInMiddleware;
 use Framework\Module;
 use Framework\Renderer\RendererInterface;
@@ -27,9 +28,11 @@ class ShopModule extends Module
         $router = $container->get(Router::class);
         $shopPrefix = $container->get('admin.prefix');
         $router->get("/boutique-ephemere", ProductListingAction::class, "shopping");
-        $router->post("/boutique-ephemere/product[i:id]-recap", [LoggedInMiddleware::class, PurchaseRecapAction::class], "shop.recap");
+        $router->get("/boutique-ephemere/invoice-[i:id]", [LoggedInMiddleware::class, InvoiceAction::class], "shop.invoice");
         $router->post("/boutique-ephemere/product[i:id]-process", [LoggedInMiddleware::class, PurchaseProcessAction::class], "shop.charge");
         $router->get("/boutique-ephemere/[*:slug]", ProductShowAction::class, "shop.show");
+        $router->get("/checkout-success", [LoggedInMiddleware::class, CheckoutAction::class], "shop.payment.success");
+        $router->get("/checkout-cancel", [LoggedInMiddleware::class, CheckoutAction::class], "shop.payment.cancel");
         $router->crud("$shopPrefix/products", AdminProductAction::class, 'admin.shop.product');
     }
 }

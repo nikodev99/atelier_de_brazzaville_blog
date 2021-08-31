@@ -3,6 +3,7 @@
 use App\Admin\AdminModule;
 use App\Admin\DashboardAction;
 use App\Blog\Table\PostTable;
+use App\Shop\Table\PurchaseTable;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
 use Framework\Twig\AdminTwigExtension;
@@ -21,5 +22,10 @@ return [
         get('admin.prefix'),
         get(AdminTwigExtension::class)
     ),
-    DashboardAction::class   =>  create()->constructor(get(RendererInterface::class), get(PostTable::class), get('admin.widgets'))
+    DashboardAction::class   =>  create()->constructor(
+        get(RendererInterface::class),
+        get(PostTable::class),
+        get(PurchaseTable::class),
+        get('admin.widgets')
+    )
 ];

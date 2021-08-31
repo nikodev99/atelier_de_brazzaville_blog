@@ -12,7 +12,7 @@
                             <div class="blog-meta">
                                 <span class="bg-aqua"><a href="{{ path('blog.category', {slug:topPage[0].category_slug}) }}" title="">{{ topPage[0].name }}</a></span>
                                 <h4><a href="{{ path('blog.show', {slug:topPage[0].slug, id:topPage[0].id}) }}" title="{{ topPage[0].title }}">{{ topPage[0].title | excerpt(30) }}</a></h4>
-                                <small><a href="single.html" title="">{{ topPage[0].created_date | datetime }}</a></small>
+                                <small><a href="single.html" title="">{{ topPage[0].created_date | datetime(true) }}</a></small>
                                 <!--<small><a href="blog-author.html" title="">by Amanda</a></small>-->
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
@@ -28,7 +28,7 @@
                             <div class="blog-meta">
                                 <span class="bg-aqua"><a href="{{ path('blog.category', {slug:topPage[1].category_slug}) }}" title="">{{ topPage[1].name }}</a></span>
                                 <h4><a href="{{ path('blog.show', {slug:topPage[1].slug, id:topPage[1].id}) }}" title="{{ topPage[1].title }}">{{ topPage[1].title | excerpt(30) }}</a></h4>
-                                <small><a href="single.html" title="">{{ topPage[1].created_date | datetime }}</a></small>
+                                <small><a href="single.html" title="">{{ topPage[1].created_date | datetime(true) }}</a></small>
                                 <!--<small><a href="blog-author.html" title="">by Amanda</a></small>-->
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
@@ -68,7 +68,7 @@
                             <div class="blog-meta">
                                 <span class="bg-aqua"><a href="{{ path('blog.category', {slug:topPage[4].category_slug}) }}" title="">{{ topPage[4].name }}</a></span>
                                 <h4><a href="{{ path('blog.show', {slug:topPage[4].slug, id:topPage[4].id}) }}" title="{{ topPage[4].title }}">{{ topPage[4].title | excerpt(30) }}</a></h4>
-                                <small><a href="single.html" title="">{{ topPage[4].created_date | datetime }}</a></small>
+                                <small><a href="single.html" title="">{{ topPage[4].created_date | datetime(true) }}</a></small>
                                 <!--<small><a href="blog-author.html" title="">by Jessica</a></small>-->
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
@@ -103,7 +103,7 @@
                                 <h4><a href="{{ path('blog.show', {slug:ado.slug, id:ado.id}) }}" title="{{ ado.title }}">{{ ado.title | excerpt(30) }}</a></h4>
                                 <div>{{ ado.content | excerpt | raw }}</div>
                                 <small><a href="{{ path('blog.category', {slug:'primaire'}) }}" title="">Primaire</a></small>
-                                <small><a href="single.html" title="">{{ ado.created_date | datetime }}</a></small>
+                                <small><a href="single.html" title="">{{ ado.created_date | datetime(true) }}</a></small>
                                 <!--<small><a href="blog-author.html" title="">by Amanda</a></small>-->
                             </div><!-- end meta -->
                         </div><!-- end blog-box -->
@@ -161,7 +161,7 @@
                             <h4><a href="{{ path('blog.show', {slug:jewelry.slug, id:jewelry.id}) }}" title="{{ jewelry.title }}">{{ jewelry.title | excerpt(30) }}</a></h4>
                             <div>{{ jewelry.content | excerpt | raw }}</div>
                             <small><a href="{{ path('blog.category', {slug:'bijoux'}) }}" title="">Bijoux</a></small>
-                            <small><a href="single.html" title="">{{ jewelry.created_date | datetime }}</a></small>
+                            <small><a href="single.html" title="">{{ jewelry.created_date | datetime(true) }}</a></small>
                             <!--<small><a href="blog-author.html" title="">by Boby</a></small>-->
                         </div><!-- end meta -->
                     </div><!-- end blog-box -->
@@ -191,7 +191,7 @@
                             <h4><a href="{{ path('blog.show', {slug:bag.slug, id:bag.id}) }}" title="{{ bag.title }}">{{ bag.title | excerpt(30) }}</a></h4>
                             <p>{{ bag.content | excerpt | raw }}</p>
                             <small><a href="{{ path('blog.category', {slug:'sacs'}) }}" title="">Sacs</a></small>
-                            <small><a href="single.html" title="">{{ bag.created_date | datetime }}</a></small>
+                            <small><a href="single.html" title="">{{ bag.created_date | datetime(true) }}</a></small>
                             <!--<small><a href="blog-author.html" title="">by Matilda</a></small>-->
                         </div>
                     </div>
@@ -218,7 +218,7 @@
                     <div class="blog-meta">
                         <h4><a href="{{ path('blog.show', {slug:cloth.slug, id:cloth.id}) }}" title="{{ cloth.title }}">{{ cloth.title | excerpt(30) }}</a></h4>
                         <small><a href="{{ path('blog.category', {slug:'vetements'}) }}" title="">Vêtements</a></small>
-                        <small><a href="blog-category-01.html" title="">{{ cloth.created_date | datetime }}</a></small>
+                        <small><a href="blog-category-01.html" title="">{{ cloth.created_date | datetime(true) }}</a></small>
                     </div><!-- end meta -->
                 </div><!-- end blog-box -->
 
@@ -241,7 +241,7 @@
                     <div class="blog-meta">
                         <h4><a href="{{ path('blog.show', {slug:deco.slug, id:deco.id}) }}" title="{{ deco.title }}">{{ deco.title | excerpt(30) }}</a></h4>
                         <small><a href="{{ path('blog.category', {slug:'deco'}) }}" title="">Déco</a></small>
-                        <small><a href="blog-category-01.html" title="">{{ deco.created_date | datetime }}</a></small>
+                        <small><a href="blog-category-01.html" title="">{{ deco.created_date | datetime(true) }}</a></small>
                     </div>
                 </div>
 

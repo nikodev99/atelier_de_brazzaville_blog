@@ -32,20 +32,20 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="linechart-dash-rate">
-                                    <h2>$5,000</h2>
-                                    <p>Sales report</p>
+                                    <h2>{{ weekIncome }}€</h2>
+                                    <p>Revenu hebdomadaire</p>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="linechart-dash-rate">
-                                    <h2>$7,000</h2>
-                                    <p>Annual Sales</p>
+                                    <h2>{{ monthIncome }}€</h2>
+                                    <p>Revenu Mensuel</p>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="linechart-dash-rate">
-                                    <h2>$3,000</h2>
-                                    <p>revenue Sales</p>
+                                    <h2>{{ yearIncome }}€</h2>
+                                    <p>Revenu Annuel</p>
                                 </div>
                             </div>
                         </div>
@@ -385,31 +385,6 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                    <div class="income-dashone-total shadow-reset nt-mg-b-30 res-mg-t-30">
-                        <div class="income-title">
-                            <div class="main-income-head">
-                                <h2>Income</h2>
-                                <div class="main-income-phara">
-                                    <p>Monthly</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="income-dashone-pro">
-                            <div class="income-rate-total">
-                                <div class="price-adminpro-rate">
-                                    <h3><span>$</span><span class="counter">6,08,88,200</span></h3>
-                                </div>
-                                <div class="price-graph">
-                                    <span id="sparkline1"></span>
-                                </div>
-                            </div>
-                            <div class="income-range">
-                                <p>Total income</p>
-                                <span class="income-percentange">98% <i class="fa fa-bolt"></i></span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
                     {{ widgets | raw }}
                     <div class="income-dashone-total shadow-reset nt-mg-b-30">
                         <div class="income-title">

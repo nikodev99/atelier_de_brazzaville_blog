@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Facture | Atelier Brazzaville</title>
+    <link rel="stylesheet" href="../../style/css/invoice.css">
+</head>
+<body>
+<header>
+    <h1>Facture</h1>
+    <address>
+        <p>Atelier Brazzaville</p>
+        <p>101 E avenue amilcar cabral brazzaville</p>
+        <p>06 900 90 90</p>
+    </address>
+    <span><img src="../../style/images/logo.png" type="file" alt="atelier brazzaville logo"></span>
+</header>
+<article>
+    <h1>Récepteur</h1>
+    <address>
+        <small style="font-size: small; font-weight: lighter">Pour</small>
+        <p>{{ user.first_name }} {{ user.last_name }}</p>
+        <small style="font-size: small; font-weight: lighter">{{ purchasedProduct.description }}</small>
+    </address>
+    <table class="meta">
+        <tr>
+            <th>Facture n°</th>
+            <td>{{ year }}-{{ purchasedProduct.invoice_number }}</td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>{{ purchasedProduct.created_at | datetime(true, true) }}</td>
+        </tr>
+    </table>
+    <table class="inventory">
+        <thead>
+        <tr>
+            <th>Produit acheté</th>
+            <th>Quantité</th>
+            <th>Montant HT</th>
+            <th>TVA</th>
+            <th>Montant TTC</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ purchasedProduct.name }}</td>
+            <td>{{ purchasedProduct.quantity }}</td>
+            <td>{{ purchasedProduct.ht | number_format(2, ',') }} €</td>
+            <td>{{ purchasedProduct.vat == 0 ? 0 : purchasedProduct.vat ~ '%' }}</td>
+            <td>{{ purchasedProduct.price | number_format(2, ',') }} €</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="balance">
+        <tr>
+            <th>Total</th>
+            <td>{{ purchasedProduct.ht | number_format(2, ',') }} €</td>
+        </tr>
+        <tr>
+            <th>Montant TVA</th>
+            <td>{{ purchasedProduct.vat == 0 ? 0 : (purchasedProduct.price / purchasedProduct.vat) ~ ' €' }}</td>
+        </tr>
+        <tr>
+            <th>Total à payer</th>
+            <td>{{ purchasedProduct.price | number_format(2, ',') }} €</td>
+        </tr>
+    </table>
+</article>
+<script>
+    window.print()
+</script>
+</body>
+</html>

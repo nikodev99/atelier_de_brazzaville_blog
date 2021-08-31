@@ -1,0 +1,45 @@
+{% extends '@account/layout.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-wrapper">
+                {% if (productsPurchased) %}
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="h2"><i class="fa fa-paperclip"></i> Factures</div>
+                        </div>
+                        <table class="table mt-5">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Produits</th>
+                                <th>Prix</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for productPurchased in productsPurchased %}
+                                <tr>
+                                    <td>{{ productPurchased.created_at | datetime(false, true) }}</td>
+                                    <td>{{ productPurchased.name }}</td>
+                                    <td>{{ productPurchased.price }}</td>
+                                    <td><a target="_blank" href="{{ path('shop.invoice', {id:productPurchased.id}) }}" class="btn btn-info">Télécharger la facture</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                {% else %}
+                    <div class="py5">
+                        <div class="h2 center">Factures</div>
+                        <p class="text-muted text-center mt-1 mb-2">
+                            Cette page affichera l'ensemble des factures de tes achat sur latelierbrazzaville.com<br>
+                            Pour le moment tu n'as effectuer aucun achat :(
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -7,6 +7,7 @@ use App\Shop\Entity\Product;
 use App\Shop\Entity\Purchase;
 use Framework\Database\Table;
 use PDO;
+use stdClass;
 
 class PurchaseTable extends Table
 {
@@ -32,8 +33,8 @@ class PurchaseTable extends Table
 
     public function findByUser(User $user): ?array
     {
-        $query = "SELECT pp.user_id, pp.product_id, pp.price, pp.created_at, pp.stripe_id, p.name, p.name, p.id, p.slug, p.image, p.description
-                    FROM purchases AS pp LEFT JOIN products AS p ON pp.product_id = p.id WHERE pp.user_id = :user
+        $query = "SELECT pp.*, p.name, p.slug, p.image, p.description
+                    FROM purchases AS pp LEFT JOIN products AS p ON pp.product_id = p.id WHERE pp.user_id = :user ORDER BY pp.created_at DESC 
                     ";
         $result = $this->getPdo()->prepare($query);
         $result->execute([
@@ -42,7 +43,48 @@ class PurchaseTable extends Table
         if (is_bool($result)) {
             return null;
         }
-        $this->checkEntity($result);
         return $result->fetchAll();
+    }
+
+    public function findWithProduct(int $purchaseId): ?Purchase
+    {
+        $query = "SELECT p.*, pr.name, pr.price AS ht, pr.image
+                    FROM purchases AS p LEFT JOIN products AS pr ON p.product_id = pr.id WHERE p.id = :id 
+                    ";
+        $result = $this->getPdo()->prepare($query);
+        $result->execute(['id' => $purchaseId]);
+        if (is_bool($result)) {
+            return null;
+        }
+        $this->checkEntity($result);
+        return $result->fetch();
+    }
+
+    public function getDayIncome()
+    {
+        return $this->getIncome("DAY");
+    }
+
+    public function getWeekIncome()
+    {
+        return $this->getIncome("WEEK");
+    }
+
+    public function getMonthIncome()
+    {
+        return $this->getIncome("MONTH");
+    }
+
+    public function getYearIncome()
+    {
+        return $this->getIncome("YEAR");
+    }
+
+    public function getIncome(string $interval)
+    {
+        $query = "SELECT SUM(price) FROM purchases WHERE created_at BETWEEN DATE_SUB(NOW(), INTERVAL 1 $interval) AND NOW()";
+        $result = $this->getPdo()->prepare($query);
+        $result->execute();
+        return $result->fetchColumn();
     }
 }

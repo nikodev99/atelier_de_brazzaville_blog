@@ -7,6 +7,7 @@ use App\Auth\ForbiddenMiddleware;
 use App\Auth\UserNotFoundMiddleware;
 use App\Contact\ContactModule;
 use App\Shop\ShopModule;
+use Framework\Api\Stripe\ApiConnectionMiddleware;
 use Framework\App;
 use Framework\Auth\RoleMiddlewareFactory;
 use Framework\Middleware\DispatcherMiddleware;
@@ -43,6 +44,7 @@ $app->pipe(TrailingSlashMiddleware::class)
     ->pipe($container->get(RoleMiddlewareFactory::class)->makeForRole('admin'), $container->get("admin.prefix"))
     ->pipe(MethodMiddleware::class)
     ->pipe(RouterMiddleware::class)
+    ->pipe(ApiConnectionMiddleware::class)
     ->pipe(DispatcherMiddleware::class)
     ->pipe(NotFoundMiddleware::class)
 ;

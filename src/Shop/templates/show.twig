@@ -58,19 +58,10 @@
                             {% if (isDownloaded) %}
                                 <a href="{{ path('account.history') }}" class="btn btn-primary form-control"><i class="fa fa-shopping-cart"></i> Voir vos produits</a>
                             {% else %}
-                                <form action="{{ path('shop.recap', {id:product.id}) }}" method="post" id="stripe_checkout">
-                                    <script
-                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="{{ stripeKey }}"
-                                            data-amount="{{ product.price * 100 }}"
-                                            data-name="{{ product.name }}"
-                                            data-email="{{ current_user().email }}"
-                                            data-description="Achat de {{ product.name }} sur latelierbrazzaville.com"
-                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                            data-locale="fr"
-                                            data-currency="eur"
-                                    >
-                                    </script>
+                                <form action="{{ path('shop.charge', {id:product.id}) }}" method="post" id="stripe_checkout">
+                                    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+                                    <script src="https://js.stripe.com/v3/"></script>
+                                    <button type="submit" id="checkout-button">Payer par Carte</button>
                                 </form>
                             {% endif %}
                         {% else %}

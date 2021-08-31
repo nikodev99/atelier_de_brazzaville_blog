@@ -1744,3 +1744,38 @@ hr.invis3 {
     font-size: 20px;
     vertical-align: 1.3em;
 }
+
+.py5 {
+    padding-top: calc(5 * 8px);
+    padding-bottom: calc(5 * 8px);
+}
+
+.h2 {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table th {
+    font-weight: 300;
+    text-transform: uppercase;
+    opacity: .6;
+    font-size: .9em;
+    text-align: left;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: calc(2 * 8px) calc(2 * 8px) calc(2 * 8px) 0;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}

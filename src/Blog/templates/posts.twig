@@ -19,7 +19,7 @@
                                         <span class="bg-grey"><a href="{{ path('blog.category', {slug:f.category_slug}) }}" title="">{{ f.category_name }}</a></span>
                                         <h4><a href="{{ path('blog.show', {slug:f.slug, id:f.id}) }}" title="{{ f.title }}">{{ f.title | excerpt(30) }}</a></h4>
                                         <!--<small><a href="blog-author.html" title="">By: Jessica</a></small>-->
-                                        <small><a href="#" title="">{{ f.created_date | datetime }}</a></small>
+                                        <small><a href="#" title="">{{ f.created_date | datetime(true) }}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->
                             </div><!-- end col -->
