@@ -10,7 +10,6 @@ use Framework\Session\FlashService;
 use Framework\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use stdClass;
 
 class CrudAction
 {

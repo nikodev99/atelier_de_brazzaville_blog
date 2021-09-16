@@ -70,7 +70,7 @@ class ProductShowAction
     {
         $isDownloaded = false;
         $user = $this->auth->getUser();
-        if ($user !== null && $this->purchaseTable->findFor($product, $user) !== null) {
+        if ($user !== null && $this->purchaseTable->findFor($product, $user) !== null || $product->getQuantity() == 0) {
             $isDownloaded = true;
         }
         return $isDownloaded;

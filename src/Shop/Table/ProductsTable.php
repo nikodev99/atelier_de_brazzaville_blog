@@ -35,6 +35,15 @@ class ProductsTable extends Table
             ->setCurrentPage($currentPage);
     }
 
+    public function getStockValue()
+    {
+        $query = "SELECT SUM(price * quantity) FROM products";
+        $result = $this->getPdo()
+            ->prepare($query);
+        $result->execute();
+        return $result->fetchColumn();
+    }
+
     protected function findQuery(): string
     {
         return "SELECT * FROM products WHERE id = ?";

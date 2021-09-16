@@ -11,14 +11,12 @@ use App\Shop\Table\StripePriceTable;
 use App\Shop\Table\StripeProductsTable;
 use App\Shop\Table\StripeUserTable;
 use Framework\Api\Stripe\StripePurchase;
-use Framework\Response\RedirectResponse;
 use Framework\Router;
 use Mpociot\VatCalculator\VatCalculator;
 use Psr\Http\Message\ServerRequestInterface;
 use Stripe\Card;
 use Stripe\Checkout\Session;
 use Stripe\Customer;
-use Stripe\Exception\ApiConnectionException;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Price;
 

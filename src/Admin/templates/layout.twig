@@ -102,25 +102,25 @@
                         <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
                             <div class="header-top-menu tabl-d-n">
                                 <ul class="nav navbar-nav mai-top-nav">
-                                    <li class="nav-item"><a href="#" class="nav-link">Accueil</a></li>
+                                    <li class="nav-item"><a href="{{ path('homepage.index') }}" class="nav-link">Accueil</a></li>
                                     <li class="nav-item dropdown">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Atelier <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                         <div role="menu" class="dropdown-menu animated flipInX">
-                                            <a href="#" class="dropdown-item">Maternelles</a>
-                                            <a href="#" class="dropdown-item">Primaire</a>
+                                            <a href="{{ path('blog.category', {slug:"maternelles"}) }}" class="dropdown-item">Maternelles</a>
+                                            <a href="{{ path('blog.category', {slug:"primaire"}) }}" class="dropdown-item">Primaire</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Production <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                         <div role="menu" class="dropdown-menu animated flipInX">
-                                            <a href="#" class="dropdown-item">Bijoux</a>
-                                            <a href="#" class="dropdown-item">Sacs</a>
-                                            <a href="#" class="dropdown-item">Vêtements</a>
-                                            <a href="#" class="dropdown-item">Déco</a>
-                                            <a href="#" class="dropdown-item">Récup'</a>
+                                            <a href="{{ path('blog.category', {slug:"bijoux"}) }}" class="dropdown-item">Bijoux</a>
+                                            <a href="{{ path('blog.category', {slug:"sacs"}) }}" class="dropdown-item">Sacs</a>
+                                            <a href="{{ path('blog.category', {slug:"vetements"}) }}" class="dropdown-item">Vêtements</a>
+                                            <a href="{{ path('blog.category', {slug:"deco"}) }}" class="dropdown-item">Déco</a>
+                                            <a href="{{ path('blog.category', {slug:"recup"}) }}" class="dropdown-item">Récup'</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Boutique Ephémère</a></li>
+                                    <li class="nav-item"><a href="{{ path("shopping") }}" class="nav-link">Boutique Ephémère</a></li>
                                 </ul>
                             </div>
                         </div>

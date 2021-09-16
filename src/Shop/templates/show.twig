@@ -42,14 +42,18 @@
                 </div><!-- end col -->
                 <div class="col-lg-5">
                     <h4>{{ product.name | excerpt(30) }}</h4>
+                    {% if (product.quantity > 0) %}
                     <h4 style="color: #29b001">En stock</h4>
+                    {% else %}
+                    <h4 style="color: #ce1031">Pas en stock</h4>
+                    {% endif %}
                     <p>{{ product.description | nl2br }}</p>
                     <h5><i class="fa fa-truck"></i> Livraison gratuite</h5>
                 </div>
                 <div class="col-lg-3">
                     <div class="topPrice">
                         <div>
-                            <span class="fpPrice">{{ product.price }}</span><span class="fpPrice fpCurrency">€</span>
+                            <span class="fpPrice">{{ product.price | number_format(2, ',') }}</span><span class="fpPrice fpCurrency">€</span>
                         </div>
                         <div class="mt-3 mb-3">
                             Quantité: <input form="stripe_checkout" type="number" name="quantity" value="1" min="0" max="15" style="border: none; width: 36px">

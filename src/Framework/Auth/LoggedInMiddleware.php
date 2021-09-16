@@ -3,6 +3,7 @@
 namespace Framework\Auth;
 
 use Framework\Auth;
+use Framework\Session\PHPSession;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -23,6 +24,13 @@ class LoggedInMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        if (array_key_exists('comment', $request->getParsedBody())) {
+            (new PHPSession())->set('comments', [
+                'comment'   =>  $request->getParsedBody()['comment'],
+                'post'      =>  $request->getAttribute('id'),
+                'create'    =>  date('Y-m-d H:i:s')
+            ]);
+        }
         $user = $this->auth->getUser();
         if (is_null($user)) {
             throw new ForbiddenException();

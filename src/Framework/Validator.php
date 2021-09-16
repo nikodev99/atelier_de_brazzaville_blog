@@ -6,7 +6,6 @@ use DateTime;
 use Framework\Database\Table;
 use Framework\Validator\ValidationError;
 use PDO;
-use PDOStatement;
 use Psr\Http\Message\UploadedFileInterface;
 
 class Validator
@@ -146,6 +145,23 @@ class Validator
         $statement = $this->valueExists($key, $table, $pdo);
         $statement->execute([$keyValue]);
         if ($statement->rowCount() === 1) {
+            $this->addError($key, 'unique', [$table]);
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param string|Table $table
+     * @param PDO|null $pdo
+     * @return $this
+     */
+    public function acceptUnique(string $key, $table, ?PDO $pdo = null): self
+    {
+        $keyValue = $this->getValue($key);
+        $statement = $this->valueExists($key, $table, $pdo);
+        $statement->execute([$keyValue]);
+        if ($statement->rowCount() > 1) {
             $this->addError($key, 'unique', [$table]);
         }
         return $this;

@@ -21,6 +21,8 @@ class Product
 
     private ?string $image = null;
 
+    private int $quantity = 0;
+
     private const PATH = '../../style/upload/products/';
 
     /**
@@ -146,5 +148,21 @@ class Product
     public function getPdf(): string
     {
         return "{$this->getId()}.pdf";
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
     }
 }

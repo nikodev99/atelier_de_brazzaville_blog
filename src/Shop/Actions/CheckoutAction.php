@@ -72,6 +72,8 @@ class CheckoutAction
 
         $description = "Achat de {$product->getName()} sur atelier-brazzaville.com";
 
+        $this->productsTable->update($productID, ['quantity' => ($product->getQuantity() - $quantity)]);
+
         $this->purchaseTable->add([
             "user_id"       =>  $user->id,
             "product_id"    =>  $product->getId(),

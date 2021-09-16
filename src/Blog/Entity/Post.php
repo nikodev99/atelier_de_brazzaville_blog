@@ -32,6 +32,8 @@ class Post
 
     public int $view;
 
+    public int $category_id;
+
     public ?string $image;
 
     public string $category_name;

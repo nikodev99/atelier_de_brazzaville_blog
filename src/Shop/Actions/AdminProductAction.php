@@ -23,7 +23,7 @@ class AdminProductAction extends CrudAction
 
     protected string $routePrefix = 'admin.shop.product';
 
-    protected array $acceptedParams = ['name', 'description', 'slug', 'price', 'created_at', 'image', 'updated_at'];
+    protected array $acceptedParams = ['name', 'description', 'slug', 'price', 'created_at', 'image', 'updated_at', 'quantity'];
 
     protected array $success_messages = [
         'create'    =>  "Nouveau produit ajoutée avec succès !",
@@ -83,7 +83,7 @@ class AdminProductAction extends CrudAction
      * @param ServerRequestInterface $request
      * @param Product $item
      */
-    protected function pdfPersist(ServerRequestInterface $request, $item): void
+    /*protected function pdfPersist(ServerRequestInterface $request, $item): void
     {
         $clientFilename = $request->getUploadedFiles()['pdf']->getClientFilename();
         if (!empty($clientFilename)) {
@@ -91,7 +91,7 @@ class AdminProductAction extends CrudAction
             $productId = $item->getId() === 0 ? $this->table->getPdo()->lastInsertId() : $item->getId();
             $this->uploadPdf->upload($pdfFile, "$productId.pdf", "$productId.pdf");
         }
-    }
+    }*/
 
     /**
      * @throws NoRecordException
@@ -108,17 +108,17 @@ class AdminProductAction extends CrudAction
     protected function getValidator(ServerRequestInterface $request): Validator
     {
         $validator =  parent::getValidator($request)
-            ->unEmptied('name', 'description', 'slug', 'price')
+            ->unEmptied('name', 'description', 'slug', 'price', 'quantity')
             ->required('name', 'description', 'slug', 'price', 'created_at')
             ->length('name', 3, 250)
             ->length('slug', 3, 50)
             ->length('description', 10)
             ->slug('slug')
-            ->unique('slug', $this->table)
+            ->acceptUnique('slug', $this->table)
             ->datetime('created_at')
             ->numeric('price')
+            ->numeric('quantity')
             ->extension('image', ['jpg', 'png'])
-            ->extension('pdf', ['pdf'])
         ;
         if ($request->getAttribute('id') === null) {
             $validator->uploaded('image');

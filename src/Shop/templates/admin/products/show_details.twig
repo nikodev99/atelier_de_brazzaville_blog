@@ -17,7 +17,7 @@
                     <div class="row">
                         {% if item.image %}
                             <div class="col-lg-12 col-md-12">
-                                <img src="{{ item.thumb }}" alt="" class="img-fluid">
+                                <img src="{{ item.main }}" alt="" class="img-fluid">
                             </div>
                         {% endif %}
                         {{ field('show_name', 'Nom du produit', item.name, {disabled: true, col:12}) }}
@@ -26,7 +26,7 @@
                         {{ field('show_description', 'Contenu', item.description, {disabled: true, col:12, type: 'textarea'}) }}
                         {{ field('show_created_at', 'Date d\'ajout', item.created_at | datetime, {disabled: true, col:12}) }}
                         {{ field('show_updated_at', 'Date de la dernière modification', item.updated_at | datetime, {disabled: true, col:12}) }}
-                        {{ field('show_pdf', 'PDF', item.pdf, {disabled: true, col:12}) }}
+                        {{ field('show_quantity', 'Quantité', item.quantity, {disabled: true, col:12}) }}
                     </div>
                 </form>
             </div>

@@ -4,9 +4,11 @@ namespace App\Blog;
 
 use App\Blog\Actions\CategoryCrudAction;
 use App\Blog\Actions\CategoryShowAction;
+use App\Blog\Actions\CommentAction;
 use App\Blog\Actions\PostCrudAction;
 use App\Blog\Actions\PostIndexAction;
 use App\Blog\Actions\PostShowAction;
+use Framework\Auth\LoggedInMiddleware;
 use Framework\Module;
 use Framework\Renderer\RendererInterface;
 use Framework\Router;
@@ -30,6 +32,7 @@ class BlogModule extends Module
         $router->get('/article-a-la-une', PostIndexAction::class, 'blog.newPost');
         $router->get($container->get('blog.prefix') . '/[*:slug]-[i:id]', PostShowAction::class, 'blog.show');
         $router->get($container->get('blog.prefix') . '/[*:slug]', CategoryShowAction::class, 'blog.category');
+        $router->post($container->get('blog.prefix') . '/comment-[i:id]', [LoggedInMiddleware::class, CommentAction::class], 'blog.post.comment');
 
         if ($container->has('admin.prefix')) {
             $adminPrefix = $container->get('admin.prefix');

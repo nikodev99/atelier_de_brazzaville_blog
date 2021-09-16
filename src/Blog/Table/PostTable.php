@@ -46,6 +46,18 @@ class PostTable extends Table
             ->setCurrentPage($currentPage);
     }
 
+    public function likedPost(int $category_id, int $limit, int $id = 0): array
+    {
+        $query = "SELECT * FROM posts WHERE id != :id AND category_id = :category ORDER BY view DESC LIMIT $limit";
+        $result = $this->getPdo()->prepare($query);
+        $this->checkEntity($result);
+        $result->execute([
+           "id" =>  $id,
+           "category"   =>  $category_id
+        ]);
+        return $result->fetchAll();
+    }
+
     protected function paginationQuery(bool $limit = false, int $dataLimit = 3): string
     {
         $statementWithLimit = '';
