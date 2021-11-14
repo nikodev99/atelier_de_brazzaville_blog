@@ -1,0 +1,77 @@
+{% extends '@admin/layout.twig' %}
+{% block pageTitle "Paramètres" %}
+{% block pageTitleMobile "Paramètre" %}
+{% block body %}
+    <div class="advanced-form-area mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="sparkline8-list shadow-reset">
+                        <div class="sparkline8-hd">
+                            <div class="main-sparkline8-hd">
+                                <h1>Détails des paramètres</h1>
+                                <div class="sparkline8-outline-icon">
+                                    <span class="sparkline8-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline8-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="basic-login-form-ad">
+                                <form action="">
+                                    <div class="row">
+                                        {{ field('show_username', 'Nom d\'utilisateur', admin.username, {disabled: true, col:12}) }}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 res-mg-t-30" style="margin-bottom: 15px">
+                    <div class="sparkline9-list shadow-reset">
+                        <div class="sparkline9-hd">
+                            <div class="main-sparkline9-hd">
+                                <h1>Boutique éphémère</h1>
+                                <div class="sparkline9-outline-icon">
+                                    <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="basic-login-form-ad">
+                                <form action="{{ path('admin.setting') }}" method="POST">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="radio" name="online" value="1" id="online" {{ online.keyValue == 1 ? "checked" : "" }}>
+                                            <label for="online">Boutique éphémère en ligne</label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input type="radio" name="online" value="0" id="offline" {{ online.keyValue == 0 ? "checked" : "" }}>
+                                            <label for="offline">Boutique éphémère hos ligne</label>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="login-btn-inner">
+                                                    <div class="inline-remember-me">
+                                                        <button class="btn btn-sm btn-success pull-right" type="submit">
+                                                            <span class="fa fa-save"></span>
+                                                            Enregistrer
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Basic Form End-->
+{% endblock %}

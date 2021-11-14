@@ -147,9 +147,9 @@ class Table
         return $statement->fetchColumn() !== false;
     }
 
-    public function count(): int
+    public function count(?string $condition = null): int
     {
-        $statement = $this->pdo->prepare("SELECT COUNT(id) FROM $this->table");
+        $statement = $this->pdo->prepare("SELECT COUNT(id) FROM $this->table " . $condition);
         $statement->execute();
         if ($this->entity) {
             $statement->setFetchMode(PDO::FETCH_CLASS, $this->entity);

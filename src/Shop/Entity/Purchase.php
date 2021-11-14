@@ -3,18 +3,32 @@
 namespace App\Shop\Entity;
 
 use DateTime;
+use DateTimeZone;
+use Error;
 use Exception;
 
 class Purchase
 {
     private int $id;
-    private int $userId;
-    private int $productId;
+    private int $user_id;
+    private int $product_id;
     private float $price;
     private float $vat;
     private string $country;
-    private $createdAt;
-    private string $stripeId;
+    /** @var DateTime */
+    private $created_at;
+    private string $stripe_id;
+    private int $success;
+    private int $quantity;
+    private string $invoice_number;
+    private string $description;
+
+    public function __construct()
+    {
+        if ($this->created_at) {
+            $this->created_at = $this->getDateTime($this->created_at);
+        }
+    }
 
     /**
      * @return int
@@ -37,7 +51,7 @@ class Purchase
      */
     public function getUserId(): int
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
     /**
@@ -45,7 +59,7 @@ class Purchase
      */
     public function setUserId(int $userId): void
     {
-        $this->userId = $userId;
+        $this->user_id = $userId;
     }
 
     /**
@@ -53,15 +67,15 @@ class Purchase
      */
     public function getProductId(): int
     {
-        return $this->productId;
+        return $this->product_id;
     }
 
     /**
-     * @param int $productId
+     * @param int $product_id
      */
-    public function setProductId(int $productId): void
+    public function setProductId(int $product_id): void
     {
-        $this->productId = $productId;
+        $this->product_id = $product_id;
     }
 
     /**
@@ -117,7 +131,7 @@ class Purchase
      */
     public function getCreatedAt(): ?DateTime
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
@@ -127,9 +141,9 @@ class Purchase
     public function setCreatedAt($createdAt): void
     {
         if (is_string($createdAt)) {
-            $this->createdAt = new DateTime($createdAt);
+            $this->created_at = new DateTime($createdAt);
         }
-        $this->createdAt = $createdAt;
+        $this->created_at = $createdAt;
     }
 
     /**
@@ -137,14 +151,87 @@ class Purchase
      */
     public function getStripeId(): string
     {
-        return $this->stripeId;
+        return $this->stripe_id;
     }
 
     /**
-     * @param string $stripeId
+     * @param string $stripe_id
      */
-    public function setStripeId(string $stripeId): void
+    public function setStripeId(string $stripe_id): void
     {
-        $this->stripeId = $stripeId;
+        $this->stripe_id = $stripe_id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSuccess(): int
+    {
+        return $this->success;
+    }
+
+    /**
+     * @param int $success
+     */
+    public function setSuccess(int $success): void
+    {
+        $this->success = $success;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInvoiceNumber(): string
+    {
+        return $this->invoice_number;
+    }
+
+    /**
+     * @param string $invoice_number
+     */
+    public function setInvoiceNumber(string $invoice_number): void
+    {
+        $this->invoice_number = $invoice_number;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    private function getDateTime($date): DateTime
+    {
+        try {
+            return (new DateTime($date))->setTimezone(new DateTimeZone('Africa/Brazzaville'));
+        } catch (Exception $e) {
+            throw new Error("Type of date error: " . $e->getMessage());
+        }
     }
 }

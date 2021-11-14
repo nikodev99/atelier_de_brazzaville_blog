@@ -87,4 +87,9 @@ class PurchaseTable extends Table
         $result->execute();
         return $result->fetchColumn();
     }
+
+    protected function paginationQuery(bool $limit = false, int $dataLimit = 3): string
+    {
+        return "SELECT u.*, p.name FROM purchases as u JOIN products p on u.product_id = p.id ORDER BY u.created_at DESC LIMIT 10";
+    }
 }

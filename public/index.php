@@ -23,9 +23,7 @@ use Whoops\Handler\PrettyPageHandler;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$whoops = new Run();
-$whoops->pushHandler(new PrettyPageHandler());
-$whoops->register();
+error_reporting(0);
 
 $app = (new App([dirname(__DIR__) . '/config/config.php', dirname(__DIR__) . '/config.php']))
     ->addModule(HomepageModule::class)

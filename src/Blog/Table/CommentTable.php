@@ -20,4 +20,9 @@ class CommentTable extends Table
         $result->execute(['id' => $post->id]);
         return $result->fetchAll();
     }
+
+    protected function paginationQuery(bool $limit = false, int $dataLimit = 3): string
+    {
+        return "SELECT c.*, u.username, p.slug FROM comments AS c JOIN users as u ON c.user_id = u.id JOIN posts p on c.post_id = p.id ORDER BY created_at DESC LIMIT 10";
+    }
 }

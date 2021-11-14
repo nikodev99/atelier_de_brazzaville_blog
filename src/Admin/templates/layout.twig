@@ -103,6 +103,7 @@
                             <div class="header-top-menu tabl-d-n">
                                 <ul class="nav navbar-nav mai-top-nav">
                                     <li class="nav-item"><a href="{{ path('homepage.index') }}" class="nav-link">Accueil</a></li>
+                                    <li class="nav-item"><a href="{{ path('admin.post.index') }}" class="nav-link">Dashboard</a></li>
                                     <li class="nav-item dropdown">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Atelier <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                         <div role="menu" class="dropdown-menu animated flipInX">
@@ -255,9 +256,9 @@
                                             <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
                                         </a>
                                         <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
-                                            <li><a href="#"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>Profile</a></li>
+                                            <li><a href="{{ path('admin.profil') }}"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>Profile</a></li>
                                             <li><a href="#"><span class="adminpro-icon adminpro-money author-log-ic"></span>Facturation</a></li>
-                                            <li><a href="#"><span class="adminpro-icon adminpro-settings author-log-ic"></span>Paramètre</a></li>
+                                            <li><a href="{{ path('admin.setting') }}"><span class="adminpro-icon adminpro-settings author-log-ic"></span>Paramètre</a></li>
                                             <li>
                                                 <form action="{{ path('auth.logout') }}" method="post">
                                                     <button style="background: none; margin-left: 14px; color: #fff; border-style: none">

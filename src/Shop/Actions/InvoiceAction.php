@@ -29,9 +29,9 @@ class InvoiceAction
     {
         /** @var Purchase $purchasedProduct */
         $purchasedProduct = $this->purchaseTable->findWithProduct((int) $request->getAttribute('id'));
-        $year = explode('-', $purchasedProduct->created_at)[0];
+        $year = $purchasedProduct->getCreatedAt()->format("y");
         $user = $this->auth->getUser();
-        if ((int) $user->id !== (int) $purchasedProduct->user_id) {
+        if ($user->id !== $purchasedProduct->getUserId()) {
             throw new ForbiddenException("Vous ne pouvez pas voir cette facture");
         }
         return $this->renderer->render('@shop/invoice', compact('purchasedProduct', 'user', 'year'));

@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Admin;
+namespace App\Admin\Actions;
 
-use App\Blog\BlogWidget;
+use App\Admin\AdminWidgetInterface;
+use App\Admin\Tables\MessageTable;
+use App\Auth\Table\UserTable;
+use App\Blog\Table\CommentTable;
 use App\Blog\Table\PostTable;
 use App\Shop\Table\ProductsTable;
 use App\Shop\Table\PurchaseTable;
@@ -16,14 +19,28 @@ class DashboardAction
     private array $widgets;
     private PurchaseTable $purchaseTable;
     private ProductsTable $productsTable;
+    private MessageTable $messageTable;
+    private UserTable $userTable;
+    private CommentTable $commentTable;
 
-    public function __construct(RendererInterface $renderer, PostTable $table, ProductsTable $productsTable, PurchaseTable $purchaseTable, array $widgets)
-    {
+    public function __construct(
+        RendererInterface $renderer,
+        PostTable $table,
+        UserTable $userTable,
+        ProductsTable $productsTable,
+        PurchaseTable $purchaseTable,
+        CommentTable $commentTable,
+        MessageTable $messageTable,
+        array $widgets
+    ) {
         $this->renderer = $renderer;
         $this->table = $table;
         $this->widgets = $widgets;
         $this->purchaseTable = $purchaseTable;
         $this->productsTable = $productsTable;
+        $this->messageTable = $messageTable;
+        $this->userTable = $userTable;
+        $this->commentTable = $commentTable;
     }
 
     public function __invoke(ServerRequestInterface $request): string
@@ -43,13 +60,21 @@ class DashboardAction
         $weekIncome = $this->purchaseTable->getWeekIncome();
         $monthIncome = $this->purchaseTable->getMonthIncome();
         $yearIncome = $this->purchaseTable->getYearIncome();
+        $message = $this->messageTable->getMessage();
+        $userCount = $this->userTable->count("WHERE role != 'admin'");
+        $comments = $this->commentTable->findAll();
+        $purchases = $this->purchaseTable->findAll();
         return $this->renderer->render('@admin/dashboard', compact(
             'items',
             'widgets',
             'stockPrice',
             'weekIncome',
             'monthIncome',
-            'yearIncome'
+            'yearIncome',
+            'message',
+            'userCount',
+            'comments',
+            'purchases'
         ));
     }
 }

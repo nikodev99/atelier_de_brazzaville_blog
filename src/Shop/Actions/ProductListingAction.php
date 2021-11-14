@@ -2,6 +2,7 @@
 
 namespace App\Shop\Actions;
 
+use App\Admin\Tables\SettingTable;
 use App\Blog\Table\PostTable;
 use App\Shop\Table\ProductsTable;
 use Framework\Renderer\RendererInterface;
@@ -13,12 +14,14 @@ class ProductListingAction
     private RendererInterface $renderer;
     private ProductsTable $productsTable;
     private PostTable $postTable;
+    private SettingTable $settingTable;
 
-    public function __construct(RendererInterface $renderer, ProductsTable $productsTable, PostTable $postTable)
+    public function __construct(RendererInterface $renderer, ProductsTable $productsTable, PostTable $postTable, SettingTable $settingTable)
     {
         $this->renderer = $renderer;
         $this->productsTable = $productsTable;
         $this->postTable = $postTable;
+        $this->settingTable = $settingTable;
     }
 
     public function __invoke(ServerRequestInterface $request): string
@@ -28,7 +31,8 @@ class ProductListingAction
         $products = $this->productsTable->findPublic()->paginate(9, $page);
         $famousPosts = $this->famous();
         $newPosts = $this->new();
-        return $this->renderer->render("@shop/index", compact('products', 'page', 'famousPosts', 'newPosts'));
+        $online = $this->settingTable->getKeyValue("online");
+        return $this->renderer->render("@shop/index", compact('products', 'page', 'famousPosts', 'newPosts', 'online'));
     }
 
     private function famous(): array

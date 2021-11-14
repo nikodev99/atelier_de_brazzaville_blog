@@ -885,8 +885,15 @@ div.tab button:hover {
 .tw-button.btn-primary:hover,
 .tw-button.btn-primary:focus,
 .tw-button.btn-primary {
-    background-color: #00B6F1 !important;
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d) !important;
     border-color: #00B6F1 !important;
+}
+
+.pi-button.btn-primary:hover,
+.pi-button.btn-primary:focus,
+.pi-button.btn-primary {
+    background: #b7081b!important;
+    border-color: #b7081b!important;
 }
 
 .tw-button i,

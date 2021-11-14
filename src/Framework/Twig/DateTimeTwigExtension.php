@@ -33,13 +33,13 @@ class DateTimeTwigExtension extends AbstractExtension
             case $dataDiff->i !== 0:
                 return $this->textToOutput($dataDiff->i, 'minutes');
             default:
-                return 'à l\'instant';
+                return "à l'instant";
         }
     }
 
     private function textToOutput(int $diff, string $period): string
     {
-        $pd = $diff === 1 ? substr($period, 0, -1) : $period;
-        return 'il y a ' . $diff . ' ' . $pd;
+        $pd = $period !== "mois" ? $diff === 1 ? substr($period, 0, -1) : $period : $period;
+        return "il y a $diff $pd";
     }
 }

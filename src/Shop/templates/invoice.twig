@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Facture | Atelier Brazzaville</title>
+    <title>Facture | Atelier Brazzaville-{{ year }}-{{ purchasedProduct.invoiceNumber }}</title>
     <link rel="stylesheet" href="../../style/css/invoice.css">
 </head>
 <body>
@@ -25,11 +25,11 @@
     <table class="meta">
         <tr>
             <th>Facture n°</th>
-            <td>{{ year }}-{{ purchasedProduct.invoice_number }}</td>
+            <td>{{ year }}-{{ purchasedProduct.invoiceNumber }}</td>
         </tr>
         <tr>
             <th>Date</th>
-            <td>{{ purchasedProduct.created_at | datetime(true, true) }}</td>
+            <td>{{ purchasedProduct.createdAt | datetime(true, true) }}</td>
         </tr>
     </table>
     <table class="inventory">
@@ -47,7 +47,7 @@
             <td>{{ purchasedProduct.name }}</td>
             <td>{{ purchasedProduct.quantity }}</td>
             <td>{{ purchasedProduct.ht | number_format(2, ',') }} €</td>
-            <td>{{ purchasedProduct.vat == 0 ? 0 : purchasedProduct.vat ~ '%' }}</td>
+            <td>{{ purchasedProduct.vat == 0 ? 0 : purchasedProduct.vat * 100 ~ '%' }}</td>
             <td>{{ purchasedProduct.price | number_format(2, ',') }} €</td>
         </tr>
         </tbody>
@@ -59,7 +59,7 @@
         </tr>
         <tr>
             <th>Montant TVA</th>
-            <td>{{ purchasedProduct.vat == 0 ? 0 : (purchasedProduct.price / purchasedProduct.vat) ~ ' €' }}</td>
+            <td>{{ purchasedProduct.vat == 0 ? 0 : ((purchasedProduct.price - purchasedProduct.ht) | number_format(2, ',')) ~ ' €' }}</td>
         </tr>
         <tr>
             <th>Total à payer</th>

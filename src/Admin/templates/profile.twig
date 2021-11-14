@@ -1,0 +1,155 @@
+{% extends '@admin/layout.twig' %}
+{% block pageTitle "Profil" %}
+{% block pageTitleMobile "Profil" %}
+{% block body %}
+    <div class="advanced-form-area mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="sparkline8-list shadow-reset">
+                        <div class="sparkline8-hd">
+                            <div class="main-sparkline8-hd">
+                                <h1>Détails du vos informations</h1>
+                                <div class="sparkline8-outline-icon">
+                                    <span class="sparkline8-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline8-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="basic-login-form-ad">
+                                <form action="">
+                                    <div class="row">
+                                        {{ field('show_username', 'Nom d\'utilisateur', admin.username, {disabled: true, col:12}) }}
+                                        {{ field('show_last_name', 'Nom', admin.last_name, {disabled: true, col:12}) }}
+                                        {{ field('show_first_name', 'Prenom', admin.first_name, {disabled: true, col:12}) }}
+                                        {{ field('show_birth_date', 'Date de Naissance', admin.birth_date, {disabled: true, col:12}) }}
+                                        {{ field('show_city', 'Lieu de Naissance', admin.city, {disabled: true, col:12}) }}
+                                        {{ field('show_country', 'Nationalité', admin.country, {disabled: true, col:12}) }}
+                                        {{ field('show_address', 'Adresse physique', admin.address, {disabled: true, col:12}) }}
+                                        {{ field('show_email', 'Adresse Mail', admin.email, {disabled: true, col:12}) }}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 res-mg-t-30" style="margin-bottom: 15px">
+                    <div class="sparkline9-list shadow-reset">
+                        <div class="sparkline9-hd">
+                            <div class="main-sparkline9-hd">
+                                <h1>Modifier vos informations</h1>
+                                <div class="sparkline9-outline-icon">
+                                    <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="basic-login-form-ad">
+                                <form action="{{ path('admin.profil') }}" method="POST">
+                                    <div class="row">
+                                        {{ field('last_name', 'Nom', admin.last_name, {placeholder: 'Enter votre nom', required:true}) }}
+                                        {{ field('first_name', 'Prenom', admin.first_name, {placeholder: 'Entrer le prenom', required:true}) }}
+                                        {{ field('birth_date', 'Date de naissance', admin.birth_date, {class:'datepicker'}) }}
+                                        {{ field('city', 'Lieu de naissance', admin.city, {placeholder: 'Entrer votre lieu de naissance', required:true}) }}
+                                        {{ field('country', 'Nationalité', admin.country, {placeholder: 'Entrer votre nationalité', required:true}) }}
+                                        {{ field('address', 'Adresse', admin.address, {placeholder: 'Entrer votre addesse'}) }}
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="login-btn-inner">
+                                                    <div class="inline-remember-me">
+                                                        <button class="btn btn-sm btn-success pull-right" type="submit">
+                                                            <span class="fa fa-save"></span>
+                                                            Enregistrer vos informations
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 res-mg-t-30" style="margin-bottom: 15px">
+                    <div class="sparkline9-list shadow-reset">
+                        <div class="sparkline9-hd">
+                            <div class="main-sparkline9-hd">
+                                <h1>Modifier votre nom d'utilisateur</h1>
+                                <div class="sparkline9-outline-icon">
+                                    <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="basic-login-form-ad">
+                                <form action="{{ path('admin.profil') }}" method="POST">
+                                    <div class="row">
+                                        {{ field('username', 'Nom d\'utilisateur ou pseudo', admin.username, {placeholder: 'Enter votre pseudo', required:true}) }}
+                                        {{ field('email', 'Email', admin.email, {type:'email', placeholder: 'Entrer votre email', required:true}) }}
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="login-btn-inner">
+                                                    <div class="inline-remember-me">
+                                                        <button class="btn btn-sm btn-success pull-right" type="submit">
+                                                            <span class="fa fa-save"></span>
+                                                            Enregistrer nom d'utilisateur
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 res-mg-t-30">
+                    <div class="sparkline9-list shadow-reset">
+                        <div class="sparkline9-hd">
+                            <div class="main-sparkline9-hd">
+                                <h1>Modifier votre nom mot de passe</h1>
+                                <div class="sparkline9-outline-icon">
+                                    <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="basic-login-form-ad">
+                                <form action="{{ path('admin.profil') }}" method="POST">
+                                    <div class="row">
+                                        {{ field('password', 'Nouveau mot de passe', '', {type: 'password', placeholder: 'Enter votre nouveau mot de passe', required:true}) }}
+                                        {{ field('password_confirm', 'Confirmation du nouveau mot de passe', '', {type:'password', placeholder: 'Confirmer votre nouveau mot de passe', required:true}) }}
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="basic-login-inner">
+                                                <div class="login-btn-inner">
+                                                    <div class="inline-remember-me">
+                                                        <button class="btn btn-sm btn-success pull-right" type="submit">
+                                                            <span class="fa fa-save"></span>
+                                                            Enregistrer nouveau mot de passe
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Basic Form End-->
+{% endblock %}

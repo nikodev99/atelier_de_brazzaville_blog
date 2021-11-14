@@ -19,38 +19,52 @@
             </div><!-- end row -->
         </div><!-- end container -->
     </div><!-- end page-title -->
-    <section class="section wb">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="page-wrapper">
-                        <div class="portfolio row">
-                            {% for product in products %}
-                                <div class="pitem item-w1 item-h1">
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="{{ path('shop.show', {slug:product.slug}) }}" title="">
-                                                <img src="{{ product.main }}" alt="" class="img-fluid">
-                                                <div class="hovereffect">
-                                                    <span></span>
-                                                </div><!-- end hover -->
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta">
-                                            <h4><a href="{{ path('shop.show', {slug:product.slug}) }}" title="{{ product.name }}">{{ product.name | excerpt(30) }}</a></h4>
-                                            <small><span>{{ product.price }}€</span></small>
-                                            <small><span>Disponible: </span> <span class="dispo"></span> <span>Oui</span></small>
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
-                                </div><!-- end col -->
-                            {% endfor %}
-                        </div><!-- end portfolio -->
-                    </div><!-- end page-wrapper -->
-                    <hr class="invis">
-                    {{ paginate(products, "shopping") }}
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </section>
-
+    {% if online.keyValue == 1 %}
+        <section class="section wb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-wrapper">
+                            <div class="portfolio row">
+                                {% for product in products %}
+                                    <div class="pitem item-w1 item-h1">
+                                        <div class="blog-box">
+                                            <div class="post-media">
+                                                <a href="{{ path('shop.show', {slug:product.slug}) }}" title="">
+                                                    <img src="{{ product.main }}" alt="" class="img-fluid">
+                                                    <div class="hovereffect">
+                                                        <span></span>
+                                                    </div><!-- end hover -->
+                                                </a>
+                                            </div><!-- end media -->
+                                            <div class="blog-meta">
+                                                <h4><a href="{{ path('shop.show', {slug:product.slug}) }}" title="{{ product.name }}">{{ product.name | excerpt(30) }}</a></h4>
+                                                <small><span>{{ product.price }}€</span></small>
+                                                <small><span>Disponible: </span> <span class="dispo"></span> <span>Oui</span></small>
+                                            </div><!-- end meta -->
+                                        </div><!-- end blog-box -->
+                                    </div><!-- end col -->
+                                {% endfor %}
+                            </div><!-- end portfolio -->
+                        </div><!-- end page-wrapper -->
+                        <hr class="invis">
+                        {{ paginate(products, "shopping") }}
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+    {% else %}
+        <section class="section wb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-wrapper">
+                                <h1>La boutique n'est pas disponible pour l'instant</h1>
+                        </div><!-- end page-wrapper -->
+                        <hr class="invis">
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+    {% endif %}
 {% endblock %}

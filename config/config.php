@@ -27,10 +27,10 @@ use function DI\get;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 return [
-    'database.host' =>  '127.0.0.1',
-    'database.user' =>  'root',
-    'database.pass' =>  'password',
-    'database.name' =>  'bzvatelier_db',
+    'database.host' =>  'v18lk.myd.infomaniak.com',
+    'database.user' =>  'v18lk_nikodev99',
+    'database.pass' =>  'Cecile19862017',
+    'database.name' =>  '18lk_atelierbrazzaville',
     'database.port' =>  3306,
     'view.path'  => dirname(__DIR__) . '/views',
     'twig.extension'    =>  [
@@ -61,6 +61,6 @@ return [
         );
     },
 
-    'mail.to'   =>  'nikhe.niama99@gmail.com',
+    'mail.to'   =>  'latelierdebrazzaville@gmail.com',
     Swift_Mailer::class =>  factory(SwiftMailerFactory::class)
 ];

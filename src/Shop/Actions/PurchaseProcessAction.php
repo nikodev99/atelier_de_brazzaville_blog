@@ -2,6 +2,7 @@
 
 namespace App\Shop\Actions;
 
+use App\Auth\Entity\User;
 use App\Shop\Entity\Product;
 use App\Shop\Exception\AlreadyPurchasedException;
 use App\Shop\PurchaseProduct;
@@ -11,7 +12,6 @@ use Framework\Auth;
 use Framework\Database\NoRecordException;
 use Framework\Response\RedirectResponse;
 use Framework\Router;
-use Framework\Session\FlashService;
 use Framework\Session\SessionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,7 +25,6 @@ class PurchaseProcessAction
     private PurchaseProduct $purchaseProduct;
     private Auth $auth;
     private Router $router;
-    private FlashService $flash;
     private SessionInterface $session;
 
     public function __construct(
@@ -33,14 +32,12 @@ class PurchaseProcessAction
         PurchaseProduct $purchaseProduct,
         Auth $auth,
         Router $router,
-        SessionInterface $session,
-        FlashService $flash
+        SessionInterface $session
     ) {
         $this->productsTable = $productsTable;
         $this->purchaseProduct = $purchaseProduct;
         $this->auth = $auth;
         $this->router = $router;
-        $this->flash = $flash;
         $this->session = $session;
     }
 
@@ -53,8 +50,9 @@ class PurchaseProcessAction
         $product = $this->productsTable->find((int)$request->getAttribute('id'));
         $quantity = (int)$request->getParsedBody()['quantity'];
         try {
-            $session = $this->purchaseProduct->process($request, $this->router, $product, $this->auth->getUser(), $quantity);
-            $this->flash->success('Merci pour votre achat');
+            /** @var User $user */
+            $user = $this->auth->getUser();
+            $session = $this->purchaseProduct->process($request, $this->router, $product, $user, $quantity);
             $this->session->set('checkout_params', [
                 'checkout_id'   =>  $session->id,
                 'product_id'    =>  $product->getId(),

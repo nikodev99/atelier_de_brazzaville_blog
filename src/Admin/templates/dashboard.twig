@@ -11,7 +11,7 @@
                     <div class="welcome-wrapper shadow-reset res-mg-t mg-b-30">
                         <div class="welcome-adminpro-title">
                             <h1>Bienvenue</h1>
-                            <p>Les cinq dernières articles les plus vues du site</p>
+                            <p>Les cinq derniers articles les plus vues du site</p>
                         </div>
                         <div class="adminpro-message-list">
                             <ul class="message-list-menu">
@@ -54,28 +54,19 @@
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 desplay-n-tablet">
                     <div class="dashone-adminprowrap shadow-reset mg-b-30">
                         <div class="dash-adminpro-project-title">
-                            <h2>Project progress</h2>
-                            <p>You have two project right now.</p>
+                            <h2>Message D'accueil</h2>
+                            <p>Ajouter ou modifier votre message d'accueil</p>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
-                                <div class="dashone-doughnut">
-                                    <div id="sparklinedask1"></div>
-                                    <h3>Design</h3>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="dashone-doughnut">
-                                    <div id="sparklinedask2"></div>
-                                    <h3>Development</h3>
+                            <div class="col-lg-12">
+                                <div class="project-dashone-phara">
+                                    <p style="padding: 0; margin-bottom: 6px">{{ message.content | excerpt | raw }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="project-dashone-phara">
-                                    <p>Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
-                                </div>
+                                <a href="{{ path("admin.message") }}" class="btn btn-info">Modifier Message d'acceuil</a>
                             </div>
                         </div>
                     </div>
@@ -116,7 +107,7 @@
                             <div class="sparkline11-list shadow-reset nt-mg-b-30">
                                 <div class="sparkline11-hd">
                                     <div class="main-sparkline11-hd">
-                                        <h1>Latest Comments</h1>
+                                        <h1>Nouveau commentaires</h1>
                                         <div class="sparkline11-outline-icon">
                                             <span class="sparkline11-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
@@ -125,135 +116,26 @@
                                     </div>
                                 </div>
                                 <div class="sparkline11-graph dashone-comment comment-scrollbar">
+                                    {% for comment in comments %}
                                     <div class="comment-phara">
                                         <div class="comment-adminpr">
-                                            <p class="comment-content"><a href="#">@Toman Alva</a> Start each day with a prayer and end your day with a prayer and thank God for a another day.</p>
+                                            <p class="comment-content">
+                                                <a href="{{ path('blog.show', {slug:comment.slug, id:comment.postId}) }}{{ "#" ~ comment.id }}">@{{ comment.username }}</a>
+                                                {{ comment.comment }}
+                                            </p>
                                         </div>
                                         <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 1 minuts ago</p>
+                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> {{ ago(comment.createdAt) }}</p>
                                             <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo1">...</button>
                                             <ul id="adminpro-demo1" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
+                                                <li><a href="{{ path('blog.show', {slug:comment.slug, id:comment.postId}) }}{{ "#" ~ comment.id }}">Voir le commentaire</a>
                                                 </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn on Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn off Comment</a>
+                                                <li><a href="#">Répondre</a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <p class="comment-content"><a href="#">@William Jon</a> Simple & easy online tools to increase the website visitors, improve SEO, marketing & sales, automatic blog!</p>
-                                            <div class="sparkline-dashone">
-                                                <span id="sparkline8"></span>
-                                            </div>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 5 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo2">...</button>
-                                            <ul id="adminpro-demo2" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn on Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn off Comment</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <p class="comment-content"><a href="#">@mexicano</a> Soy cursi, twitteo frases pedorras y vendo antojitos mexicanos. Santa Rosa, La Pampa, Argentina</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 15 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo3">...</button>
-                                            <ul id="adminpro-demo3" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn on Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn off Comment</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <p class="comment-content"><a href="#">@Bhadkamkar</a> News love and follow Jesus and my family and friends l hope God bless you always.</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 20 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo4">...</button>
-                                            <ul id="adminpro-demo4" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn on Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn off Comment</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <p class="comment-content"><a href="#">@SHAKHAWAT</a> Make the Best Use of What You Have.You Never Know When & Where You Find Yourself..</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 25 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo5">...</button>
-                                            <ul id="adminpro-demo5" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn on Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn off Comment</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara comment-bd-phara">
-                                        <div class="comment-adminpr">
-                                            <p class="comment-content"><a href="#">@Sarah</a> A 'Power Chick' committed to using my superpowers for good. Author, speaker, radio host.</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 27 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo6">...</button>
-                                            <ul id="adminpro-demo6" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn on Comment</a>
-                                                </li>
-                                                <li><a href="#">Turn off Comment</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    {%  endfor %}
                                 </div>
                             </div>
                         </div>
@@ -263,7 +145,7 @@
                     <div class="about-sparkline shadow-reset desplay-n-tablet-pro">
                         <div class="sparkline-hd">
                             <div class="main-spark-hd">
-                                <h1>Project Timeline </h1>
+                                <h1>Les derniers achat effectuer sur le site </h1>
                                 <div class="outline-icon">
                                     <span class="collapse-link"><i class="fa fa-chevron-up"></i></span>
                                     <span><i class="fa fa-wrench"></i></span>
@@ -272,115 +154,26 @@
                             </div>
                         </div>
                         <div class="sparkline-content timeline-scrollbar">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="timeline-hd-main">
-                                        <div class="timeline-heading-admin">
-                                            <h1>You have meeting today!</h1>
-                                            <p><i class="fa fa-map-marker"></i> Meeting is on 6:00am. Check your schedule to see detail.</p>
-                                        </div>
-                                        <div class="mapcontainer">
-                                            <div class="map">
-                                                <span>Alternative content for the map</span>
-                                            </div>
-                                            <div class="plotLegend"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% for p in purchases %}
                             <div class="row timelinewrap-admin res-mg-b-10">
                                 <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 timeline-date-time-bd">
                                     <div class="icon-date-timeline">
-                                        <i class="fa fa-briefcase"></i>
-                                        <p>6:00 am</p>
-                                        <p class="timeline-hr-cl">5 Min ago</p>
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <p>{{ p.createdAt.format("d/m/y H:i") }}</p>
+                                        <p class="timeline-hr-cl">{{ ago(p.createdAt) }}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 timeline-adminpro-cn timeline-adminpro-bd-ct">
                                     <div class="timeline-content">
-                                        <h3>Managing Director at Leather Export</h3>
-                                        <p>Hope you all are doing good. We are one of manufacturer and supplier of Cow Crust and finished leather from USA. Please feel free to contact us if you have any queries.</p>
-                                        <div class="admin-timeline-graph">
-                                            <span data-diameter="40" class="updating-chart">2,5,9,6,5,9,7,3,5,2,5,3,9,6,5,8,7,8,5,2</span>
-                                        </div>
+                                        <h3>Produit acheter: {{ p.name }}</h3>
+                                        <h3>Prix: {{ p.price | number_format(2, ",") }}{{ "€" }}</h3>
+                                        <h3>TVA: {{ p.vat * 100 }}{{ p.vat != 0 ? "%" : "" }}</h3>
+                                        <h3>Pays: {{ p.country }}</h3>
+                                        <p>{{ p.description }}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row timelinewrap-admin res-mg-b-10">
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 timeline-date-time-bd">
-                                    <div class="icon-date-timeline">
-                                        <i class="fa fa-briefcase"></i>
-                                        <p>6:00 am</p>
-                                        <p class="timeline-hr-cl">10 Min ago</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 timeline-adminpro-cn">
-                                    <div class="timeline-content">
-                                        <h3>Founder/CEO  at Intcs, Inc.</h3>
-                                        <p>Yes, millennials are changing the way. This week on Radiate we're highlighting benefits and challenges of working across generator and cultures. Watch the newest Radiate Expert to join us.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row timelinewrap-admin res-mg-b-10">
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 timeline-date-time-bd">
-                                    <div class="icon-date-timeline">
-                                        <i class="fa fa-briefcase"></i>
-                                        <p>6:00 am</p>
-                                        <p class="timeline-hr-cl">13 Min ago</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 timeline-adminpro-cn">
-                                    <div class="timeline-content">
-                                        <h3>Meeting Fixed Blue</h3>
-                                        <p>Toys are watching you so is your car and your vacuum cleaner Here are 39 ways your privacy is being compromised, and 8 guides to protecting your digital self.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row timelinewrap-admin res-mg-b-10">
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 timeline-date-time-bd">
-                                    <div class="icon-date-timeline">
-                                        <i class="fa fa-briefcase"></i>
-                                        <p>6:00 am</p>
-                                        <p class="timeline-hr-cl">20 Min ago</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 timeline-adminpro-cn">
-                                    <div class="timeline-content">
-                                        <h3>USA Institute of Management</h3>
-                                        <p>The biggest Challenge which I have been use to Win is to in-house raw materials on time based on customer demand forecast and production capacity concentrating Seasonal impacts and considering foreign suppliers's cultural holidays, and Port congestion.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row timelinewrap-admin res-mg-b-10">
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 timeline-date-time-bd">
-                                    <div class="icon-date-timeline">
-                                        <i class="fa fa-briefcase"></i>
-                                        <p>6:00 am</p>
-                                        <p class="timeline-hr-cl">30 Min ago</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 timeline-adminpro-cn">
-                                    <div class="timeline-content">
-                                        <h3>Meeting Fixed</h3>
-                                        <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row timelinewrap-admin">
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 timeline-date-time-bd">
-                                    <div class="icon-date-timeline">
-                                        <i class="fa fa-briefcase"></i>
-                                        <p>6:00 am</p>
-                                        <p class="timeline-hr-cl">34 Min ago</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 timeline-adminpro-cn">
-                                    <div class="timeline-content">
-                                        <h3>Meeting Fixed</h3>
-                                        <p>My objective is to pursue a career leading company where I would gain experience while adding value to the business of the organization.</p>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -389,24 +182,23 @@
                     <div class="income-dashone-total shadow-reset nt-mg-b-30">
                         <div class="income-title">
                             <div class="main-income-head">
-                                <h2>User activity</h2>
+                                <h2>Les utilisateurs</h2>
                                 <div class="main-income-phara low-value-cl">
-                                    <p>Low Value</p>
+                                    <p><a href="" style="color: #fff">Voir tous les utilisateurs</a></p>
                                 </div>
                             </div>
                         </div>
                         <div class="income-dashone-pro">
                             <div class="income-rate-total">
                                 <div class="price-adminpro-rate">
-                                    <h3><span class="counter">8,200</span></h3>
+                                    <h3><span class="counter">{{ userCount }}</span></h3>
                                 </div>
                                 <div class="price-graph">
                                     <span id="sparkline5"></span>
                                 </div>
                             </div>
                             <div class="income-range low-value-cl">
-                                <p>In first month</p>
-                                <span class="income-percentange">33% <i class="fa fa-level-down"></i></span>
+                                <p>Nombre total des utilisateurs inscrit</p>
                             </div>
                             <div class="clear"></div>
                         </div>

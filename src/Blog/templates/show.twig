@@ -21,9 +21,9 @@
                             <h3>{{ post.title }}</h3>
 
                             <div class="blog-meta big-meta">
-                                <small><a href="single.html" title="">Ajouté le {{ post.created_date | datetime(true) }}</a></small>
-                                <small><a href="single.html" title="">{{ ago(post.created_date) }}</a></small>
-                                <small><a href="single.html" title="">Edité le {{ post.apdated_date | datetime(true) }}</a></small>
+                                <small><a href="#" title="">Ajouté le {{ post.created_date | datetime(true) }}</a></small>
+                                <small><a href="#" title="">{{ ago(post.created_date) }}</a></small>
+                                <small><a href="#" title="">Edité le {{ post.apdated_date | datetime(true) }}</a></small>
                                 <!--<small><a href="blog-author.html" title="">by Jessica</a></small> -->
                                 <small><a href="#" title=""><i class="fa fa-eye"></i> {{ post.view }}</a></small>
                             </div><!-- end meta -->
@@ -31,7 +31,8 @@
                             <div class="post-sharing">
                                 <ul class="list-inline">
                                     <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Partager sur Facebook</span></a></li>
-                                    <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweeter sur Twitter</span></a></li>
+                                    <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-instagram"></i> <span class="down-mobile">Partager sur Instagram</span></a></li>
+                                    <li><a href="#" class="pi-button btn btn-primary"><i class="fa fa-pinterest"></i> <span class="down-mobile">Pin sur Pinterest</span></a></li>
                                 </ul>
                             </div><!-- end post-sharing -->
                         </div><!-- end title -->
@@ -146,7 +147,7 @@
                                             <h1>Aucun commentaire</h1>
                                         {% else %}
                                             {% for comment in comments %}
-                                                <div class="media">
+                                                <div class="media" id="{{ comment.id }}">
                                                     <!--<a class="media-left" href="#">
                                                         <img src="../../style/upload/author.jpg" alt="" class="rounded-circle">
                                                     </a>-->

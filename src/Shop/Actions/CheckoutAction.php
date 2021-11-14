@@ -12,6 +12,8 @@ use Framework\Renderer\RendererInterface;
 use Framework\Session\SessionInterface;
 use Mpociot\VatCalculator\VatCalculator;
 use Psr\Http\Message\ServerRequestInterface;
+use Swift_Mailer;
+use Swift_Message;
 
 class CheckoutAction
 {
@@ -20,19 +22,25 @@ class CheckoutAction
     private Auth $auth;
     private SessionInterface $session;
     private PurchaseTable $purchaseTable;
+    private Swift_Mailer $mailer;
+    private string $to;
 
     public function __construct(
         RendererInterface $renderer,
         Auth $auth,
         SessionInterface $session,
         ProductsTable $productsTable,
-        PurchaseTable $purchaseTable
+        PurchaseTable $purchaseTable,
+        Swift_Mailer $mailer,
+        string $to
     ) {
         $this->renderer = $renderer;
         $this->productsTable = $productsTable;
         $this->auth = $auth;
         $this->session = $session;
         $this->purchaseTable = $purchaseTable;
+        $this->mailer = $mailer;
+        $this->to = $to;
     }
 
     /**
@@ -87,6 +95,27 @@ class CheckoutAction
             'invoice_number' =>  $invoice,
             "description"   =>  $description
         ]);
+
+        $parameters = [
+            "name"  =>  $user->first_name . " " . $user->last_name,
+            "email" =>  $user->email,
+            "address"   =>  $user->address,
+            "product"   =>  $product->getName(),
+            "price" =>  $product->getPrice(),
+            "vat"   =>  $vatRate * 100,
+            "amount"    =>  $grossPrice,
+            "country"   =>  $user->country,
+            "fret"  => "",
+            "description"   =>  $product->getDescription(),
+            "subject"   =>  "Achat sur latelierbrazzaville.com"
+        ];
+        $body = $this->renderer->render('@shop/mail.html', $parameters);
+        $message = (new Swift_Message())
+            ->setSubject($parameters['subject'])
+            ->setBody($body, 'text/html', 'utf-8')
+            ->setFrom('contact@latelierbrazzaville.com', 'latelierbrazzaville.com')
+            ->setTo($this->to);
+        $this->mailer->send($message);
 
         $this->session->delete("checkout_params");
 
