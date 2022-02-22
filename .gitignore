@@ -5,3 +5,4 @@ composer.lock
 public/style/upload
 downloads
 config.php
+config/config.php
