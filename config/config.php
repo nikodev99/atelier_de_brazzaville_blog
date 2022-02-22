@@ -27,10 +27,10 @@ use function DI\get;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 return [
-    'database.host' =>  'v18lk.myd.infomaniak.com',
-    'database.user' =>  'v18lk_nikodev99',
-    'database.pass' =>  'Cecile19862017',
-    'database.name' =>  '18lk_atelierbrazzaville',
+    'database.host' =>  'localhost',
+    'database.user' =>  'root',
+    'database.pass' =>  'password',
+    'database.name' =>  'bzvatelier_db',
     'database.port' =>  3306,
     'view.path'  => dirname(__DIR__) . '/views',
     'twig.extension'    =>  [
